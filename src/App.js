@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Footer from "./Components/Layout/Footer";
+import Header from "./Components/Layout/Header";
+import Home from "./Pages/Home";
+import Post from "./Pages/Post";
+import Chat from "./Pages/Chat";
+import Plan from "./Pages/Plan";
+import Shop from "./Pages/Shop";
 
-function App() {
+const App = () => {
+  const fullScreen = "w-screen h-screen";
+  const hundred = "w-full h-full";
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className={`font-main relative ${hundred}`}>
+        <Header children="홈" />
+        <div className="absolute top-20">
+          <Routes>
+            <Route path="/" element={<Home size={fullScreen} />} />
+            <Route path="/post" element={<Post size={fullScreen} />} />
+            <Route path="/chat" element={<Chat size={fullScreen} />} />
+            <Route path="/plan" element={<Plan size={fullScreen} />} />
+            <Route path="/shop" element={<Shop size={fullScreen} />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </>
   );
-}
+};
 
 export default App;
