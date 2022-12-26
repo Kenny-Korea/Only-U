@@ -12,8 +12,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        main: ["NanumGothic"],
-        logo: ["Pacifico"],
+        main: ["Andika"],
       },
       colors: {
         brightRed: "hsl(12, 88%, 59%)",

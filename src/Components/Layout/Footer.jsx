@@ -1,33 +1,28 @@
 import React from "react";
 import MenuButton from "../Buttons/MenuButton";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PhotoOutlinedIcon from "@mui/icons-material/PhotoOutlined";
-import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
-import EventAvailableOutlinedIcon from "@mui/icons-material/EventAvailableOutlined";
-import CardGiftcardOutlinedIcon from "@mui/icons-material/CardGiftcardOutlined";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import PhotoRoundedIcon from "@mui/icons-material/PhotoRounded";
+import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
+import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
+import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
 
 const Footer = () => {
-  const iconSize = { fontSize: "2rem" };
+  const iconSize = { fontSize: "2rem", color: "white" };
   return (
     <>
       <div className="TabBottom w-screen h-20 flex flex-row border-white fixed bottom-0">
+        <MenuButton children={[<HomeRoundedIcon style={iconSize} />, "Home"]} />
         <MenuButton
-          children={[<HomeOutlinedIcon style={iconSize} />, "Home"]}
+          children={[<PhotoRoundedIcon style={iconSize} />, "Post"]}
         />
         <MenuButton
-          children={[<PhotoOutlinedIcon style={iconSize} />, "Post"]}
+          children={[<ChatBubbleOutlineRoundedIcon style={iconSize} />, "Chat"]}
         />
         <MenuButton
-          children={[
-            <ChatBubbleOutlineOutlinedIcon style={iconSize} />,
-            "Chat",
-          ]}
+          children={[<PlaceRoundedIcon style={iconSize} />, "Place"]}
         />
         <MenuButton
-          children={[<EventAvailableOutlinedIcon style={iconSize} />, "Plan"]}
-        />
-        <MenuButton
-          children={[<CardGiftcardOutlinedIcon style={iconSize} />, "Gift"]}
+          children={[<CardGiftcardRoundedIcon style={iconSize} />, "Gift"]}
         />
       </div>
     </>

@@ -7,7 +7,7 @@ const Post = ({ size, setTitle }) => {
   const test = [1, 2, 3, 4];
   return (
     <>
-      <div className={`${size} page`}>
+      <div className={`${size} page centerPage`}>
         {test.map((post, index) => {
           return <PostCard key={post + index} />;
         })}
