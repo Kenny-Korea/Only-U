@@ -3,17 +3,17 @@
   "name": "Only U",
   "icons": [
     {
-      "src": "OnlyU 64.png",
+      "src": "OnlyU-64.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "image/png"
     },
     {
-      "src": "OnlyU 128.png",
-      "sizes": "64x64",
-      "type": "image/x-icon"
+      "src": "OnlyU-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
     },
     {
-      "src": "OnlyU 192.png",
+      "src": "OnlyU-192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
