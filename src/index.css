@@ -3,3 +3,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.page {
+  @apply bg-lime-50 flex flex-col my-2;
+}
+.card {
+  @apply w-11/12 bg-white rounded overflow-hidden shadow-md relative;
+}
+
+.centerPage {
+  @apply flex flex-col items-center my-2;
+}
+
+.centerItem {
+  @apply flex justify-center items-center;
+}
+
+.submenu {
+  @apply text-xl font-bold ml-5;
+}

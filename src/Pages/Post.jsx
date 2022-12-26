@@ -2,15 +2,14 @@ import React from "react";
 import AddPostButton from "../Components/Buttons/AddPostButton";
 import PostCard from "../Components/Cards/PostCard";
 
-const Post = ({ size }) => {
-  const test = [1, 2, 3];
+const Post = ({ size, setTitle }) => {
+  setTitle("Post");
+  const test = [1, 2, 3, 4];
   return (
     <>
-      <div
-        className={`${size} bg-lime-50 relative flex flex-col justify-center items-center`}
-      >
-        {test.map((post) => {
-          return <PostCard />;
+      <div className={`${size} page`}>
+        {test.map((post, index) => {
+          return <PostCard key={post + index} />;
         })}
 
         <AddPostButton />

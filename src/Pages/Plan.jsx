@@ -1,6 +1,8 @@
 import React from "react";
 
-const Plan = () => {
+const Plan = ({ size, setTitle }) => {
+  setTitle("Plan");
+
   return (
     <>
       <div className="Plan"></div>
