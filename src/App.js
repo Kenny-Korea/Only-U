@@ -40,7 +40,7 @@ const App = () => {
             />
             <Route
               path="/gift"
-              element={<Gift size={fullSize} setTitle={setTitle} />}
+              element={<Gift size={screenSize} setTitle={setTitle} />}
             />
             <Route
               path="/register"

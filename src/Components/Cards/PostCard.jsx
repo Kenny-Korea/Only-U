@@ -26,7 +26,15 @@ const PostCard = () => {
             className="w-full object-cover h-fit"
           />
         </div>
-        <div>오늘은 퉁퉁이와 함께 영화를 봤다. 정말 즐거운 하루였다 ㅎㅎㅎ</div>
+        <div className="text-indigo-800">#롯데월드 #아바타 #첫 데이트</div>
+        <div>
+          오늘 퉁퉁이랑 처음으로 영화를 봤다! 아바타는 너무 재밌었고, 퉁퉁이는
+          너무 귀여웠다 ㅋㅋㅋ
+        </div>
+        <div>댓글 보기</div>
+        <div>
+          <ProfileSmall />
+        </div>
       </div>
     </>
   );

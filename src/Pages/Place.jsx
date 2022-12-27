@@ -7,7 +7,7 @@ const Place = ({ size, setTitle }) => {
   return (
     <>
       <div className={`${size} page centerPage`}>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-2 gap-2">
           <PlaceCard />
           <PlaceCard />
           <PlaceCard />

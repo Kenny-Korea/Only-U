@@ -1,8 +1,7 @@
 import React from "react";
 import ChatInput from "../Components/Inputs/ChatInput";
 import Message from "../Components/Message/Message";
-import ProfileLarge from "../Components/Profile/ProfileLarge";
-import ProfileSmall from "../Components/Profile/ProfileSmall";
+import ChatProfile from "../Components/Profile/ChatProfile";
 
 const Chat = ({ size, setTitle }) => {
   setTitle("Chat");
@@ -16,7 +15,7 @@ const Chat = ({ size, setTitle }) => {
   return (
     <>
       <div className={`${size} page centerPage`}>
-        <ProfileLarge />
+        <ChatProfile />
         <div className="w-full h-[calc(100%-17rem)]">
           {testMessage.map((item) => {
             return <Message test={item} />;

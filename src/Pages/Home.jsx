@@ -3,6 +3,9 @@ import DdayCard from "../Components/Cards/DdayCard";
 import TabBottom from "../Components/Layout/Footer";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import unnamed from "../Images/unnamed.png";
+import hearts from "../Images/Hearts.png";
+import HomeProfile from "../Components/Profile/HomeProfile";
+import BeenTogether from "../Components/Others/BeenTogether";
 
 const Home = ({ size, setTitle }) => {
   setTitle("Home");
@@ -18,27 +21,17 @@ const Home = ({ size, setTitle }) => {
   return (
     <>
       <div className={`${size} page`}>
-        <div className="flex justify-between submenu">
-          <span>광자 커플</span>
+        <div className="w-full h-80 bg-slate-200 flex flex-col">
+          <span className="text-2xl flex justify-center">Gwangja Couple</span>
           <SettingsOutlinedIcon />
-        </div>
-        <div className="w-full centerPage">
-          <div className="card h-40 flex justify-between">
-            <div className="w-40 h-full bg-black centerItem">
-              <img
-                src={unnamed}
-                alt="pp"
-                className="object-contain w-32 h-32"
-              />
-            </div>
-            <div className="flex flex-col">
-              컨텐츠 영역
-              <span className="text-xl text-brightRed">
-                {today.getDate() - startDay.getDate() + 1} 일째
-              </span>
-            </div>
+          <div className="w-full h-36 bg-pink-200 flex justify-between items-center">
+            <HomeProfile />
+            <BeenTogether />
+            <HomeProfile />
           </div>
         </div>
+
+        {/* D-day 영역 */}
         <span className="submenu">D-day</span>
         <div className="w-full centerPage">
           {DdayList.map((item, index) => {

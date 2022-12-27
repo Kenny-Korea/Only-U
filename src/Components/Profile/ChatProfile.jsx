@@ -1,7 +1,7 @@
 import React from "react";
 import unnamed from "../../Images/unnamed.png";
 
-const ProfileLarge = () => {
+const ChatProfile = () => {
   return (
     <>
       <div className="w-full h-14 pl-4 flex items-center gap-3 bg-slate-200">
@@ -12,4 +12,4 @@ const ProfileLarge = () => {
   );
 };
 
-export default ProfileLarge;
+export default ChatProfile;
