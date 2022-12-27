@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .page {
-  @apply bg-lime-50 flex flex-col my-2;
+  @apply bg-lime-50 flex flex-col;
 }
 .card {
   @apply w-11/12 bg-white rounded overflow-hidden shadow-md relative mb-3;
@@ -16,7 +16,7 @@
 }
 
 .centerPage {
-  @apply flex flex-col items-center my-2;
+  @apply flex flex-col items-center;
 }
 
 .centerItem {

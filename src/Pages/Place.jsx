@@ -1,4 +1,5 @@
 import React from "react";
+import AddButton from "../Components/Buttons/AddButton";
 import PlaceCard from "../Components/Cards/PlaceCard";
 
 const Place = ({ size, setTitle }) => {
@@ -7,7 +8,7 @@ const Place = ({ size, setTitle }) => {
   return (
     <>
       <div className={`${size} page centerPage`}>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-2 gap-3">
           <PlaceCard />
           <PlaceCard />
           <PlaceCard />
@@ -16,6 +17,7 @@ const Place = ({ size, setTitle }) => {
           <PlaceCard />
           <PlaceCard />
         </div>
+        <AddButton page="place" />
       </div>
     </>
   );

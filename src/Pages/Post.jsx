@@ -1,5 +1,5 @@
 import React from "react";
-import AddPostButton from "../Components/Buttons/AddPostButton";
+import AddButton from "../Components/Buttons/AddButton";
 import PostCard from "../Components/Cards/PostCard";
 
 const Post = ({ size, setTitle }) => {
@@ -11,8 +11,7 @@ const Post = ({ size, setTitle }) => {
         {test.map((post, index) => {
           return <PostCard key={post + index} />;
         })}
-
-        <AddPostButton />
+        <AddButton page="post" />
       </div>
     </>
   );

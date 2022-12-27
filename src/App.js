@@ -9,6 +9,7 @@ import Place from "./Pages/Place";
 import Gift from "./Pages/Gift";
 import Register from "./Pages/Register";
 import { useState } from "react";
+import AddButton from "./Components/Buttons/AddButton";
 
 const App = () => {
   // Header Title 변경을 위한 state
@@ -20,7 +21,7 @@ const App = () => {
     <>
       <div className={`font-main relative ${fullSize}`}>
         <Header children={title} />
-        <div className="absolute top-20">
+        <div className="absolute top-16">
           <Routes>
             <Route
               path="/"

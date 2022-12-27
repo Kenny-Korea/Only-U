@@ -5,12 +5,13 @@ import PhotoRoundedIcon from "@mui/icons-material/PhotoRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
+import AddButton from "../Buttons/AddButton";
 
 const Footer = () => {
-  const iconSize = { fontSize: "2rem", color: "white" };
+  const iconSize = { fontSize: "1.8rem", color: "white" };
   return (
     <>
-      <div className="TabBottom w-screen h-20 flex flex-row border-white fixed bottom-0">
+      <div className="TabBottom w-screen h-16 flex flex-row border-white fixed bottom-0">
         <MenuButton children={[<HomeRoundedIcon style={iconSize} />, "Home"]} />
         <MenuButton
           children={[<PhotoRoundedIcon style={iconSize} />, "Post"]}

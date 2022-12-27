@@ -18,11 +18,11 @@ const MenuButton = ({ children }) => {
   return (
     <>
       <div
-        className="w-1/5 h-20 bg-pink-300 flex flex-col justify-center items-center text-white"
+        className="w-1/5 h-16 bg-pink-300 flex flex-col justify-center items-center text-white"
         id={children[1]}
         onClick={handleClick}
       >
-        <span className="text-xl mb-1">{children[0]}</span>
+        <span className="mb-0.5">{children[0]}</span>
         <span className="text-xs font-bold">{children[1]}</span>
       </div>
     </>

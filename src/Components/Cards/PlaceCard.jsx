@@ -6,7 +6,7 @@ import PlaceButton from "../Buttons/PlaceButton";
 const PlaceCard = () => {
   return (
     <>
-      <div className="w-48 h-48 shadow-md">
+      <div className="w-44 h-44 shadow-md">
         <div
           className="w-full h-2/3"
           style={{ backgroundImage: `url(${unnamed})` }}
