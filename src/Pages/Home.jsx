@@ -12,6 +12,9 @@ import AddButton from "../Components/Buttons/AddButton";
 const Home = ({ size, setTitle }) => {
   setTitle("Home");
 
+  const [test, setTest] = useState({ a: 1 });
+  console.log(test);
+
   // 로컬 스토리지에 시작일 저장
   const checkDday = localStorage.getItem("Dday");
   const startDay = new Date(Date.UTC(2022, 12, 24));

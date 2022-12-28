@@ -10,6 +10,9 @@ import Gift from "./Pages/Gift";
 import Register from "./Pages/Register";
 import { useState } from "react";
 import AddButton from "./Components/Buttons/AddButton";
+// import GoogleMapTest1 from "./Components/Write/GoogleMapTest1";
+// import GoogleMapTest2 from "./Components/Write/GoogleMapTest2";
+import GoogleMapTest3 from "./Components/Write/GoogleMapTest3";
 
 const App = () => {
   // Header Title 변경을 위한 state
@@ -46,6 +49,18 @@ const App = () => {
             <Route
               path="/register"
               element={<Register size={screenSize} setTitle={setTitle} />}
+            />
+            {/* <Route
+              path="/test1"
+              element={<GoogleMapTest1 size={screenSize} setTitle={setTitle} />}
+            /> */}
+            {/* <Route
+              path="/test2"
+              element={<GoogleMapTest2 size={screenSize} setTitle={setTitle} />}
+            /> */}
+            <Route
+              path="/test3"
+              element={<GoogleMapTest3 size={screenSize} setTitle={setTitle} />}
             />
           </Routes>
         </div>
