@@ -42,10 +42,10 @@ const App = () => {
               path="/place"
               element={<Place size={screenSize} setTitle={setTitle} />}
             />
-            <Route
+            {/* <Route
               path="/gift"
               element={<Gift size={screenSize} setTitle={setTitle} />}
-            />
+            /> */}
             <Route
               path="/register"
               element={<Register size={screenSize} setTitle={setTitle} />}
@@ -59,7 +59,7 @@ const App = () => {
               element={<GoogleMapTest2 size={screenSize} setTitle={setTitle} />}
             /> */}
             <Route
-              path="/test3"
+              path="/gift"
               element={<GoogleMapTest3 size={screenSize} setTitle={setTitle} />}
             />
           </Routes>

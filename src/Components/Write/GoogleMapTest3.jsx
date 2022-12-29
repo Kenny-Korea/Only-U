@@ -1,5 +1,15 @@
-import React, { useCallback, useState } from "react";
-import { GoogleMap, useLoadScript, Marker } from "@react-google-maps/api";
+import React, { useCallback, useRef, useState } from "react";
+import {
+  GoogleMap,
+  useLoadScript,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+// import { formatRelative } from "date-fns";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 import { NEXT_PUBLIC_GOOGLE_MAPS_API_KEY } from "../../ApiKeys";
 import Food from "../../Images/Food.png";
 
@@ -8,6 +18,36 @@ const libraries = ["places"];
 const mapContainerStyle = {
   width: "100vw",
   height: "100vh",
+};
+
+const Search = () => {
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      location: center,
+      radius: 200 * 1000,
+    },
+  });
+  return (
+    <div
+      onSelect={(address) => {
+        console.log(address);
+      }}
+    >
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+    </div>
+  );
 };
 
 const GoogleMapTest3 = () => {
@@ -20,7 +60,9 @@ const GoogleMapTest3 = () => {
   });
 
   const [markers, setMarkers] = useState([]);
+  const [selected, setSelected] = useState(null);
 
+  // GoogleMap 클릭 시 마커 생성해주는 함수
   const handleMarkers = (e) => {
     setMarkers((current) => [
       ...current,
@@ -28,8 +70,16 @@ const GoogleMapTest3 = () => {
     ]);
   };
 
+  // 위의 handleMarkers 함수를 onClickMap 함수에 넣음
   // Marker가 state 변화마다 계속 렌더링 되는 것을 막아주기 위해 useCallback 사용
-  const onClickMap = useCallback(() => {}, []);
+  const onClickMap = useCallback(handleMarkers, []);
+
+  // 왜 사용하는지 아직 잘 모르겠음
+  const mapRef = useRef();
+  const onMapLoad = useCallback((map) => {
+    mapRef.current = map;
+    console.log("loaded");
+  }, []);
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading...";
@@ -37,11 +87,18 @@ const GoogleMapTest3 = () => {
   return (
     <>
       <div className="">
+        <div>
+          <h1>Search Bar</h1>
+        </div>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={8}
           center={center}
-          onClick={handleMarkers}
+          // onClick={onClickMap}
+          onClick={(e) => {
+            console.log(e);
+          }}
+          onLoad={onMapLoad}
         >
           {markers.map((marker) => {
             return (
@@ -55,9 +112,28 @@ const GoogleMapTest3 = () => {
                   origin: new window.google.maps.Point(0, 0),
                   anchor: new window.google.maps.Point(15, 20),
                 }}
+                onClick={() => {
+                  setSelected(marker);
+                }}
               />
             );
           })}
+          {selected ? (
+            // InfoWindow는 position 속성이 필수
+            <InfoWindow
+              position={{ lat: selected.lat, lng: selected.lng }}
+              // selected를 null로 초기화 해줘야 다른 spot을 클릭해도 계속 동작함
+              onCloseClick={() => {
+                setSelected(null);
+              }}
+            >
+              <div>
+                <h2>Bear Spotted!</h2>
+                <p>Spotted</p>
+                {/* <p>Spotted {formatRelative(selected.time, new Date())}</p> */}
+              </div>
+            </InfoWindow>
+          ) : null}
         </GoogleMap>
       </div>
     </>
