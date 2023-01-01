@@ -4,7 +4,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 const ChatInput = () => {
   return (
     <>
-      <div className="w-screen h-10 flex">
+      <div className="w-screen h-10 flex fixed bottom-16">
         <div className="w-10 h-full bg-white centerItem">
           <div className="w-6 h-6 bg-slate-200 rounded-md">
             <AddRoundedIcon />

@@ -4,6 +4,12 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import PlaceButton from "../Buttons/PlaceButton";
 
 const PlaceCard = () => {
+  console.log("Price is quite reasonable and the steak is awesome".length);
+  const restrictTextLength = (text, max) => {
+    if (text.length < max) return text;
+    return text.substring(0, max) + "...";
+  };
+
   return (
     <>
       <div className="w-44 h-44 shadow-md">
@@ -18,10 +24,17 @@ const PlaceCard = () => {
         </div>
         <div className="w-full h-1/3 bg-white flex flex-col leading-4">
           <div className="flex justify-between items-center">
-            <span className="font-bold text-lg">Dino's Steak</span>
+            <span className="font-bold text-lg">
+              {restrictTextLength("Dino's Steak", 14)}
+            </span>
             <LocationOnRoundedIcon />
           </div>
-          <span>Price is quite reasonable and the steak is awesome</span>
+          <span>
+            {restrictTextLength(
+              "Price is quite reasonable and the steak is awesome",
+              48
+            )}
+          </span>
         </div>
       </div>
     </>

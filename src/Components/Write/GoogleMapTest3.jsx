@@ -4,50 +4,16 @@ import {
   useLoadScript,
   Marker,
   InfoWindow,
+  Autocomplete,
 } from "@react-google-maps/api";
-// import { formatRelative } from "date-fns";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
-// import { NEXT_PUBLIC_GOOGLE_MAPS_API_KEY } from "../../ApiKeys";
+
 import Food from "../../Images/Food.png";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
 const libraries = ["places"];
 const mapContainerStyle = {
   width: "100vw",
-  height: "100vh",
-};
-
-const Search = () => {
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      location: center,
-      radius: 200 * 1000,
-    },
-  });
-  return (
-    <div
-      onSelect={(address) => {
-        console.log(address);
-      }}
-    >
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => {
-          setValue(e.target.value);
-        }}
-      />
-    </div>
-  );
+  height: "50vh",
 };
 
 const GoogleMapTest3 = () => {
@@ -81,15 +47,34 @@ const GoogleMapTest3 = () => {
     console.log("loaded");
   }, []);
 
+  const inputRef = useRef();
+  const google = window.google;
+  const [map, setMap] = useState(null);
+
+  const searchLocation = () => {
+    const request = {
+      // query: "Museum of Contemporary Art Australia",
+      query: inputRef.current.value,
+      fields: ["name", "geometry"],
+    };
+    const getPlace = new google.maps.places.PlacesService();
+    getPlace.findPlaceFromQuery(request, (results, status) => {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (var i = 0; i < results.length; i++) {
+          console.log(results[i]);
+        }
+        map.setCenter(results[0].geometry.location);
+      }
+      console.log(results);
+    });
+  };
+
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading...";
 
   return (
     <>
-      <div className="">
-        <div>
-          <h1>Search Bar</h1>
-        </div>
+      <div className="page">
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           zoom={8}
@@ -135,6 +120,10 @@ const GoogleMapTest3 = () => {
             </InfoWindow>
           ) : null}
         </GoogleMap>
+        <Autocomplete>
+          <input type="text" placeholder="Search Location" ref={inputRef} />
+        </Autocomplete>
+        <button onClick={searchLocation}>Search</button>
       </div>
     </>
   );

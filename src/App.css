@@ -1,4 +1,4 @@
-@keyframes slideIn {
+@keyframes settingSlideIn {
   from {
     right: -50%;
     opacity: 0;
@@ -9,7 +9,7 @@
   }
 }
 
-@keyframes slideOut {
+@keyframes settingSlideOut {
   from {
     right: 0;
     opacity: 0.8;
@@ -38,22 +38,44 @@
   }
 }
 
-#slideIn {
+@keyframes addPostSlideIn {
+  from {
+    bottom: 0%;
+    opacity: 0;
+  }
+  to {
+    bottom: 50vh;
+    opacity: 1;
+  }
+}
+
+@keyframes addPostSlideOut {
+  from {
+    bottom: 0%;
+    opacity: 0;
+  }
+  to {
+    bottom: 100%;
+    opacity: 1;
+  }
+}
+
+#settingSlideIn {
   top: 4rem;
   background-color: black;
   width: 50%;
   height: calc(100vh - 8rem);
-  animation: slideIn 0.5s;
+  animation: settingSlideIn 0.5s;
   animation-fill-mode: forwards;
   position: absolute;
 }
 
-#slideOut {
+#settingSlideOut {
   top: 4rem;
   background-color: black;
   width: 50%;
   height: calc(100vh - 8rem);
-  animation: slideOut 0.5s;
+  animation: settingSlideOut 0.5s;
   animation-fill-mode: forwards;
   position: absolute;
 }
@@ -67,6 +89,18 @@
   animation-fill-mode: forwards;
   height: calc(100vh - 8rem);
   position: absolute;
+}
+
+#addPostSlideIn {
+  height: 90vh;
+  animation: addPostSlideIn 0.5s;
+  animation-fill-mode: forwards;
+  position: absolute;
+  display: block;
+}
+
+#addPostSlideOut {
+  display: none;
 }
 
 .googleMapTest {

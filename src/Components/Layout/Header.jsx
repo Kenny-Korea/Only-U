@@ -1,10 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import onlyU from "../../Images/OnlyU-64.png";
-import Settings from "../Modal/Settings";
+import ModalSettings from "../Modal/ModalSettings";
+import { AuthContext } from "../../Context/AuthContext";
 
 const Header = ({ children }) => {
+  const { currentUser } = useContext(AuthContext);
   const [settings, setSettings] = useState(false);
+
+  const onClickLogo = () => {
+    console.log(currentUser);
+  };
 
   const onClickSettings = () => {
     setSettings(!settings);
@@ -16,15 +22,21 @@ const Header = ({ children }) => {
         className="w-screen h-16 bg-slate-400 text-brightRed font-bold text-2xl 
         flex justify-between items-center px-3 fixed top-0 z-10"
       >
-        {/* <div className="flex items-center font-extrabold"> */}
-        <img src={onlyU} alt="pp" className="w-12 h-12" />
+        <img src={onlyU} alt="pp" className="w-12 h-12" onClick={onClickLogo} />
         {children}
-        {/* </div> */}
-        <MenuRoundedIcon
-          style={{ fontSize: "2rem" }}
-          onClick={onClickSettings}
-        />
-        <Settings settings={settings} setSettings={setSettings} />
+
+        {currentUser ? (
+          <img
+            className="w-10 h-10 rounded"
+            onClick={onClickSettings}
+            src={currentUser.photoURL}
+            alt="pp"
+          />
+        ) : (
+          <MenuRoundedIcon onClick={onClickSettings} />
+        )}
+
+        <ModalSettings settings={settings} setSettings={setSettings} />
       </div>
     </>
   );
