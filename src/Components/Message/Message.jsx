@@ -1,25 +1,35 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../Context/AuthContext";
 
-const Message = ({ test }) => {
-  const messageWrapper = "w-full h-14 p-2 flex";
-  const messageItem = "w-1/2 p-2";
+const Message = ({ message }) => {
+  const { currentUser } = useContext(AuthContext);
+  const messageWrapper = "h-auto p-2 flex";
+  const messageItem = "p-2 style={{width: 10px}}";
+
+  console.log(message.message.length);
+
   return (
     <>
       <div
         className={
-          test[0] === "you"
+          message.writer === currentUser
             ? `${messageWrapper}`
             : `${messageWrapper} justify-end`
         }
       >
+        <div className="text-xs text-gray-400 flex justify-end">
+          {message.date.toDate().getHours()}:
+          {message.date.toDate().getMinutes()}
+        </div>
         <p
+          style={{ maxWidth: "70%" }}
           className={
-            test[0] === "you"
+            message.writer === currentUser
               ? `${messageItem} bg-pink-300 rounded-tr-xl rounded-bl-xl rounded-br-xl`
               : `${messageItem} bg-slate-300 rounded-tl-xl rounded-bl-xl rounded-br-xl`
           }
         >
-          {test[1]}
+          {message.message}
         </p>
       </div>
     </>

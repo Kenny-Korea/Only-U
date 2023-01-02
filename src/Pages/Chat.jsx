@@ -13,12 +13,11 @@ const Chat = ({ size, setTitle }) => {
   setTitle("Chat");
   const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
-  const { data } = useContext(ChatContext);
 
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(db, "chat", currentUser.uid), (doc) => {
-        setMessages(doc.data());
+        setMessages(doc.data().chat);
       });
       console.log(messages);
       // Clean-Up 함수
@@ -28,28 +27,14 @@ const Chat = ({ size, setTitle }) => {
     };
     currentUser.uid && getChats();
   }, [currentUser.uid]);
-  // console.log(Object.entries(chats));
-  const testMessage = [
-    ["you", "hello"],
-    ["you", "how are you?"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-  ];
 
   return (
     <>
       <div className={`w-screen h-[calc(100vh-10rem)] page centerPage`}>
         <ChatProfile />
         <div className="top-14 w-full h-full bg-transparent absolute">
-          {/* {Object.entries(chats)?.map((chat, index) => {
-            return <div key={index}>{chat}</div>;
-          })} */}
           {messages?.map((message, index) => {
-            return <Message test={message} key={index} />;
+            return <Message message={message} key={index} />;
           })}
         </div>
         <ChatInput />

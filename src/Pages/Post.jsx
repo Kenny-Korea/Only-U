@@ -20,8 +20,6 @@ const Post = ({ size, setTitle }) => {
       const unsub = onSnapshot(
         doc(db, "posts", currentUser.uid),
         (snapshot) => {
-          console.log(snapshot.data());
-          console.log(snapshot.data().post);
           setPosts(snapshot.data().post);
         }
       );
@@ -34,11 +32,13 @@ const Post = ({ size, setTitle }) => {
   return (
     <>
       <div className={`${size} page centerPage relative`}>
-        {Array.isArray(posts) &&
-          posts.length !== 0 &&
-          posts.map((post, index) => {
+        {
+          // Array.isArray(posts) &&
+          //   posts.length !== 0 &&
+          posts?.map((post, index) => {
             return <PostCard key={addPost + index} post={post} />;
-          })}
+          })
+        }
         <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
         <ModalPost addPost={addPost} setAddPost={setAddPost} />
         <button

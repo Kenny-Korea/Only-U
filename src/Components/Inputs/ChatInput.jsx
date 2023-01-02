@@ -1,26 +1,45 @@
 import React, { useRef } from "react";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  Timestamp,
+  getDoc,
+  doc,
+  arrayUnion,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "../../firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
-import { v5 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 
 const ChatInput = () => {
   const messageInputRef = useRef();
   const { currentUser } = useContext(AuthContext);
 
   const handleSend = async () => {
-    if (messageInputRef.current.value === "") return;
-    const colRef = collection(db, "chat");
-    try {
-      await addDoc(colRef, {
-        id: uuid,
-        message: messageInputRef.current.value,
-        senderId: currentUser.uid,
-        date: serverTimestamp(),
-      });
-    } catch {}
+    const res = await getDoc(doc(db, "chat", currentUser.uid));
+    const docRef = doc(db, "chat", currentUser.uid);
+    const chat = {
+      id: uuid(),
+      message: messageInputRef.current.value,
+      writer: currentUser.uid,
+      date: Timestamp.now(),
+    };
+    const handleUpdate = async (type) => {
+      try {
+        await type(docRef, {
+          chat: arrayUnion(chat),
+        });
+      } catch {
+        console.log("err");
+      }
+    };
+    if (!res.exists()) {
+      handleUpdate(setDoc);
+    } else {
+      handleUpdate(updateDoc);
+    }
     messageInputRef.current.value = "";
   };
   return (

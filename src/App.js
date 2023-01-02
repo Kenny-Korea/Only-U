@@ -46,7 +46,7 @@ const App = () => {
               path="/post"
               element={
                 <ProtectedRoute>
-                  <Post size={screenSize} setTitle={setTitle} />
+                  <Post size={"w-screen h-full"} setTitle={setTitle} />
                 </ProtectedRoute>
               }
             />
@@ -54,7 +54,7 @@ const App = () => {
               path="/chat"
               element={
                 <ProtectedRoute>
-                  <Chat size={screenSize} setTitle={setTitle} />
+                  <Chat size={"w-screen h-full"} setTitle={setTitle} />
                 </ProtectedRoute>
               }
             />
