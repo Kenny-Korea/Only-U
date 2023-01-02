@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 .page {
-  @apply bg-lime-50 flex flex-col;
+  @apply bg-lime-50 flex flex-col mb-16;
 }
 .card {
   @apply w-11/12 bg-white rounded overflow-hidden shadow-md relative mb-3;

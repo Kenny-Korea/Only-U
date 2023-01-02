@@ -11,35 +11,27 @@ import { ChatContext } from "../Context/ChatContext";
 
 const Chat = ({ size, setTitle }) => {
   setTitle("Chat");
-  const [chats, setChats] = useState([]);
+  const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
 
   useEffect(() => {
     const getChats = () => {
       const unsub = onSnapshot(doc(db, "chat", currentUser.uid), (doc) => {
-        setChats(doc.data());
+        setMessages(doc.data());
       });
+      console.log(messages);
       // Clean-Up 함수
       return () => {
         unsub();
       };
     };
     currentUser.uid && getChats();
-    console.log(chats);
   }, [currentUser.uid]);
   // console.log(Object.entries(chats));
   const testMessage = [
     ["you", "hello"],
     ["you", "how are you?"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
-    ["me", "I'm fine thank you"],
     ["me", "I'm fine thank you"],
     ["me", "I'm fine thank you"],
     ["me", "I'm fine thank you"],
@@ -56,8 +48,8 @@ const Chat = ({ size, setTitle }) => {
           {/* {Object.entries(chats)?.map((chat, index) => {
             return <div key={index}>{chat}</div>;
           })} */}
-          {testMessage.map((item, index) => {
-            return <Message test={item} key={item + index} />;
+          {messages?.map((message, index) => {
+            return <Message test={message} key={index} />;
           })}
         </div>
         <ChatInput />

@@ -3,14 +3,14 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { useNavigate } from "react-router-dom";
 import ModalPost from "../Modal/ModalPost";
 
-const AddButton = ({ page, post, setPost }) => {
+const AddButton = ({ page, addPost, setAddPost }) => {
   const handleClick = () => {
     switch (page) {
       case "home":
         break;
       case "post":
-        console.log(post);
-        setPost(!post);
+        console.log(addPost);
+        setAddPost(!addPost);
         break;
       case "place":
         break;
