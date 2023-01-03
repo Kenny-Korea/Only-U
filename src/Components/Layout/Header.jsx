@@ -19,7 +19,7 @@ const Header = ({ children }) => {
   return (
     <>
       <div
-        className="w-screen h-14 bg-slate-400 text-brightRed font-bold text-2xl 
+        className="w-screen h-14 bg-slate-200 text-brightRed font-bold text-2xl 
         flex justify-between items-center px-3 fixed top-0 z-10"
       >
         <img src={onlyU} alt="pp" className="w-12 h-12" onClick={onClickLogo} />

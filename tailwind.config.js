@@ -15,7 +15,10 @@ module.exports = {
         main: ["Andika"],
       },
       colors: {
+        header: "#eeccff",
         brightRed: "hsl(12, 88%, 59%)",
+        brightPink: "RGB(214, 80, 118)",
+        textPink: "rgb(255, 111, 97)",
       },
     },
   },

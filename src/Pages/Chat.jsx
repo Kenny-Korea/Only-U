@@ -31,8 +31,9 @@ const Chat = ({ size, setTitle }) => {
 
   return (
     <>
+      {/* background */}
       <div
-        className={`w-screen h-[calc(100vh-11rem)] bg-green-200 flex flex-col mb-16 centerPage`}
+        className={`w-screen h-[calc(100vh-7.5rem)] bg-green-200 flex flex-col mb-16 centerPage`}
       >
         <ChatProfile />
         <Messages messages={messages} />

@@ -49,7 +49,7 @@ const ChatInput = () => {
         <div className="w-full h-8 mx-2 flex justify-between rounded-full">
           <div className="w-[calc(100%-4rem)] flex">
             <div className="w-8 h-full bg-white centerItem rounded-tl-full rounded-bl-full">
-              <AddRoundedIcon />
+              <AddRoundedIcon style={{ fontSize: "1.2rem" }} />
             </div>
             <textarea
               type="text"
@@ -67,7 +67,7 @@ const ChatInput = () => {
             </div>
           </div>
           <button
-            className="w-14 h-full bg-brightRed text-white rounded-full centerItem"
+            className="w-14 h-full bg-textPink text-white rounded-full centerItem"
             onClick={handleSend}
           >
             Send

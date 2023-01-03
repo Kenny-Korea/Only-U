@@ -9,7 +9,7 @@ import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
 const Footer = () => {
   const iconSize = {
     fontSize: "1.8rem",
-    color: "gray",
+    color: "rgb(191, 191, 191)",
   };
   return (
     <>

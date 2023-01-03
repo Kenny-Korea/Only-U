@@ -30,9 +30,9 @@ const App = () => {
 
   return (
     <>
-      <div className={`font-main relative ${fullSize} flex flex-col`}>
+      <div className={`font-main relative ${screenSize} flex flex-col`}>
         <Header children={title} />
-        <div className="absolute top-14">
+        <div className="absolute top-14 overflow-scroll">
           <Routes>
             <Route
               path="/"

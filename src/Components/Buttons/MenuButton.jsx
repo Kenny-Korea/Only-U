@@ -40,7 +40,7 @@ const MenuButton = ({ children }) => {
   return (
     <>
       <div
-        className="w-1/5 h-16 bg-slate-50 flex flex-col justify-center items-center text-gray-400 border-t-2 border-gray-300"
+        className="w-1/5 h-16 bg-slate-50 flex flex-col justify-center items-center text-textPink border-t-2 border-gray-300"
         id={children[1]}
         onClick={handleClick}
       >

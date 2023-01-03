@@ -4,7 +4,7 @@ import { AuthContext } from "../../Context/AuthContext";
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const messageWrapper = "h-auto p-2 flex";
-  const messageItem = "p-2 style={{width: 10px}}";
+  const messageItem = "p-2 style={{width: 10px}} text-xs";
 
   console.log(message.message.length);
 
@@ -17,7 +17,7 @@ const Message = ({ message }) => {
             : `${messageWrapper} justify-end`
         }
       >
-        <div className="text-xs text-gray-400 flex justify-end">
+        <div className="text-xs text-gray-400 flex justify-end items-end mr-1">
           {message.date.toDate().getHours()}:
           {message.date.toDate().getMinutes()}
         </div>
