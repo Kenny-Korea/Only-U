@@ -30,9 +30,9 @@ const App = () => {
 
   return (
     <>
-      <div className={`font-main relative ${fullSize}`}>
+      <div className={`font-main relative ${fullSize} flex flex-col`}>
         <Header children={title} />
-        <div className="absolute top-16">
+        <div className="absolute top-14">
           <Routes>
             <Route
               path="/"

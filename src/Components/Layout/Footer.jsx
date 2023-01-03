@@ -7,7 +7,10 @@ import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
 
 const Footer = () => {
-  const iconSize = { fontSize: "1.8rem", color: "white" };
+  const iconSize = {
+    fontSize: "1.8rem",
+    color: "gray",
+  };
   return (
     <>
       <div className="TabBottom w-screen h-16 flex flex-row border-white fixed bottom-0">

@@ -8,6 +8,7 @@ import { db } from "../firebase";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { ChatContext } from "../Context/ChatContext";
+import Messages from "../Components/Message/Messages";
 
 const Chat = ({ size, setTitle }) => {
   setTitle("Chat");
@@ -30,13 +31,11 @@ const Chat = ({ size, setTitle }) => {
 
   return (
     <>
-      <div className={`w-screen h-[calc(100vh-10rem)] page centerPage`}>
+      <div
+        className={`w-screen h-[calc(100vh-11rem)] bg-green-200 flex flex-col mb-16 centerPage`}
+      >
         <ChatProfile />
-        <div className="top-14 w-full h-full bg-transparent absolute">
-          {messages?.map((message, index) => {
-            return <Message message={message} key={index} />;
-          })}
-        </div>
+        <Messages messages={messages} />
         <ChatInput />
       </div>
     </>

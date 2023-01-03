@@ -18,35 +18,6 @@ const MenuButton = ({ children }) => {
   const [user, setUser] = useState("sisca");
 
   const handleLoadChat = async () => {
-    // const q = query(collection(db, "user"), where("username", "===", "riani"));
-    // console.log(q);
-    // const combinedId =
-    //   currentUser.uid > user.uid
-    //     ? currentUser.uid + user.uid
-    //     : user.uid + currentUser.uid;
-    // try {
-    //   const res = await getDoc(doc(db, "chat", combinedId));
-    //   if (!res.exists()) {
-    //     await setDoc(doc(db, "chat", combinedId), { messages: [] });
-    //     // create user chats
-    //     await updateDoc(doc(db, "chat", currentUser.uid), {
-    //       [combinedId + ".userInfo"]: {
-    //         uid: user.uid,
-    //         username: user.username,
-    //         photoURL: user.photoURL,
-    //       },
-    //       [combinedId + ".date"]: serverTimestamp(),
-    //     });
-    //     await updateDoc(doc(db, "chat", user.uid), {
-    //       [combinedId + ".userInfo"]: {
-    //         uid: currentUser.uid,
-    //         username: currentUser.username,
-    //         photoURL: currentUser.photoURL,
-    //       },
-    //       [combinedId + ".date"]: serverTimestamp(),
-    //     });
-    //   }
-    // } catch (err) {}
     navigate("/Chat");
   };
 
@@ -69,7 +40,7 @@ const MenuButton = ({ children }) => {
   return (
     <>
       <div
-        className="w-1/5 h-16 bg-pink-300 flex flex-col justify-center items-center text-white"
+        className="w-1/5 h-16 bg-slate-50 flex flex-col justify-center items-center text-gray-400 border-t-2 border-gray-300"
         id={children[1]}
         onClick={handleClick}
       >
