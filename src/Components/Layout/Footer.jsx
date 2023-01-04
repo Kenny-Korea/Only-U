@@ -13,7 +13,7 @@ const Footer = () => {
   };
   return (
     <>
-      <div className="TabBottom w-screen h-16 flex flex-row border-white fixed bottom-0">
+      <div className="TabBottom w-screen h-16 flex flex-row border-white">
         {/* key를 넣어줘야 에러가 발생하지 않는데 왜 그러는지 확인 필요 */}
         <MenuButton
           children={[<HomeRoundedIcon style={iconSize} key="Home" />, "Home"]}

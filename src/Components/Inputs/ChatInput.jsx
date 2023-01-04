@@ -14,7 +14,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 
-const ChatInput = () => {
+const ChatInput = ({ setTest }) => {
   const messageInputRef = useRef();
   const { currentUser } = useContext(AuthContext);
 

@@ -5,10 +5,10 @@
 @tailwind utilities;
 
 .page {
-  @apply bg-green-200 flex flex-col mb-16;
+  @apply bg-green-200 flex flex-col pb-2;
 }
 .card {
-  @apply w-11/12 bg-white rounded overflow-hidden shadow-md relative mb-3;
+  @apply bg-white rounded overflow-hidden shadow-md;
 }
 
 .cardItems {
@@ -32,7 +32,7 @@
 }
 
 .input {
-  @apply w-[calc(100%-(mx*3))] h-10 mx-3 my-2 px-2 py-1 border-b-indigo-900 border-b-2;
+  @apply w-[calc(100%-(mx*3))] h-6 mx-3 my-2 px-2 py-1 text-sm shadow-sm rounded-md;
 }
 /* 
 .input {

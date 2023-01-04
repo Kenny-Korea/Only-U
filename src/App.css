@@ -40,11 +40,11 @@
 
 @keyframes addPostSlideIn {
   from {
-    bottom: 0%;
+    top: 100%;
     opacity: 0;
   }
   to {
-    top: 0px;
+    top: 0%;
     opacity: 1;
   }
 }
@@ -61,42 +61,38 @@
 }
 
 #settingSlideIn {
-  top: 4rem;
+  top: 3.5rem;
   background-color: black;
   width: 50%;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 7.5rem);
   animation: settingSlideIn 0.5s;
   animation-fill-mode: forwards;
-  position: absolute;
 }
 
 #settingSlideOut {
-  top: 4rem;
+  top: 3.5rem;
   background-color: black;
   width: 50%;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 7.5rem);
   animation: settingSlideOut 0.5s;
   animation-fill-mode: forwards;
-  position: absolute;
+  display: none;
 }
 
 #outside {
-  top: 4rem;
+  top: 3.5rem;
   left: 0px;
   background-color: white;
   width: 50%;
   animation: fadeIn 1s;
   animation-fill-mode: forwards;
-  height: calc(100vh - 8rem);
+  height: calc(100vh - 7.5rem);
   position: absolute;
 }
 
 #addPostSlideIn {
-  height: 90vh;
   animation: addPostSlideIn 0.5s;
   animation-fill-mode: forwards;
-  position: absolute;
-  display: block;
 }
 
 #addPostSlideOut {

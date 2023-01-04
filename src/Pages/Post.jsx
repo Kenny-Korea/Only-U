@@ -31,23 +31,12 @@ const Post = ({ size, setTitle }) => {
   }, [currentUser.uid]);
   return (
     <>
-      <div className={`${size} page centerPage relative`}>
-        {
-          // Array.isArray(posts) &&
-          //   posts.length !== 0 &&
-          posts?.map((post, index) => {
-            return <PostCard key={addPost + index} post={post} />;
-          })
-        }
+      <div className={`${size}`}>
+        {posts?.map((post, index) => {
+          return <PostCard key={addPost + index} post={post} />;
+        })}
         <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
         <ModalPost addPost={addPost} setAddPost={setAddPost} />
-        <button
-          onClick={() => {
-            console.log(posts);
-          }}
-        >
-          click
-        </button>
       </div>
     </>
   );

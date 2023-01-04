@@ -22,7 +22,7 @@ const Home = ({ size, setTitle }) => {
   const textAreaRef = useRef();
 
   // test
-  const DdayList = [1, 2, 3];
+  const DdayList = [1, 2, 3, 4, 5, 6, 7];
 
   const [editBio, setEditBio] = useState(false);
 
@@ -58,7 +58,7 @@ const Home = ({ size, setTitle }) => {
 
   return (
     <>
-      <div className={`${size} page`}>
+      <div>
         <div className="w-full h-72 bg-slate-200 flex flex-col">
           <div className="w-full font-bold text-2xl pt-2 flex justify-between items-center p-3 mt-1">
             <input

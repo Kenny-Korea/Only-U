@@ -6,7 +6,10 @@ const ModalSettings = ({ settings, setSettings }) => {
   return (
     <>
       {settings && <div id="outside"></div>}
-      <div id={settings ? "settingSlideIn" : "settingSlideOut"}>
+      <div
+        className="absolute z-20"
+        id={settings ? "settingSlideIn" : "settingSlideOut"}
+      >
         <SettingsItem text="Logout" setSettings={setSettings} />
         <SettingsItem text="MyPage" setSettings={setSettings} />
         <SettingsItem text="Molla" setSettings={setSettings} />

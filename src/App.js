@@ -30,15 +30,15 @@ const App = () => {
 
   return (
     <>
-      <div className={`font-main relative ${screenSize} flex flex-col`}>
+      <div className={`font-main ${screenSize} flex flex-col`}>
         <Header children={title} />
-        <div className="absolute top-14 overflow-scroll">
+        <div className="w-full h-[calc(100vh-7.5rem)] bg-amber-500 overflow-scroll">
           <Routes>
             <Route
               path="/"
               element={
                 <ProtectedRoute>
-                  <Home size={screenSize} setTitle={setTitle} />
+                  <Home size={"w-screen h-full"} setTitle={setTitle} />
                 </ProtectedRoute>
               }
             />
@@ -92,6 +92,7 @@ const App = () => {
             />
           </Routes>
         </div>
+
         <Footer />
       </div>
     </>

@@ -6,8 +6,6 @@ const Message = ({ message }) => {
   const messageWrapper = "h-auto p-2 flex";
   const messageItem = "p-2 style={{width: 10px}} text-xs";
 
-  console.log(message.message.length);
-
   return (
     <>
       <div
