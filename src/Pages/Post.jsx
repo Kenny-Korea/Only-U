@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import AddButton from "../Components/Buttons/AddButton";
 import PostCard from "../Components/Cards/PostCard";
 import ModalPost from "../Components/Modal/ModalPost";
-import ModalSettings from "../Components/Modal/ModalSettings";
 import { onSnapshot, doc } from "firebase/firestore";
-import { useEffect } from "react";
-import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 
@@ -23,6 +20,7 @@ const Post = ({ size, setTitle }) => {
           setPosts(snapshot.data().post);
         }
       );
+      // clean-up
       return () => {
         unsub();
       };

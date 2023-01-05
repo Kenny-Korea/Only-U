@@ -25,7 +25,7 @@ const Header = ({ children }) => {
         <img src={onlyU} alt="pp" className="w-12 h-12" onClick={onClickLogo} />
         {children}
 
-        {currentUser ? (
+        {currentUser.photoURL ? (
           <img
             className="w-10 h-10 rounded object-cover"
             onClick={onClickSettings}

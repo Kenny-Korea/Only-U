@@ -4,7 +4,6 @@ import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import PlaceButton from "../Buttons/PlaceButton";
 
 const PlaceCard = () => {
-  console.log("Price is quite reasonable and the steak is awesome".length);
   const restrictTextLength = (text, max) => {
     if (text.length < max) return text;
     return text.substring(0, max) + "...";

@@ -32,7 +32,7 @@
 }
 
 .input {
-  @apply w-[calc(100%-(mx*3))] h-6 mx-3 my-2 px-2 py-1 text-sm shadow-sm rounded-md;
+  @apply w-[calc(100%-(mx*3))] h-6 mx-3 my-2 px-2 py-1 text-sm shadow-sm rounded-md outline-none;
 }
 /* 
 .input {

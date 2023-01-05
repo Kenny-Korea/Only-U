@@ -47,11 +47,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
     );
   };
 
-  const test = () => {
-    // console.log(imageFile);
-    console.log(imageURL);
-  };
-
   const handleAddImage = (e) => {
     console.log(URL.createObjectURL(e.target.files[0]));
     const preview = [...e.target.files];
@@ -73,36 +68,32 @@ const ModalPost = ({ addPost, setAddPost }) => {
   };
 
   const handleSubmit = async () => {
+    const uploadDate = Timestamp.now();
     const res = await getDoc(doc(db, "posts", currentUser.uid));
     const docRef = doc(db, "posts", currentUser.uid);
-    const storageRef = ref(storage, currentUser.uid);
-    const uploadTask = uploadBytesResumable(storageRef, imageFile[0]);
-    uploadTask.on(
-      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        setImageURL(imageURL.concat(downloadURL));
-      })
-    );
+    const urlArray = [];
 
-    // imageFile.forEach((img) => {
-    //   uploadBytesResumable(storageRef, img).on(
-    //     getDownloadURL(uploadBytesResumable(storageRef, img).snapshot.ref).then(
-    //       (downloadURL) => {
-    //         imageURL.push(downloadURL);
-    //         console.log(imageURL);
-    //       }
-    //     )
-    //   );
-    //   console.log(imageURL);
-    // });
+    for (let i = 0; i < imageFile.length; i++) {
+      const storageRef = ref(storage, currentUser.uid + uploadDate + i);
+      const uploadTask = await uploadBytesResumable(storageRef, imageFile[i], {
+        contentType: "image/jpeg",
+      });
+      console.log(uploadTask);
+      await getDownloadURL(uploadTask.ref).then((url) => {
+        urlArray.push(url);
+      });
+    }
+
     const post = {
       id: uuid(),
       title: titleRef.current.value,
       hashTag: hashtag,
       content: contentRef.current.value,
-      file: imageURL[0],
+      url: urlArray,
       writer: currentUser.uid,
-      date: Timestamp.now(),
+      date: uploadDate,
     };
+
     const handleUpdate = async (type) => {
       try {
         await type(docRef, {
@@ -140,9 +131,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
       >
         <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">
           <div className="flex flex-col">
-            <span className="mx-3" onClick={test}>
-              포스트 작성
-            </span>
+            <span className="mx-3">포스트 작성</span>
             <input
               type="text"
               placeholder="제목을 입력하세요"
