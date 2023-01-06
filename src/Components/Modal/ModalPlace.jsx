@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useContext, useRef, useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -7,12 +7,30 @@ import {
   Autocomplete,
   getPlace,
 } from "@react-google-maps/api";
+import {
+  collection,
+  addDoc,
+  Timestamp,
+  onSnapshot,
+  getDoc,
+  doc,
+  setDoc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import ModalPreview from "./ModalPreview";
+import { db, storage } from "../../firebase";
+import { AuthContext } from "../../Context/AuthContext";
+import { v4 as uuid } from "uuid";
+import SubmitCancelButton from "../Buttons/SubmitCancelButton";
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
 const libraries = ["places"];
 const mapContainerStyle = {
-  width: "90%",
-  height: "10rem",
+  width: "100%",
+  height: "12rem",
 };
 
 const ModalPlace = ({ addPlace, setAddPlace }) => {
@@ -31,8 +49,36 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     console.log("loaded");
   }, []);
 
+  const { currentUser } = useContext(AuthContext);
+
   const google = window.google;
   const [place, setPlace] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [rate, setRate] = useState();
+  const placeNameRef = useRef();
+  const descriptionRef = useRef();
+  const fileRef = useRef();
+  const [seeReview, setSeeReview] = useState(false);
+  const [placeType, setPlaceType] = useState(false);
+
+  const handleCancel = () => {
+    setAddPlace(false);
+    setPlace(null);
+    setPreview(null);
+    setRate(null);
+    setSeeReview(false);
+    placeNameRef.current.value = "";
+    descriptionRef.current.value = "";
+    fileRef.current.files[0] = "";
+  };
+
+  const toggleReview = () => {
+    setSeeReview(!seeReview);
+  };
+
+  const handleRate = (e) => {
+    setRate(e.target.innerHTML);
+  };
 
   const handleClickPlace = async (e) => {
     if (!e.placeId) return;
@@ -46,6 +92,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
         "reviews",
         "address_components",
         "photos",
+        "rating",
+        "place_id",
       ],
     };
     let service = new google.maps.places.PlacesService(
@@ -59,83 +107,279 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
           let copy = { ...place };
           copy = data;
           setPlace(copy);
+          let container = [];
+          for (let i = 0; i < 5; i++) {
+            container.push(place.photos[i].getUrl);
+          }
+          setPreview(container);
         } else {
           setPlace(data);
+          let container = [];
+          for (let i = 0; i < 5; i++) {
+            container.push(place.photos[i].getUrl);
+          }
+          setPreview(container);
         }
       }
     }
   };
 
-  const handleUsePlaceName = () => {
-    if (!place) return;
+  const handleSubmit = async () => {
+    const uploadDate = Timestamp.now();
+    const res = await getDoc(doc(db, "places", currentUser.uid));
+    const docRef = doc(db, "places", currentUser.uid);
+    let imageURL;
+    const uploadedFile = fileRef.current.files[0];
+    if (uploadedFile) {
+      const storageRef = ref(storage, currentUser.uid + uploadDate);
+      const uploadTask = await uploadBytesResumable(storageRef, uploadedFile, {
+        contentType: "image/jpeg",
+      });
+      await getDownloadURL(uploadTask.ref).then((url) => {
+        imageURL = url;
+      });
+    } else if (preview) {
+      imageURL = preview[0]();
+    } else {
+      // default 이미지 넣어줘야 함
+      imageURL = "";
+    }
+
+    const data = {
+      id: uuid(),
+      title: placeNameRef.current.value,
+      description: descriptionRef.current.value,
+      placeId: place.place_id,
+      rate: rate,
+      type: "Food",
+      url: imageURL,
+      writer: currentUser.uid,
+      date: uploadDate,
+    };
+    const handleUpdate = async (type) => {
+      try {
+        await type(docRef, {
+          place: arrayUnion(data),
+        }).then(() => {
+          handleCancel();
+        });
+      } catch {
+        console.log("err");
+      }
+    };
+    if (!res.exists()) {
+      handleUpdate(setDoc);
+    } else {
+      handleUpdate(updateDoc);
+    }
   };
 
-  const handlePreview = () => {
-    for (let i = 0; i < 5; i++) {
-      return place.photos[i].getUrl;
-    }
+  const [placeNameValue, setPlaceNameValue] = useState(null);
+
+  const handleCopyNameFromMap = (e) => {
+    if (!place?.name) return;
+
+    console.log(place.name);
+    setPlaceNameValue(place.name);
+    // placeNameRef.current.value = place.name;
+  };
+
+  const handlePlaceName = (e) => {
+    setPlaceNameValue(e.target.value);
   };
 
   if (loadError) return "Error loading maps";
   if (!isLoaded) return "Loading...";
+
+  const checkedIcon = (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={3}
+      stroke="currentColor"
+      className="w-3 h-3"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M4.5 12.75l6 6 9-13.5"
+      />
+    </svg>
+  );
 
   return (
     <>
       <div id="map"></div>
 
       <div
-        className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 itemCenter bg-white bg-opacity-50"
+        className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 left-0 itemCenter bg-white bg-opacity-50"
         id={addPlace ? "addPostSlideIn" : "addPostSlideOut"}
       >
-        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">
-          <div className="flex flex-col">
-            <span className="mx-3">장소 작성</span>
-            <GoogleMap
-              mapContainerStyle={mapContainerStyle}
-              zoom={10}
-              center={center}
-              onClick={handleClickPlace}
-              onLoad={onMapLoad}
-            ></GoogleMap>
-            {place && (
-              <div className="card">
+        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative">
+          <div className="absolute top-2 left-2 z-10 flex gap-1">
+            <Autocomplete>
+              <input
+                type="text"
+                className="w-60 rounded-full text-xs pl-3 py-1 outline-none shadow-lg"
+                placeholder="Search Location"
+              />
+            </Autocomplete>
+            <button className="w-6 h-6 bg-blue-400 rounded-full shadow-lg">
+              <SearchRoundedIcon style={{ fontSize: "1rem", color: "white" }} />
+            </button>
+          </div>
+          <GoogleMap
+            mapContainerStyle={mapContainerStyle}
+            zoom={10}
+            center={center}
+            onClick={handleClickPlace}
+            onLoad={onMapLoad}
+          ></GoogleMap>
+          {place && (
+            <div className="card">
+              {preview && (
                 <div className="flex w-full">
-                  <img
-                    src={place?.photos[0].getUrl()}
-                    alt="pp"
-                    className="w-1/5 h-10 object-contain"
-                  />
-                </div>
-                <span>name: {place?.name}</span>
-                <div className="h-20 overflow-y-scroll">
-                  {place?.reviews.map((review) => {
+                  {preview?.map((image) => {
+                    console.log(image);
                     return (
-                      <div className="flex flex-col mb-3">
-                        <div className="">
-                          <span className="text-md">{review.author_name}</span>
-                          <span className="text-md">{review.rating} / 5</span>
-                        </div>
-                        <span className="text-xs">{review.text}</span>
-                      </div>
+                      <img
+                        src={image()}
+                        alt="pp"
+                        className="w-1/5 h-10 object-cover border-x-2 border-white"
+                      />
                     );
                   })}
                 </div>
+              )}
+              <p>{place?.name}</p>
+              <p className="text-xs">{place?.rating}</p>
+              <div className="text-xs leading-tight">
+                {place?.address_components.map((address) => {
+                  return address.long_name + " ";
+                })}
               </div>
-            )}
-            <div>
-              <input
-                type="text"
-                placeholder="Place Name"
-                className="input"
-                onChange={handleUsePlaceName}
-              />
-              <input type="checkbox" id="name" />
-              <label htmlFor="name">지도명 사용</label>
+              <div
+                onClick={toggleReview}
+                className="text-xs text-gray-600 w-12"
+              >
+                {place && seeReview ? "리뷰 접기" : "리뷰 보기"}
+              </div>
+              <div className={seeReview ? "h-20 overflow-y-scroll" : "hidden"}>
+                {place?.reviews?.map((review) => {
+                  return (
+                    <div className="flex flex-col mb-3">
+                      <div className="">
+                        <span className="text-md">{review.author_name}</span>
+                        <span className="text-md">{review.rating} / 5</span>
+                      </div>
+                      <span className="text-xs">{review.text}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <input type="range" defaultValue={1} min={1} max={5} step={1} />
-            <input type="text" placeholder="Description" className="input" />
-          </div>
+          )}
+          <table className="w-full mt-3 border-separate">
+            <tr>
+              <td>장소명</td>
+              <td>
+                <div className="flex">
+                  <input
+                    type="text"
+                    placeholder="Place Name"
+                    className="w-full border-spacing-0 text-xs outline-none"
+                    ref={placeNameRef}
+                    value={placeNameValue}
+                    onChange={handlePlaceName}
+                  />
+                  <div
+                    className="w-28 flex justify-center text-xs bg-pink-200 shadow-md rounded-lg"
+                    onClick={handleCopyNameFromMap}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"
+                      />
+                    </svg>
+                    <div>From Map</div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>평점</td>
+              <td className="text-sm">☆ ☆ ☆ ☆ ☆</td>
+            </tr>
+            <tr>
+              <td>타입</td>
+              <td>
+                <div className="flex gap-4 text-xs">
+                  <div
+                    className={`flex items-center ${
+                      placeType ? "text-gray-500" : "text-brightRed font-bold"
+                    } `}
+                    onClick={() => {
+                      setPlaceType(false);
+                    }}
+                  >
+                    {checkedIcon} Food
+                  </div>
+                  <div
+                    className={`flex items-center ${
+                      placeType ? "text-brightRed font-bold" : "text-gray-500"
+                    } `}
+                    onClick={() => {
+                      setPlaceType(true);
+                    }}
+                  >
+                    {checkedIcon} Place
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>이미지</td>
+              <td>
+                <input
+                  type="file"
+                  id="file"
+                  className="h-4 hidden"
+                  ref={fileRef}
+                />
+                <label htmlFor="file" className="text-xs">
+                  Click to add Image
+                </label>
+              </td>
+            </tr>
+            <tr>
+              <td>설명</td>
+              <td>
+                <textarea
+                  cols="30"
+                  rows="2"
+                  placeholder="Description"
+                  className="pt-1 resize-none outline-none text-xs w-full leading-tight"
+                  ref={descriptionRef}
+                />
+              </td>
+            </tr>
+          </table>
+          <SubmitCancelButton
+            handleSubmit={handleSubmit}
+            handleCancel={handleCancel}
+          />
         </div>
+        <ModalPreview />
       </div>
     </>
   );

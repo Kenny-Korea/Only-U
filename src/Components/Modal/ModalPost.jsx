@@ -3,7 +3,6 @@ import "../../App.css";
 import {
   collection,
   addDoc,
-  serverTimestamp,
   Timestamp,
   onSnapshot,
   getDoc,
@@ -19,6 +18,7 @@ import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 import addAvatar from "../../Images/addAvatar.png";
+import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 
 const ModalPost = ({ addPost, setAddPost }) => {
   const { currentUser } = useContext(AuthContext);
@@ -67,6 +67,13 @@ const ModalPost = ({ addPost, setAddPost }) => {
     e.code === "Enter" && handleAddHashtag();
   };
 
+  const handleCancel = () => {
+    setAddPost(false);
+    setImagePreview([]);
+    setImageFile([]);
+    setImageURL([]);
+  };
+
   const handleSubmit = async () => {
     const uploadDate = Timestamp.now();
     const res = await getDoc(doc(db, "posts", currentUser.uid));
@@ -99,10 +106,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
         await type(docRef, {
           post: arrayUnion(post),
         }).then(() => {
-          setAddPost(false);
-          setImagePreview([]);
-          setImageFile([]);
-          setImageURL([]);
+          handleCancel();
         });
       } catch {
         console.log("err");
@@ -113,13 +117,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
     } else {
       handleUpdate(updateDoc);
     }
-  };
-
-  const handleCancel = () => {
-    setAddPost(false);
-    setImagePreview([]);
-    setImageFile([]);
-    setImageURL([]);
   };
 
   return (
@@ -197,23 +194,13 @@ const ModalPost = ({ addPost, setAddPost }) => {
               cols="30"
               rows="5"
               placeholder="내용을 입력하세요"
-              className="mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md"
+              className="textArea"
               ref={contentRef}
             />
-            <div className="flex justify-between gap-4 mx-3 my-2">
-              <button
-                className="w-1/2 h-8 bg-textPink text-white rounded-md"
-                onClick={handleSubmit}
-              >
-                등록
-              </button>
-              <button
-                className="w-1/2 h-8 bg-slate-300 rounded-md"
-                onClick={handleCancel}
-              >
-                취소
-              </button>
-            </div>
+            <SubmitCancelButton
+              handleSubmit={handleSubmit}
+              handleCancel={handleCancel}
+            />
           </div>
         </div>
       </div>

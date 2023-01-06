@@ -34,7 +34,18 @@
 .input {
   @apply w-[calc(100%-(mx*3))] h-6 mx-3 my-2 px-2 py-1 text-sm shadow-sm rounded-md outline-none;
 }
-/* 
-.input {
-  @apply w-40;
-} */
+.textArea {
+  @apply mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md text-sm;
+}
+.ratingButton {
+  @apply w-1/5 h-full bg-gray-200 hover:bg-textPink;
+}
+tr {
+  @apply h-6;
+}
+td:nth-child(odd) {
+  @apply w-14 h-full text-xs align-middle bg-red-200 text-center border-black border-2;
+}
+td:nth-child(even) {
+  @apply w-auto pl-2 border-black border-2;
+}

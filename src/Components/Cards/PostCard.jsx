@@ -12,7 +12,7 @@ const PostCard = ({ post }) => {
       <div className="w-full flex justify-center">
         <div className="w-11/12 h-fit card px-3 py-1.5 my-2 flex flex-col gap-1">
           <div className="flex justify-between">
-            <span className="font-bold text-xl">{post.title}</span>
+            <span className="font-bold text-xl">{post?.title}</span>
             <div onClick={handleSettings}>
               <ModifyButton />
             </div>
@@ -22,20 +22,20 @@ const PostCard = ({ post }) => {
             {/* <span>{post.date}</span> */}
           </div>
           <div className="h-fit">
-            {Array.isArray(post.url) && post.url.length === 0
+            {Array.isArray(post?.url) && post.url.length === 0
               ? null
-              : post.url.map((img) => {
+              : post?.url.map((img) => {
                   return (
                     <img src={img} alt="test" className="w-full object-cover" />
                   );
                 })}
           </div>
           <div className="text-indigo-800 flex gap-2">
-            {post.hashTag.map((item) => {
+            {post?.hashTag.map((item) => {
               return <div key={item}>#{item}</div>;
             })}
           </div>
-          <div>{post.content}</div>
+          <div>{post?.content}</div>
           <div>댓글 보기</div>
           <div>
             <ProfileSmall />

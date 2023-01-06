@@ -33,6 +33,9 @@ const Post = ({ size, setTitle }) => {
         {posts?.map((post, index) => {
           return <PostCard key={addPost + index} post={post} />;
         })}
+        {Array.isArray(posts) && posts.length === 0
+          ? "새 글을 작성해보세요"
+          : null}
         <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
         <ModalPost addPost={addPost} setAddPost={setAddPost} />
       </div>

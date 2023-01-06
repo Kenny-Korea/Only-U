@@ -58,52 +58,50 @@ const Home = ({ size, setTitle }) => {
 
   return (
     <>
-      <div>
-        <div className="w-full h-72 bg-slate-200 flex flex-col">
-          <div className="w-full font-bold text-2xl pt-2 flex justify-between items-center p-3 mt-1">
-            <input
-              type="text"
-              className={!editBio ? "hidden" : null}
-              placeholder={editBio ? titleRef.current.textContent : null}
-              ref={inputRef}
-            />
+      <div className="w-full h-72 bg-slate-200 flex flex-col overflow-y-scroll">
+        <div className="w-full font-bold text-2xl pt-2 flex justify-between items-center p-3 mt-1">
+          <input
+            type="text"
+            className={!editBio ? "hidden" : null}
+            placeholder={editBio ? titleRef.current.textContent : null}
+            ref={inputRef}
+          />
 
-            <span className={editBio ? "hidden" : null} ref={titleRef}>
-              {getTitle()}
-            </span>
+          <span className={editBio ? "hidden" : null} ref={titleRef}>
+            {getTitle()}
+          </span>
 
-            {editBio ? (
-              <SaveAsRoundedIcon onClick={handleSaveTitle} />
-            ) : (
-              <ModeEditRoundedIcon onClick={handleEditTitle} />
-            )}
-          </div>
-
-          <div className="w-full h-36 bg-pink-200 flex justify-between items-center">
-            <HomeProfile />
-            <BeenTogether />
-            <HomeProfile />
-          </div>
-          <textarea
-            cols="30"
-            rows="2"
-            style={{ resize: "none" }}
-            className={`m-3 ${!editBio && "hidden"}`}
-            placeholder={editBio ? briefRef.current.textContent : null}
-            ref={textAreaRef}
-          ></textarea>
-          <div className={`w-full p-3 ${editBio && "hidden"}`} ref={briefRef}>
-            {getBrief()}
-          </div>
+          {editBio ? (
+            <SaveAsRoundedIcon onClick={handleSaveTitle} />
+          ) : (
+            <ModeEditRoundedIcon onClick={handleEditTitle} />
+          )}
         </div>
 
-        {/* D-day 영역 */}
-        <span className="submenu">D-day</span>
-        <div className="w-full centerPage">
-          {DdayList.map((item, index) => {
-            return <DdayCard key={item + index} />;
-          })}
+        <div className="w-full h-36 bg-pink-200 flex justify-between items-center">
+          <HomeProfile />
+          <BeenTogether />
+          <HomeProfile />
         </div>
+        <textarea
+          cols="30"
+          rows="2"
+          style={{ resize: "none" }}
+          className={`m-3 ${!editBio && "hidden"}`}
+          placeholder={editBio ? briefRef.current.textContent : null}
+          ref={textAreaRef}
+        ></textarea>
+        <div className={`w-full p-3 ${editBio && "hidden"}`} ref={briefRef}>
+          {getBrief()}
+        </div>
+      </div>
+
+      {/* D-day 영역 */}
+      <span className="submenu">D-day</span>
+      <div className="w-full centerPage">
+        {DdayList.map((item, index) => {
+          return <DdayCard key={item + index} />;
+        })}
       </div>
       <AddButton page="home" />
     </>

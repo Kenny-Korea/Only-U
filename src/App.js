@@ -32,7 +32,7 @@ const App = () => {
     <>
       <div className={`font-main ${screenSize} flex flex-col`}>
         <Header children={title} />
-        <div className="w-full h-[calc(100vh-7.5rem)] bg-amber-500 overflow-scroll">
+        <div className="w-full h-[calc(100vh-7.5rem)] bg-amber-500">
           <Routes>
             <Route
               path="/"

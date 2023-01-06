@@ -5,6 +5,7 @@ import { onSnapshot, doc } from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 import ModalPlace from "../Components/Modal/ModalPlace";
+import PlaceFilter from "../Components/Filter/PlaceFilter";
 
 const Place = ({ size, setTitle }) => {
   setTitle("Place");
@@ -12,36 +13,45 @@ const Place = ({ size, setTitle }) => {
   const [places, setPlaces] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
-  // useEffect(() => {
-  //   const getPlaces = () => {
-  //     const unsub = onSnapshot(
-  //       doc(db, "places", currentUser.uid),
-  //       (snapshot) => {
-  //         setPlaces(snapshot.data().place);
-  //       }
-  //     );
-  //     // clean-up
-  //     return () => {
-  //       unsub();
-  //     };
-  //   };
-  //   currentUser.uid && getPlaces();
-  // }, [currentUser.uid]);
+  useEffect(() => {
+    const getPlaces = () => {
+      const unsub = onSnapshot(
+        doc(db, "places", currentUser.uid),
+        (snapshot) => {
+          setPlaces(snapshot.data().place);
+        }
+      );
+      // clean-up
+      return () => {
+        unsub();
+      };
+    };
+    currentUser.uid && getPlaces();
+  }, [currentUser.uid]);
 
   return (
     <>
       <div className={`${size} centerPage`}>
-        <div className="grid grid-cols-2 gap-3">
-          <PlaceCard />
-          <PlaceCard />
-          <PlaceCard />
-          <PlaceCard />
-          <PlaceCard />
-          <PlaceCard />
-          <PlaceCard />
+        <PlaceFilter />
+        <div className="overflow-y-scroll pb-2">
+          {Array.isArray(places) && places.length === 0
+            ? "새 글을 작성해보세요"
+            : null}
+          <div className="grid grid-cols-2 gap-3">
+            {places?.map((place, index) => {
+              return <PlaceCard key={addPlace + index} place={place} />;
+            })}
+          </div>
+          <AddButton
+            page="place"
+            addPlace={addPlace}
+            setAddPlace={setAddPlace}
+            onClick={() => {
+              console.log("click");
+            }}
+          />
+          <ModalPlace addPlace={addPlace} setAddPlace={setAddPlace} />
         </div>
-        <AddButton page="place" addPlace={addPlace} setAddPlace={setAddPlace} />
-        <ModalPlace addPlace={addPlace} setAddPlace={setAddPlace} />
       </div>
     </>
   );
