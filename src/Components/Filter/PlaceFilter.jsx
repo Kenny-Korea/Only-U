@@ -13,7 +13,7 @@ const PlaceFilter = () => {
         <button className="w-6 h-6 bg-blue-400 rounded-full shadow-lg">
           <SearchRoundedIcon style={{ fontSize: "1rem", color: "white" }} />
         </button>
-        제발 좀 돼라 ㅠㅠ
+        다시 테스트 합니당
       </div>
     </>
   );
