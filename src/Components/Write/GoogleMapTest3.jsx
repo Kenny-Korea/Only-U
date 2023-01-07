@@ -18,8 +18,7 @@ const mapContainerStyle = {
 
 const GoogleMapTest3 = () => {
   const { isLoaded, loadError } = useLoadScript({
-    // googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-    googleMapsApiKey: "AIzaSyCuOY8NpVbAD1iHSsmXIo8PfBvDU6dy760",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // 구글맵뿐만 아니라 places라는 라이브러리도 함께 사용할 것이므로 아래의 내용 추가
     // 변수로 따로 뺀 다음에 불러오는게 렌더링을 최적화하는데 더 도움이 됨
     // libraries: ["places"],
