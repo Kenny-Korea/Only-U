@@ -130,7 +130,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
         id={addPost ? "addPostSlideIn" : "addPostSlideOut"}
         // id={post && "addPostSlideIn"}
       >
-        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200 scroll-pb-96">
+        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">
           <div className="flex flex-col">
             <span className="mx-3">포스트 작성</span>
             <input

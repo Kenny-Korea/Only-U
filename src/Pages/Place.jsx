@@ -44,22 +44,6 @@ const Place = ({ size }) => {
     return <h2>{error.message}</h2>;
   }
 
-  // useEffect(() => {
-  //   const getPlaces = () => {
-  //     const unsub = onSnapshot(
-  //       doc(db, "places", currentUser.uid),
-  //       (snapshot) => {
-  //         setPlaces(snapshot.data().place);
-  //       }
-  //     );
-  //     // clean-up
-  //     return () => {
-  //       unsub();
-  //     };
-  //   };
-  //   currentUser.uid && getPlaces();
-  // }, [currentUser.uid]);
-
   return (
     <>
       <div className={`${size} centerPage`}>

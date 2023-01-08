@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import ProfileImageSmall from "../Profile/ProfileImageSmall";
 import ModifyButton from "../Buttons/ModifyButton";
 
-const PostCard = ({ post }) => {
-  const handleSettings = () => {
+const PostCard = ({ post, index }) => {
+  const handleSettings = (e) => {
     // Update, Delete 기능 추가해야 함
   };
   return (
@@ -13,7 +13,7 @@ const PostCard = ({ post }) => {
           <div className="flex justify-between">
             <span className="font-bold text-xl">{post?.title}</span>
             <div onClick={handleSettings}>
-              <ModifyButton />
+              <ModifyButton post={post} index={index} />
             </div>
           </div>
           <div className="flex justify-between">

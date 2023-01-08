@@ -233,8 +233,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
         className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 left-0 itemCenter bg-white bg-opacity-50"
         id={addPlace ? "addPostSlideIn" : "addPostSlideOut"}
       >
-        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative scroll-pb-96">
-          <div className="absolute top-2 left-2 z-10 flex gap-1">
+        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative">
+          <div className="absolute top-2 left-2 z-10 flex gap-1 m-1">
             <Autocomplete>
               <input
                 type="text"

@@ -43,26 +43,18 @@ const Post = ({ size }) => {
     return <h2>{error.message}</h2>;
   }
 
-  // useEffect(() => {
-  //   const getPosts = () => {
-  //     const unsub = onSnapshot(
-  //       doc(db, "posts", currentUser.uid),
-  //       (snapshot) => {
-  //         setPosts(snapshot.data().post);
-  //       }
-  //     );
-  //     // clean-up
-  //     return () => {
-  //       unsub();
-  //     };
-  //   };
-  //   currentUser.uid && getPosts();
-  // }, [currentUser.uid]);
   return (
     <>
+      <button
+        onClick={() => {
+          console.log(posts);
+        }}
+      >
+        click
+      </button>
       <div className={`${size} overflow-y-scroll`}>
         {posts?.map((post, index) => {
-          return <PostCard key={addPost + index} post={post} />;
+          return <PostCard key={addPost + index} post={post} index={index} />;
         })}
         {Array.isArray(posts) && posts.length === 0
           ? "새 글을 작성해보세요"

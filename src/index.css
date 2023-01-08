@@ -44,8 +44,8 @@ tr {
   @apply h-6;
 }
 td:nth-child(odd) {
-  @apply w-14 h-full text-xs align-middle bg-red-200 text-center border-black border-2;
+  @apply w-14 h-full text-xs align-middle text-start pl-2;
 }
 td:nth-child(even) {
-  @apply w-auto pl-2 border-black border-2;
+  @apply w-auto pl-2 border-slate-300 border-b;
 }
