@@ -1,3 +1,7 @@
+:root {
+  --clr: #fff;
+}
+
 @keyframes settingSlideIn {
   from {
     right: -50%;

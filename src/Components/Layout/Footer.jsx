@@ -1,44 +1,84 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import MenuButton from "../Buttons/MenuButton";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
 import PhotoRoundedIcon from "@mui/icons-material/PhotoRounded";
 import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineRounded";
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
+import "./Footer.css";
 
 const Footer = () => {
   const iconSize = {
-    fontSize: "1.8rem",
+    fontSize: "1.6rem",
     color: "rgb(191, 191, 191)",
   };
+  const list = document.querySelectorAll(".list");
+  function activeLink() {
+    list.forEach((item) => {
+      item.classList.remove("active");
+      this.classList.add("active");
+    });
+  }
+  list.forEach((item) => {
+    item.addEventListener("click", activeLink);
+  });
+
+  const navigate = useNavigate();
+  // const [user, setUser] = useState("sisca");
+
+  // target을 사용하면 하위 요소인 span태그를 클릭 시, 해당 이벤트가 선택됨
+  // currentTarget은 이벤트 핸들러를 갖고 있는 태그를 가리키므로, currentTarget을 사용해야 이벤트 캡쳐링으로 인한 오류를 막을 수 있음
+  const handleClick = (e) => {
+    const type = e.currentTarget.id;
+    switch (type) {
+      case "Home":
+        navigate("/");
+        break;
+      default:
+        navigate(`/${type}`);
+        break;
+    }
+  };
+
   return (
     <>
-      <div className="TabBottom w-screen h-16 flex flex-row border-white">
-        {/* key를 넣어줘야 에러가 발생하지 않는데 왜 그러는지 확인 필요 */}
-        <MenuButton
-          children={[<HomeRoundedIcon style={iconSize} key="Home" />, "Home"]}
-        />
-        <MenuButton
-          children={[<PhotoRoundedIcon style={iconSize} key="Post" />, "Post"]}
-        />
-        <MenuButton
-          children={[
-            <ChatBubbleOutlineRoundedIcon style={iconSize} key="Chat" />,
-            "Chat",
-          ]}
-        />
-        <MenuButton
-          children={[
-            <PlaceRoundedIcon style={iconSize} key="Place" />,
-            "Place",
-          ]}
-        />
-        <MenuButton
-          children={[
-            <CardGiftcardRoundedIcon style={iconSize} key="Gift" />,
-            "Gift",
-          ]}
-        />
+      <div className="w-full centerItem">
+        <div className="navigation">
+          <ul>
+            <li className="list active" id="Home" onClick={handleClick}>
+              <span className="icon">
+                <HomeRoundedIcon />
+              </span>
+              <span className="text">Home</span>
+            </li>
+            <li className="list" id="Post" onClick={handleClick}>
+              <span className="icon">
+                <PhotoRoundedIcon />
+              </span>
+              <span className="text">Post</span>
+            </li>
+            <li className="list" id="Chat" onClick={handleClick}>
+              <span className="icon">
+                <ChatBubbleOutlineRoundedIcon />
+              </span>
+              <span className="text">Chat</span>
+            </li>
+            <li className="list" id="Place" onClick={handleClick}>
+              <span className="icon">
+                <PlaceRoundedIcon />
+              </span>
+              <span className="text">Place</span>
+            </li>
+            <li className="list" id="Gift" onClick={handleClick}>
+              <span className="icon">
+                <CardGiftcardRoundedIcon />
+              </span>
+              <span className="text">Gift</span>
+            </li>
+            <div className="indicator"></div>
+          </ul>
+        </div>
       </div>
     </>
   );

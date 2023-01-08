@@ -29,12 +29,16 @@ const MenuButton = ({ children }) => {
   return (
     <>
       <div
-        className="w-1/5 h-16 bg-headerFooter flex flex-col justify-center items-center text-textPink border-t-2 border-gray-300"
+        className="w-16 h-12 z-10 relative"
         id={children[1]}
         onClick={handleClick}
       >
-        <span className="mb-0.5">{children[0]}</span>
-        <span className="text-xs font-bold">{children[1]}</span>
+        <span className="block relative text-lg text-center duration-500 click:-translate-y-9">
+          {children[0]}
+        </span>
+        <span className="absolute text-black duration-500 opacity-0 click:opacity-100 click:translate-y-3">
+          {children[1]}
+        </span>
       </div>
     </>
   );
