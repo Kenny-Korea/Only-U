@@ -25,6 +25,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
 const libraries = ["places"];
@@ -35,7 +36,7 @@ const mapContainerStyle = {
 
 const ModalPlace = ({ addPlace, setAddPlace }) => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_FIREBASE_API_KEY,
     // 구글맵뿐만 아니라 places라는 라이브러리도 함께 사용할 것이므로 아래의 내용 추가
     // 변수로 따로 뺀 다음에 불러오는게 렌더링을 최적화하는데 더 도움이 됨
     // libraries: ["places"],
@@ -46,7 +47,6 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   const mapRef = useRef();
   const onMapLoad = useCallback((map) => {
     mapRef.current = map;
-    console.log("loaded");
   }, []);
 
   const { currentUser } = useContext(AuthContext);
@@ -54,22 +54,26 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   const google = window.google;
   const [place, setPlace] = useState(null);
   const [preview, setPreview] = useState(null);
-  const [rate, setRate] = useState();
+  const [rate, setRate] = useState("3");
   const placeNameRef = useRef();
   const descriptionRef = useRef();
   const fileRef = useRef();
   const [seeReview, setSeeReview] = useState(false);
   const [placeType, setPlaceType] = useState(false);
+  const [fileName, setFileName] = useState();
+  const rateRef = useRef();
+  const [uploading, setUploading] = useState(false);
 
   const handleCancel = () => {
     setAddPlace(false);
     setPlace(null);
     setPreview(null);
-    setRate(null);
+    setRate("3");
     setSeeReview(false);
+    setFileName(null);
     placeNameRef.current.value = "";
     descriptionRef.current.value = "";
-    fileRef.current.files[0] = "";
+    fileRef.current.value = null;
   };
 
   const toggleReview = () => {
@@ -77,7 +81,16 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   };
 
   const handleRate = (e) => {
-    setRate(e.target.innerHTML);
+    setRate(e.target.id);
+
+    const parsedRate = parseInt(e.target.id);
+    for (let i = 0; i < 5; i++) {
+      if (i < parsedRate) {
+        rateRef.current.children[i].innerHTML = "★";
+      } else {
+        rateRef.current.children[i].innerHTML = "☆";
+      }
+    }
   };
 
   const handleClickPlace = async (e) => {
@@ -102,7 +115,6 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     service.getDetails(request, callback);
     function callback(data, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        console.log(data);
         if (place) {
           let copy = { ...place };
           copy = data;
@@ -125,6 +137,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   };
 
   const handleSubmit = async () => {
+    if (uploading) return;
+    setUploading(true);
     const uploadDate = Timestamp.now();
     const res = await getDoc(doc(db, "places", currentUser.uid));
     const docRef = doc(db, "places", currentUser.uid);
@@ -172,14 +186,13 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     } else {
       handleUpdate(updateDoc);
     }
+    setUploading(false);
   };
 
   const [placeNameValue, setPlaceNameValue] = useState(null);
 
   const handleCopyNameFromMap = (e) => {
     if (!place?.name) return;
-
-    console.log(place.name);
     setPlaceNameValue(place.name);
     // placeNameRef.current.value = place.name;
   };
@@ -208,6 +221,10 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     </svg>
   );
 
+  const test = (e) => {
+    setFileName(e.target.files[0].name);
+  };
+
   return (
     <>
       <div id="map"></div>
@@ -216,7 +233,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
         className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 left-0 itemCenter bg-white bg-opacity-50"
         id={addPlace ? "addPostSlideIn" : "addPostSlideOut"}
       >
-        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative">
+        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative scroll-pb-96">
           <div className="absolute top-2 left-2 z-10 flex gap-1">
             <Autocomplete>
               <input
@@ -241,7 +258,6 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
               {preview && (
                 <div className="flex w-full">
                   {preview?.map((image) => {
-                    console.log(image);
                     return (
                       <img
                         src={image()}
@@ -318,7 +334,25 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             </tr>
             <tr>
               <td>평점</td>
-              <td className="text-sm">☆ ☆ ☆ ☆ ☆</td>
+              <td className="text-sm">
+                <ul className="flex gap-2" ref={rateRef}>
+                  <li className="text-yellow-500" id={1} onClick={handleRate}>
+                    ★
+                  </li>
+                  <li className="text-yellow-500" id={2} onClick={handleRate}>
+                    ★
+                  </li>
+                  <li className="text-yellow-500" id={3} onClick={handleRate}>
+                    ★
+                  </li>
+                  <li className="text-yellow-500" id={4} onClick={handleRate}>
+                    ☆
+                  </li>
+                  <li className="text-yellow-500" id={5} onClick={handleRate}>
+                    ☆
+                  </li>
+                </ul>
+              </td>
             </tr>
             <tr>
               <td>타입</td>
@@ -350,15 +384,22 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             <tr>
               <td>이미지</td>
               <td>
-                <input
-                  type="file"
-                  id="file"
-                  className="h-4 hidden"
-                  ref={fileRef}
-                />
-                <label htmlFor="file" className="text-xs">
-                  Click to add Image
-                </label>
+                <div className="flex items-center text-xs">
+                  <input
+                    type="file"
+                    id="file"
+                    className="h-4 hidden"
+                    accept="image/*"
+                    ref={fileRef}
+                    onChange={test}
+                  />
+                  <label htmlFor="file" className="mr-1 text-textPink">
+                    <AddPhotoAlternateRoundedIcon
+                      style={{ fontSize: "1.2rem" }}
+                    />
+                  </label>
+                  {fileName ? fileName : "No Image"}
+                </div>
               </td>
             </tr>
             <tr>

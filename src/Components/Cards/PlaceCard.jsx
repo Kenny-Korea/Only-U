@@ -1,5 +1,4 @@
 import React from "react";
-import unnamed from "../../Images/toongtoong.png";
 import LocationOnRoundedIcon from "@mui/icons-material/LocationOnRounded";
 import PlaceButton from "../Buttons/PlaceButton";
 import ModifyButton from "../Buttons/ModifyButton";
@@ -9,9 +8,6 @@ const PlaceCard = ({ place }) => {
     if (text.length < max + 2) return text;
     return text.substring(0, max) + "...";
   };
-  if (place.rate) {
-    console.log(typeof place.rate);
-  }
 
   const displayRate = () => {
     const parsedNum = parseInt(place.rate);

@@ -5,18 +5,22 @@ import App from "./App";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./Context/AuthContext";
 import { ChatContextProvider } from "./Context/ChatContext";
 
+const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <AuthContextProvider>
-    <ChatContextProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ChatContextProvider>
-  </AuthContextProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthContextProvider>
+      <ChatContextProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ChatContextProvider>
+    </AuthContextProvider>
+  </QueryClientProvider>
 );
 
 // If you want your app to work offline and load faster, you can change

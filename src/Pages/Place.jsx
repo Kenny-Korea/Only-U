@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+
 import AddButton from "../Components/Buttons/AddButton";
 import PlaceCard from "../Components/Cards/PlaceCard";
 import { onSnapshot, doc } from "firebase/firestore";
@@ -7,27 +9,56 @@ import { db } from "../firebase";
 import ModalPlace from "../Components/Modal/ModalPlace";
 import PlaceFilter from "../Components/Filter/PlaceFilter";
 
-const Place = ({ size, setTitle }) => {
-  setTitle("Place");
+const Place = ({ size }) => {
   const [addPlace, setAddPlace] = useState(false);
   const [places, setPlaces] = useState([]);
   const { currentUser } = useContext(AuthContext);
 
-  useEffect(() => {
-    const getPlaces = () => {
-      const unsub = onSnapshot(
-        doc(db, "places", currentUser.uid),
-        (snapshot) => {
-          setPlaces(snapshot.data().place);
-        }
-      );
-      // clean-up
-      return () => {
-        unsub();
-      };
-    };
-    currentUser.uid && getPlaces();
-  }, [currentUser.uid]);
+  const onSuccess = (data) => {
+    console.log("Perform side effect after data fetching", data);
+  };
+
+  const onError = (error) => {
+    console.log("Perform side effect after encountering error", error);
+  };
+
+  const getPlaces = () => {
+    if (!currentUser?.uid) return;
+    onSnapshot(doc(db, "places", currentUser.uid), (snapshot) => {
+      setPlaces(snapshot.data().place);
+    });
+  };
+
+  const { isLoading, data, isError, error, isFetching } = useQuery(
+    "place",
+    getPlaces,
+    onSuccess,
+    onError
+  );
+
+  if (isLoading || isFetching) {
+    return <h2>Loading...</h2>;
+  }
+
+  if (isError) {
+    return <h2>{error.message}</h2>;
+  }
+
+  // useEffect(() => {
+  //   const getPlaces = () => {
+  //     const unsub = onSnapshot(
+  //       doc(db, "places", currentUser.uid),
+  //       (snapshot) => {
+  //         setPlaces(snapshot.data().place);
+  //       }
+  //     );
+  //     // clean-up
+  //     return () => {
+  //       unsub();
+  //     };
+  //   };
+  //   currentUser.uid && getPlaces();
+  // }, [currentUser.uid]);
 
   return (
     <>
@@ -46,9 +77,6 @@ const Place = ({ size, setTitle }) => {
             page="place"
             addPlace={addPlace}
             setAddPlace={setAddPlace}
-            onClick={() => {
-              console.log("click");
-            }}
           />
           <ModalPlace addPlace={addPlace} setAddPlace={setAddPlace} />
         </div>

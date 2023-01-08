@@ -1,11 +1,8 @@
 import React from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 
 const SettingsItem = ({ text, setSettings }) => {
-  const { currentUser } = useContext(AuthContext);
   const handleClick = () => {
     setSettings(false);
     switch (text) {

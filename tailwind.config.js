@@ -19,6 +19,8 @@ module.exports = {
         brightRed: "hsl(12, 88%, 59%)",
         brightPink: "RGB(214, 80, 118)",
         textPink: "rgb(255, 111, 97)",
+        headerFooter: "#F5F7FA",
+        test: "#f2f4f6",
       },
     },
   },

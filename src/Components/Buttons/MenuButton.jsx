@@ -1,21 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { getDoc, query, collection, where } from "firebase/firestore";
-import { auth, db, storage } from "../../firebase";
-import { doc, setDoc, updateDoc, serverTimestamp } from "firebase/firestore";
-
-import { useContext } from "react";
-import { AuthContext } from "../../Context/AuthContext";
-import { useState } from "react";
-import { ChatContext } from "../../Context/ChatContext";
 
 const MenuButton = ({ children }) => {
-  const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
-
   // const { lover } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [user, setUser] = useState("sisca");
+  // const [user, setUser] = useState("sisca");
 
   const handleLoadChat = async () => {
     navigate("/Chat");
@@ -40,7 +29,7 @@ const MenuButton = ({ children }) => {
   return (
     <>
       <div
-        className="w-1/5 h-16 bg-slate-50 flex flex-col justify-center items-center text-textPink border-t-2 border-gray-300"
+        className="w-1/5 h-16 bg-headerFooter flex flex-col justify-center items-center text-textPink border-t-2 border-gray-300"
         id={children[1]}
         onClick={handleClick}
       >

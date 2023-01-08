@@ -4,8 +4,12 @@ import unnamed from "../../Images/unnamed.png";
 const HomeProfile = () => {
   return (
     <>
-      <div className="w-36 h-full bg-black centerItem">
-        <img src={unnamed} alt="pp" className="object-contain w-32 h-32" />
+      <div className="w-36 h-full centerItem">
+        <img
+          src={unnamed}
+          alt="pp"
+          className="object-contain w-32 h-32 rounded-full"
+        />
       </div>
     </>
   );

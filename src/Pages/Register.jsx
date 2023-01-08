@@ -10,34 +10,6 @@ const Register = () => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
-  const handleTest = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    const storageRef = ref(storage, "a.png");
-    try {
-      const uploadTask = uploadBytesResumable(storageRef, file);
-      console.log("pressed");
-      // uploadTask.on(
-      //   "state_changed",
-      //   (snapshot) => {
-      //     const progress =
-      //       (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //     console.log(`Upload is ${progress}% done`);
-      //   },
-      //   (error) => {
-      //     alert(`error: image upload error ${JSON.stringify(error)}`);
-      //   },
-      //   () => {
-      //     getDownloadURL(uploadTask.snapshot.ref).then((downloadUrl) => {
-      //       console.log(`완료 url: ${downloadUrl}`);
-      //     });
-      //   }
-      // );
-    } catch {
-      console.log("failed");
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target[0].value;
@@ -105,10 +77,10 @@ const Register = () => {
           <button>Sign up</button>
           {err && <span>Something went wrong. Try again</span>}
         </form>
-        <form onSubmit={handleTest}>
+        {/* <form onSubmit={handleTest}>
           <input type="file" />
           <button>Upload Test</button>
-        </form>
+        </form> */}
       </div>
     </>
   );
