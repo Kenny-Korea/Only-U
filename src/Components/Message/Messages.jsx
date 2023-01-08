@@ -7,7 +7,7 @@ const Messages = ({ messages, divRef }) => {
     <>
       <div
         ref={divRef}
-        className="top-12 w-full h-[calc(100%-10.2rem)] bg-red-200 absolute overflow-y-auto"
+        className="w-full h-[calc(100vh-10rem)] pb-12 bg-red-200 absolute overflow-y-scroll"
       >
         {messages?.map((message, index) => {
           return <Message message={message} key={index} />;

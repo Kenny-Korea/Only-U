@@ -45,7 +45,7 @@ const ChatInput = ({ setTest }) => {
   };
   return (
     <>
-      <div className="w-screen h-12 centerItem fixed bottom-16 bg-transparent">
+      <div className="w-screen h-14 centerItem fixed bottom-16 bg-transparent">
         <div className="w-full h-8 mx-2 flex justify-between rounded-full">
           <div className="w-[calc(100%-4rem)] flex">
             <div className="w-8 h-full bg-white centerItem rounded-tl-full rounded-bl-full">

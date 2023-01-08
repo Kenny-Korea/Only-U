@@ -19,12 +19,12 @@ const Header = ({ children }) => {
   return (
     <>
       <div
-        className="w-screen h-14 bg-headerFooter text-brightRed font-bold text-2xl
-        flex justify-between items-center px-3 relative"
+        className="w-screen h-14 bg-white text-brightRed font-bold text-2xl
+        flex justify-between items-center px-3 relative shadow-sm"
       >
-        <img src={onlyU} alt="pp" className="w-12 h-12" onClick={onClickLogo} />
+        <img src={onlyU} alt="pp" className="w-10 h-10" onClick={onClickLogo} />
         {children}
-
+        {/* 
         {currentUser?.photoURL ? (
           <img
             className="w-10 h-10 rounded object-cover"
@@ -32,9 +32,9 @@ const Header = ({ children }) => {
             src={currentUser.photoURL}
             alt="pp"
           />
-        ) : (
-          <MenuRoundedIcon onClick={onClickSettings} />
-        )}
+        ) : ( */}
+        <MenuRoundedIcon onClick={onClickSettings} />
+        {/* )} */}
 
         <ModalSettings settings={settings} setSettings={setSettings} />
       </div>

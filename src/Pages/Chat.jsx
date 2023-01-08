@@ -44,28 +44,10 @@ const Chat = ({ size }) => {
     return <h2>{error.message}</h2>;
   }
 
-  // useEffect(() => {
-  //   const getChats = () => {
-  //     const unsub = onSnapshot(doc(db, "chat", currentUser.uid), (doc) => {
-  //       setMessages(doc.data().chat);
-  //     });
-  //     // Clean-Up 함수
-  //     return () => {
-  //       unsub();
-  //     };
-  //   };
-
-  //   currentUser.uid && getChats();
-  //   // divRef.current.lastChild.scrollIntoView();
-  //   console.log(divRef.current.lastChild);
-  // }, [currentUser.uid]);
-
   return (
     <>
       {/* background */}
-      <div
-        className={`w-screen h-[calc(100vh-7.5rem)] bg-green-200 flex flex-col mb-16 centerPage`}
-      >
+      <div className={`${size}`}>
         <ChatProfile />
         <Messages messages={messages} divRef={divRef} />
         <ChatInput />

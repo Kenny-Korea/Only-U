@@ -43,7 +43,7 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full centerItem">
+      <div className="w-full bg-slate-200 rounded-tr-lg rounded-tl-lg centerItem">
         <div className="navigation">
           <ul>
             <li className="list active" id="Home" onClick={handleClick}>

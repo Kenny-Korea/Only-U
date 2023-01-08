@@ -19,7 +19,7 @@ const PlaceCard = ({ place }) => {
   };
   return (
     <>
-      <div className="w-44 h-44 shadow-md">
+      <div className="w-44 h-44 shadow-test">
         <div className="w-full h-2/3 relative">
           <img
             src={place?.url}

@@ -45,13 +45,6 @@ const Post = ({ size }) => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          console.log(posts);
-        }}
-      >
-        click
-      </button>
       <div className={`${size} overflow-y-scroll`}>
         {posts?.map((post, index) => {
           return <PostCard key={addPost + index} post={post} index={index} />;
