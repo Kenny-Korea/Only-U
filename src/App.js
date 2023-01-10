@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Footer from "./Components/Layout/Footer";
 import Header from "./Components/Layout/Header";
@@ -8,8 +8,6 @@ import Chat from "./Pages/Chat";
 import Place from "./Pages/Place";
 // import Gift from "./Pages/Gift";
 import Register from "./Pages/Register";
-// import GoogleMapTest1 from "./Components/Write/GoogleMapTest1";
-// import GoogleMapTest2 from "./Components/Write/GoogleMapTest2";
 import GoogleMapTest3 from "./Components/Write/GoogleMapTest3";
 import { AuthContext } from "./Context/AuthContext";
 import Login from "./Pages/Login";
@@ -18,6 +16,10 @@ const App = () => {
   const screenSize = "w-screen h-screen";
   const pageSize = "w-screen h-full";
   const { currentUser } = useContext(AuthContext);
+  const [currentPage, setCurrentPage] = useState("Home");
+  // 아래와 같이 recoil을 이용해 상태 관리하려고 하면 엄청 느려짐. 이유를 모르겠음
+  // const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
+
   // 로그인하지 않은 상태로 다른 페이지에 접근하는 것을 방지하기 위해 ProtectedRoute 선언 및 사용
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
@@ -36,7 +38,7 @@ const App = () => {
               path="/"
               element={
                 <ProtectedRoute>
-                  <Home size={pageSize} />
+                  <Home size={pageSize} setCurrentPage={setCurrentPage} />
                 </ProtectedRoute>
               }
             />
@@ -44,7 +46,7 @@ const App = () => {
               path="/post"
               element={
                 <ProtectedRoute>
-                  <Post size={pageSize} />
+                  <Post size={pageSize} setCurrentPage={setCurrentPage} />
                 </ProtectedRoute>
               }
             />
@@ -52,7 +54,7 @@ const App = () => {
               path="/chat"
               element={
                 <ProtectedRoute>
-                  <Chat size={pageSize} />
+                  <Chat size={pageSize} setCurrentPage={setCurrentPage} />
                 </ProtectedRoute>
               }
             />
@@ -60,7 +62,7 @@ const App = () => {
               path="/place"
               element={
                 <ProtectedRoute>
-                  <Place size={pageSize} />
+                  <Place size={pageSize} setCurrentPage={setCurrentPage} />
                 </ProtectedRoute>
               }
             />
@@ -70,21 +72,18 @@ const App = () => {
             /> */}
             <Route path="/register" element={<Register size={screenSize} />} />
             <Route path="/login" element={<Login size={screenSize} />} />
-            {/* <Route
-              path="/test1"
-              element={<GoogleMapTest1 size={screenSize} />}
-            /> */}
-            {/* <Route
-              path="/test2"
-              element={<GoogleMapTest2 size={screenSize} />}
-            /> */}
             <Route
               path="/gift"
-              element={<GoogleMapTest3 size={screenSize} />}
+              element={
+                <GoogleMapTest3
+                  size={screenSize}
+                  setCurrentPage={setCurrentPage}
+                />
+              }
             />
           </Routes>
         </div>
-        <Footer />
+        <Footer currentPage={currentPage} />
       </div>
     </>
   );

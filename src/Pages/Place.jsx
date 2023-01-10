@@ -8,8 +8,15 @@ import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 import ModalPlace from "../Components/Modal/ModalPlace";
 import PlaceFilter from "../Components/Filter/PlaceFilter";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../atoms";
 
-const Place = ({ size }) => {
+const Place = ({ size, setCurrentPage }) => {
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+  useEffect(() => {
+    setCurrentPage("Place");
+    setHideFooter(false);
+  }, []);
   const [addPlace, setAddPlace] = useState(false);
   const [places, setPlaces] = useState([]);
   const { currentUser } = useContext(AuthContext);

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 
 import ChatInput from "../Components/Inputs/ChatInput";
@@ -8,8 +8,15 @@ import { db } from "../firebase";
 import { useContext } from "react";
 import { AuthContext } from "../Context/AuthContext";
 import Messages from "../Components/Message/Messages";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../atoms";
 
-const Chat = ({ size }) => {
+const Chat = ({ size, setCurrentPage }) => {
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+  useEffect(() => {
+    setCurrentPage("Chat");
+    setHideFooter(false);
+  }, []);
   const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
   const divRef = useRef();
@@ -47,7 +54,7 @@ const Chat = ({ size }) => {
   return (
     <>
       {/* background */}
-      <div className={`${size}`}>
+      <div className={`${size} duration-500`}>
         <ChatProfile />
         <Messages messages={messages} divRef={divRef} />
         <ChatInput />

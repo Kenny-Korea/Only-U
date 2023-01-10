@@ -27,6 +27,8 @@ import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../../atoms";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
 const libraries = ["places"];
@@ -35,7 +37,7 @@ const mapContainerStyle = {
   height: "12rem",
 };
 const options = {
-  disableDefaultUI: true,
+  // disableDefaultUI: true,
 };
 
 const ModalPlace = ({ addPlace, setAddPlace }) => {
@@ -63,10 +65,16 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   const descriptionRef = useRef();
   const fileRef = useRef();
   const [seeReview, setSeeReview] = useState(false);
-  const [placeType, setPlaceType] = useState(false);
+  const [placeType, setPlaceType] = useState("");
   const [fileName, setFileName] = useState();
   const rateRef = useRef();
   const [uploading, setUploading] = useState(false);
+
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+
+  const handleFooter = (e) => {
+    setHideFooter(!hideFooter);
+  };
 
   const handleCancel = () => {
     setAddPlace(false);
@@ -169,7 +177,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
       description: descriptionRef.current.value,
       placeId: place.place_id,
       rate: rate,
-      type: "Food",
+      type: placeType,
       url: imageURL,
       writer: currentUser.uid,
       date: uploadDate,
@@ -231,8 +239,6 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
 
   return (
     <>
-      <div id="map"></div>
-
       <div
         className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 left-0 itemCenter bg-white bg-opacity-50"
         id={addPlace ? "addPostSlideIn" : "addPostSlideOut"}
@@ -244,6 +250,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                 type="text"
                 className="w-60 rounded-full text-xs px-3 py-1 outline-none shadow-lg"
                 placeholder="Search Location"
+                onFocus={handleFooter}
+                onBlur={handleFooter}
               />
             </Autocomplete>
             <button className="w-6 h-6 bg-blue-400 rounded-full shadow-lg">
@@ -263,6 +271,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             onLoad={onMapLoad}
             options={options}
           ></GoogleMap>
+          <div id="map"></div>
           {place && (
             <div className="card">
               {preview && (
@@ -318,6 +327,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                     ref={placeNameRef}
                     value={placeNameValue}
                     onChange={handlePlaceName}
+                    onFocus={handleFooter}
+                    onBlur={handleFooter}
                   />
                   <div
                     className="w-28 flex justify-center text-xs bg-pink-200 shadow-md rounded-lg"
@@ -373,7 +384,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                       placeType ? "text-gray-500" : "text-brightRed font-bold"
                     } `}
                     onClick={() => {
-                      setPlaceType(false);
+                      setPlaceType("Food");
                     }}
                   >
                     {checkedIcon} Food
@@ -383,7 +394,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                       placeType ? "text-brightRed font-bold" : "text-gray-500"
                     } `}
                     onClick={() => {
-                      setPlaceType(true);
+                      setPlaceType("Place");
                     }}
                   >
                     {checkedIcon} Place
@@ -402,6 +413,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                     accept="image/*"
                     ref={fileRef}
                     onChange={test}
+                    onFocus={handleFooter}
+                    onBlur={handleFooter}
                   />
                   <label htmlFor="file" className="mr-1 text-textPink">
                     <AddPhotoAlternateRoundedIcon
@@ -421,6 +434,8 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                   placeholder="Description"
                   className="pt-1 resize-none outline-none text-xs w-full leading-tight"
                   ref={descriptionRef}
+                  onFocus={handleFooter}
+                  onBlur={handleFooter}
                 />
               </td>
             </tr>

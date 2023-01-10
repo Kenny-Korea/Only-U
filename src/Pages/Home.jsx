@@ -1,16 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import DdayCard from "../Components/Cards/DdayCard";
 import ModeEditRoundedIcon from "@mui/icons-material/ModeEditRounded";
 import SaveAsRoundedIcon from "@mui/icons-material/SaveAsRounded";
 import HomeProfile from "../Components/Profile/HomeProfile";
 import BeenTogether from "../Components/Others/BeenTogether";
 import AddButton from "../Components/Buttons/AddButton";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../atoms";
+import { AuthContext } from "../Context/AuthContext";
 
-const Home = ({ size }) => {
+const Home = ({ size, setCurrentPage }) => {
   // 로컬 스토리지에 시작일 저장
   // const checkDday = localStorage.getItem("Dday");
   // const startDay = new Date(Date.UTC(2022, 12, 24));
   // const today = new Date();
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+  const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    setCurrentPage("Home");
+    setHideFooter(false);
+  }, []);
 
   const titleRef = useRef();
   const inputRef = useRef();
@@ -74,8 +84,8 @@ const Home = ({ size }) => {
           )}
         </div>
 
-        <div className="w-full h-36 bg-pink-200 flex justify-between items-center">
-          <HomeProfile />
+        <div className="w-full h-36 bg-transparent flex justify-between items-center">
+          <HomeProfile photo={currentUser?.photoURL} />
           <BeenTogether />
           <HomeProfile />
         </div>

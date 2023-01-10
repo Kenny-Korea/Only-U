@@ -1,14 +1,14 @@
 import React from "react";
 import unnamed from "../../Images/unnamed.png";
 
-const HomeProfile = () => {
+const HomeProfile = ({ photo }) => {
   return (
     <>
       <div className="w-36 h-full centerItem">
         <img
-          src={unnamed}
+          src={photo ? photo : unnamed}
           alt="pp"
-          className="object-contain w-32 h-32 rounded-full"
+          className="object-cover w-28 h-28 rounded-full"
         />
       </div>
     </>

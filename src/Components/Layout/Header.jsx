@@ -3,13 +3,15 @@ import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import onlyU from "../../Images/OnlyU-64.png";
 import ModalSettings from "../Modal/ModalSettings";
 import { AuthContext } from "../../Context/AuthContext";
+import { currentPageState, hidingFooterState } from "../../atoms";
 
 const Header = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
   const [settings, setSettings] = useState(false);
 
   const onClickLogo = () => {
-    console.log(currentUser);
+    console.log(currentPageState);
+    console.log(hidingFooterState);
   };
 
   const onClickSettings = () => {

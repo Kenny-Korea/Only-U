@@ -6,7 +6,7 @@ const BeenTogether = () => {
     <>
       <div>
         <div
-          className="w-32 h-32 bg-white"
+          className="w-32 h-32 bg-transparent"
           style={{
             backgroundImage: `url(${hearts})`,
             backgroundSize: "contain",

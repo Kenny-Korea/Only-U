@@ -1,18 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import ProfileImageSmall from "../Profile/ProfileImageSmall";
 import ModifyButton from "../Buttons/ModifyButton";
-import { Slideshow } from "@mui/icons-material";
 import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
 import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
 import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecordOutlined";
+import { AuthContext } from "../../Context/AuthContext";
 
 const PostCard = ({ post, index }) => {
   const handleSettings = (e) => {
     // Update, Delete 기능 추가해야 함
   };
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [firstTouchX, setFirstTouchX] = useState(0);
   const imageContainerRef = useRef();
+  const { currentUser } = useContext(AuthContext);
 
   const toPrevImage = () => {
     const isFirstSlide = currentIndex === 0;
@@ -39,33 +41,17 @@ const PostCard = ({ post, index }) => {
     setCurrentIndex(newIndex);
   };
 
-  const [isClicked, setIsClicked] = useState(false);
-
-  const [mouseDownClientX, setMouseDownClientX] = useState(0);
-  const [mouseUpClientX, setMouseUpClientX] = useState(0);
-
-  const onMouseDown = (e) => {
-    setIsClicked(true);
-    setMouseDownClientX(e.clientX);
-    console.log(e.clientX);
+  const onTouchStart = (e) => {
+    setFirstTouchX(e.changedTouches[0].clientX);
   };
-  const onMouseLeave = (e) => {
-    setIsClicked(false);
-  };
-  const onMouseMove = (e) => {
-    if (!isClicked) return;
+
+  const onTouchEnd = (e) => {
     e.preventDefault();
-    setMouseUpClientX(e.clientX);
-  };
-  const onMouseUp = (e) => {
-    setIsClicked(false);
-    const imgX = mouseUpClientX - mouseDownClientX;
-    console.log(mouseUpClientX, mouseDownClientX);
-    if (imgX > 30) {
+    const lastTouchX = e.changedTouches[0].clientX;
+    const scrollX = firstTouchX - lastTouchX;
+    if (scrollX < -30) {
       toPrevImage();
-      console.log("next");
-    } else if (imgX < -30) {
-      console.log("prev");
+    } else if (scrollX > 30) {
       toNextImage();
     } else {
       return;
@@ -83,19 +69,27 @@ const PostCard = ({ post, index }) => {
             </div>
           </div>
           <div className="flex justify-between">
-            <ProfileImageSmall />
-            <span>Kenny Kim</span>
-            {/* <span>{post.date}</span> */}
+            <div className="centerItem gap-1">
+              <ProfileImageSmall />
+              <span>Kenny Kim</span>
+            </div>
+            <span className="text-xs text-gray-500">
+              posted at{" "}
+              {new Intl.DateTimeFormat("ko-KR").format(post.date.toDate())}
+            </span>
           </div>
-          {post?.url && (
+          {post?.url[index] && (
             <div
               className="w-80 h-60 overflow-x-hidden relative"
-              onMouseDown={onMouseDown}
-              onMouseUp={onMouseUp}
-              onMouseMove={onMouseMove}
-              onMouseLeave={onMouseLeave}
+              onTouchStart={onTouchStart}
+              onTouchEnd={onTouchEnd}
             >
-              <div
+              {post?.url[index] ? (
+                <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white absolute top-2 left-2 z-10">
+                  {currentIndex + 1} / {post.url.length}
+                </div>
+              ) : null}
+              {/* <div
                 className="w-10 h-10 centerItem absolute top-[6.25rem] left-1 z-10 rounded-full bg-slate-500 opacity-50"
                 onClick={toPrevImage}
               >
@@ -106,7 +100,7 @@ const PostCard = ({ post, index }) => {
               <KeyboardArrowRightRoundedIcon
                 onClick={toNextImage}
                 className="absolute top-[40%] right-1 z-10"
-              />
+              /> */}
               <div
                 className={`w-[100rem] h-60 flex duration-500`}
                 ref={imageContainerRef}

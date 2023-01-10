@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   GoogleMap,
   useLoadScript,
@@ -16,7 +16,10 @@ const mapContainerStyle = {
   height: "50vh",
 };
 
-const GoogleMapTest3 = () => {
+const GoogleMapTest3 = ({ setCurrentPage }) => {
+  useEffect(() => {
+    setCurrentPage("Gift");
+  }, []);
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // 구글맵뿐만 아니라 places라는 라이브러리도 함께 사용할 것이므로 아래의 내용 추가

@@ -8,7 +8,15 @@ import { onSnapshot, doc } from "firebase/firestore";
 import { AuthContext } from "../Context/AuthContext";
 import { db } from "../firebase";
 
-const Post = ({ size }) => {
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../atoms";
+
+const Post = ({ size, setCurrentPage }) => {
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+  useEffect(() => {
+    setCurrentPage("Post");
+    setHideFooter(false);
+  }, []);
   const [addPost, setAddPost] = useState(false);
   const [posts, setPosts] = useState([]);
   const { currentUser } = useContext(AuthContext);
@@ -45,7 +53,7 @@ const Post = ({ size }) => {
 
   return (
     <>
-      <div className={`${size} overflow-y-scroll`}>
+      <div className={`${size} overflow-y-scroll pb-4`}>
         {posts?.map((post, index) => {
           return <PostCard key={addPost + index} post={post} index={index} />;
         })}
