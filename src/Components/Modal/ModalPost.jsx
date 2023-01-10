@@ -19,6 +19,8 @@ import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 import addAvatar from "../../Images/addAvatar.png";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../../atoms";
 
 const ModalPost = ({ addPost, setAddPost }) => {
   const { currentUser } = useContext(AuthContext);
@@ -31,6 +33,12 @@ const ModalPost = ({ addPost, setAddPost }) => {
   const [imageURL, setImageURL] = useState([]);
   const fileRef = useRef();
   const [uploading, setUploading] = useState(false);
+
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+
+  const handleFooter = () => {
+    setHideFooter(!hideFooter);
+  };
 
   const handleAddHashtag = () => {
     if (hashtagRef.current.value === "") return;
@@ -128,7 +136,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
       <div
         className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 itemCenter bg-white bg-opacity-50"
         id={addPost ? "addPostSlideIn" : "addPostSlideOut"}
-        // id={post && "addPostSlideIn"}
       >
         <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">
           <div className="flex flex-col">
@@ -138,6 +145,8 @@ const ModalPost = ({ addPost, setAddPost }) => {
               placeholder="제목을 입력하세요"
               className="input"
               ref={titleRef}
+              onFocus={handleFooter}
+              onBlur={handleFooter}
             />
             <div className="flex gap-2">
               <input
@@ -146,6 +155,8 @@ const ModalPost = ({ addPost, setAddPost }) => {
                 className="input"
                 ref={hashtagRef}
                 onKeyDown={handleEnter}
+                onFocus={handleFooter}
+                onBlur={handleFooter}
               />
               <button
                 className="w-10 h-6 bg-slate-300"
@@ -200,6 +211,8 @@ const ModalPost = ({ addPost, setAddPost }) => {
               placeholder="내용을 입력하세요"
               className="textArea"
               ref={contentRef}
+              onFocus={handleFooter}
+              onBlur={handleFooter}
             />
             <SubmitCancelButton
               handleSubmit={handleSubmit}

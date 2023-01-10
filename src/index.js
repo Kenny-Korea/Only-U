@@ -8,19 +8,22 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./Context/AuthContext";
 import { ChatContextProvider } from "./Context/ChatContext";
+import { RecoilRoot } from "recoil";
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <QueryClientProvider client={queryClient}>
-    <AuthContextProvider>
-      <ChatContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </ChatContextProvider>
-    </AuthContextProvider>
-  </QueryClientProvider>
+  <RecoilRoot>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <ChatContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ChatContextProvider>
+      </AuthContextProvider>
+    </QueryClientProvider>
+  </RecoilRoot>
 );
 
 // If you want your app to work offline and load faster, you can change

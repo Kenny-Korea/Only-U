@@ -7,12 +7,12 @@ import ChatBubbleOutlineRoundedIcon from "@mui/icons-material/ChatBubbleOutlineR
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 import CardGiftcardRoundedIcon from "@mui/icons-material/CardGiftcardRounded";
 import "./Footer.css";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../../atoms";
 
 const Footer = () => {
-  const iconSize = {
-    fontSize: "1.6rem",
-    color: "rgb(191, 191, 191)",
-  };
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+
   const list = document.querySelectorAll(".list");
   function activeLink() {
     list.forEach((item) => {
@@ -43,7 +43,11 @@ const Footer = () => {
 
   return (
     <>
-      <div className="w-full bg-slate-200 rounded-tr-lg rounded-tl-lg centerItem">
+      <div
+        className={`w-full bg-slate-600 rounded-tr-lg rounded-tl-lg ${
+          hideFooter ? "hidden" : "centerItem"
+        }`}
+      >
         <div className="navigation">
           <ul>
             <li className="list active" id="Home" onClick={handleClick}>

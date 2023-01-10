@@ -48,15 +48,15 @@ const Place = ({ size }) => {
     <>
       <div className={`${size} centerPage`}>
         <PlaceFilter />
-        <div className="overflow-y-scroll pb-2">
+        <div className="overflow-y-scroll pb-10">
           {Array.isArray(places) && places.length === 0
             ? "새 글을 작성해보세요"
             : null}
-          <div className="grid grid-cols-2 gap-3">
-            {places?.map((place, index) => {
-              return <PlaceCard key={addPlace + index} place={place} />;
-            })}
-          </div>
+          {/* <div className="grid grid-cols-2 gap-3"> */}
+          {places?.map((place, index) => {
+            return <PlaceCard key={addPlace + index} place={place} />;
+          })}
+          {/* </div> */}
           <AddButton
             page="place"
             addPlace={addPlace}

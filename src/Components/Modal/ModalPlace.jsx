@@ -25,6 +25,7 @@ import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
+import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
@@ -33,10 +34,13 @@ const mapContainerStyle = {
   width: "100%",
   height: "12rem",
 };
+const options = {
+  disableDefaultUI: true,
+};
 
 const ModalPlace = ({ addPlace, setAddPlace }) => {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_FIREBASE_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // 구글맵뿐만 아니라 places라는 라이브러리도 함께 사용할 것이므로 아래의 내용 추가
     // 변수로 따로 뺀 다음에 불러오는게 렌더링을 최적화하는데 더 도움이 됨
     // libraries: ["places"],
@@ -238,12 +242,17 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             <Autocomplete>
               <input
                 type="text"
-                className="w-60 rounded-full text-xs pl-3 py-1 outline-none shadow-lg"
+                className="w-60 rounded-full text-xs px-3 py-1 outline-none shadow-lg"
                 placeholder="Search Location"
               />
             </Autocomplete>
             <button className="w-6 h-6 bg-blue-400 rounded-full shadow-lg">
               <SearchRoundedIcon style={{ fontSize: "1rem", color: "white" }} />
+            </button>
+            <button className="w-6 h-6 bg-slate-300 rounded-full shadow-lg">
+              <RefreshRoundedIcon
+                style={{ fontSize: "1rem", color: "black" }}
+              />
             </button>
           </div>
           <GoogleMap
@@ -252,6 +261,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             center={center}
             onClick={handleClickPlace}
             onLoad={onMapLoad}
+            options={options}
           ></GoogleMap>
           {place && (
             <div className="card">
@@ -398,7 +408,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                       style={{ fontSize: "1.2rem" }}
                     />
                   </label>
-                  {fileName ? fileName : "No Image"}
+                  {fileName ? fileName : "No Image (use Google Image)"}
                 </div>
               </td>
             </tr>

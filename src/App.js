@@ -30,7 +30,7 @@ const App = () => {
     <>
       <div className={`font-main ${screenSize} flex flex-col`}>
         <Header />
-        <div className="w-full h-[calc(100vh-3.5rem-70px)] bg-white">
+        <div className="w-full h-[calc(100vh-3.5rem-70px)] bg-bgColor">
           <Routes>
             <Route
               path="/"

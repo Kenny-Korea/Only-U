@@ -21,6 +21,9 @@ module.exports = {
         textPink: "rgb(255, 111, 97)",
         headerFooter: "#F5F7FA",
         test: "#f2f4f6",
+        textGray: "rgb(71, 85, 105)",
+        bgColor: "rgb(241 245 249)",
+        starColor: "rgb(234, 179, 8)",
       },
       boxShadow: {
         test: "rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",

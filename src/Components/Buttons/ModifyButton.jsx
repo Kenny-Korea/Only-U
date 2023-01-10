@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
+import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import SettingPost from "../Settings/SettingPost";
 
 const ModifyButton = ({ post, index }) => {
   const [show, setShow] = useState();
-  console.log(show);
 
   const handleClick = (e) => {
     if (show === e.currentTarget.id) {
@@ -17,10 +16,10 @@ const ModifyButton = ({ post, index }) => {
     <>
       <div
         id={index}
-        className="w-5 h-5 rounded-md bg-textPink text-white flex justify-center items-center relative"
+        className="w-5 h-5 rounded-md bg-brightRed text-white flex justify-center items-center relative"
         onClick={handleClick}
       >
-        <MoreVertRoundedIcon style={{ fontSize: "1.2rem" }} />
+        <MoreHorizRoundedIcon style={{ fontSize: "1.1rem" }} />
         {show ? <SettingPost /> : null}
       </div>
     </>
