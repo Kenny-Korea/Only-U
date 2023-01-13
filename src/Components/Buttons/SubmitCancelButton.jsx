@@ -5,7 +5,7 @@ const SubmitCancelButton = ({ handleSubmit, handleCancel }) => {
     <>
       <div className="flex justify-between gap-4 mx-3 my-2">
         <button
-          className="w-1/2 h-8 bg-textPink text-white rounded-md"
+          className="w-1/2 h-8 bg-main text-white rounded-md"
           onClick={handleSubmit}
         >
           등록

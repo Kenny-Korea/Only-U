@@ -135,7 +135,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
   return (
     <>
       <div
-        className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 itemCenter bg-white bg-opacity-50 z-20"
+        className="w-full h-[calc(100vh-7.5rem)] fixed left-0 mt-14 itemCenter bg-white bg-opacity-50 z-20"
         id={addPost ? "addPostSlideIn" : "addPostSlideOut"}
       >
         <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">

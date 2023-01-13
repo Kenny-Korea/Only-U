@@ -357,19 +357,19 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
               <td>평점</td>
               <td className="text-sm">
                 <ul className="flex gap-2" ref={rateRef}>
-                  <li className="text-yellow-500" id={1} onClick={handleRate}>
+                  <li className="text-main" id={1} onClick={handleRate}>
                     ★
                   </li>
-                  <li className="text-yellow-500" id={2} onClick={handleRate}>
+                  <li className="text-main" id={2} onClick={handleRate}>
                     ★
                   </li>
-                  <li className="text-yellow-500" id={3} onClick={handleRate}>
+                  <li className="text-main" id={3} onClick={handleRate}>
                     ★
                   </li>
-                  <li className="text-yellow-500" id={4} onClick={handleRate}>
+                  <li className="text-main" id={4} onClick={handleRate}>
                     ☆
                   </li>
-                  <li className="text-yellow-500" id={5} onClick={handleRate}>
+                  <li className="text-main" id={5} onClick={handleRate}>
                     ☆
                   </li>
                 </ul>
@@ -391,7 +391,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                   </div>
                   <div
                     className={`flex items-center ${
-                      placeType ? "text-brightRed font-bold" : "text-gray-500"
+                      placeType ? "text-mainColor font-bold" : "text-gray-500"
                     } `}
                     onClick={() => {
                       setPlaceType("Place");
@@ -405,7 +405,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             <tr>
               <td>이미지</td>
               <td>
-                <div className="flex items-center text-xs">
+                <div className="flex items-center text-xs text-textBlack">
                   <input
                     type="file"
                     id="file"
@@ -416,7 +416,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                     onFocus={handleFooter}
                     onBlur={handleFooter}
                   />
-                  <label htmlFor="file" className="mr-1 text-textPink">
+                  <label htmlFor="file" className="mr-1 text-main">
                     <AddPhotoAlternateRoundedIcon
                       style={{ fontSize: "1.2rem" }}
                     />

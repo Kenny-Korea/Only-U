@@ -24,7 +24,7 @@ const App = () => {
   // 로그인하지 않은 상태로 다른 페이지에 접근하는 것을 방지하기 위해 ProtectedRoute 선언 및 사용
   const ProtectedRoute = ({ children }) => {
     if (!currentUser) {
-      return <Navigate to="/login" />;
+      return <Navigate to="/Login" />;
     }
     return children;
   };
@@ -39,7 +39,7 @@ const App = () => {
     <>
       <div className={`font-main ${screenSize} flex flex-col items-center`}>
         <Header />
-        <div className="w-full h-[calc(100vh-3.5rem-70px)] bg-bgColor flex justify-center">
+        <div className="w-full h-[calc(100vh-4rem-70px)] bg-bgColor flex justify-center">
           <Routes>
             <Route
               path="/"
@@ -73,12 +73,8 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            {/* <Route
-              path="/gift"
-              element={<Gift size={screenSize} />}
-            /> */}
-            <Route path="/register" element={<Register size={screenSize} />} />
-            <Route path="/login" element={<Login size={screenSize} />} />
+            <Route path="/Register" element={<Register size={pageSize} />} />
+            <Route path="/Login" element={<Login size={pageSize} />} />
             <Route
               path="/gift"
               element={

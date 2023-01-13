@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import PortraitRoundedIcon from "@mui/icons-material/PortraitRounded";
+import AccountBoxRoundedIcon from "@mui/icons-material/AccountBoxRounded";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = ({ size }) => {
   const [err, setErr] = useState(false);
   const navigate = useNavigate();
 
@@ -58,29 +58,82 @@ const Register = () => {
   };
   return (
     <>
-      <div className="page">
-        <span className="title">Register</span>
-        <form onSubmit={handleSubmit} className="flex flex-col w-screen gap-4">
-          <input type="text" placeholder="username" className="input" />
-          <input type="email" placeholder="Email" className="input" />
-          <input type="password" placeholder="Password" className="input" />
-          {/* <input
-            type="password"
-            placeholder="Password Check"
-            className="input"
-          /> */}
-          <input type="file" id="file" style={{ display: "none" }} />
-          <label htmlFor="file">
-            <PortraitRoundedIcon />
-            <span>Add an avatar</span>
-          </label>
-          <button>Sign up</button>
-          {err && <span>Something went wrong. Try again</span>}
-        </form>
-        {/* <form onSubmit={handleTest}>
+      <div className={`${size} pb-4 flex justify-center z-10`}>
+        <div className="w-10/12">
+          <div
+            className={`card min-h-[26rem] ${err && "h-[28rem]"} flex flex-col`}
+          >
+            <form onSubmit={handleSubmit}>
+              <ul className="m-4 flex flex-col gap-4 text-sm">
+                <li className="flex flex-col">
+                  <span>Username</span>
+                  <input
+                    type="text"
+                    placeholder="username"
+                    className="loginInput"
+                  />
+                </li>
+                <li className="flex flex-col">
+                  <span>Email</span>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    className="loginInput"
+                  />
+                </li>
+                <li className="flex flex-col">
+                  <span>Password</span>
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    className="loginInput"
+                  />
+                </li>
+                <li className="flex flex-col">
+                  <span>Password Check</span>
+                  <input
+                    type="password"
+                    placeholder="Password Check"
+                    className="loginInput"
+                  />
+                </li>
+              </ul>
+              <div className="w-auto h-8 m-4 flex flex-col items-center gap-2">
+                {err && (
+                  <span className="text-sm">
+                    Something went wrong. Try again
+                  </span>
+                )}
+                <button className="w-full h-full py-1 flex justify-center items-center text-white text-lg font-bold bg-orange-300 rounded-full">
+                  <input type="file" id="file" className="w-full hidden" />
+                  <label
+                    htmlFor="file"
+                    className="w-full flex justify-center items-center gap-2"
+                  >
+                    <AccountBoxRoundedIcon style={{ fontSize: "1.3rem" }} />
+                    Add my avatar
+                  </label>
+                </button>
+                <button className="w-full h-full py-1 text-white text-lg font-bold bg-main hover:bg-mainColor rounded-full">
+                  Sign Up
+                </button>
+                <p className="text-sm">
+                  Do you have an account?{" "}
+                  <Link
+                    to="/Login"
+                    className="text-mainColor font-bold underline underline-offset-4"
+                  >
+                    Login
+                  </Link>
+                </p>
+              </div>
+            </form>
+            {/* <form onSubmit={handleTest}>
           <input type="file" />
           <button>Upload Test</button>
         </form> */}
+          </div>
+        </div>
       </div>
     </>
   );

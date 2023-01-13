@@ -34,6 +34,9 @@
 .input {
   @apply w-[calc(100%-(mx*3))] h-6 mx-3 my-2 px-2 py-1 text-sm shadow-sm rounded-md outline-none;
 }
+.loginInput {
+  @apply w-full h-8 px-2 py-1 text-sm rounded-sm outline-main border-2 border-gray-200;
+}
 .textArea {
   @apply mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md text-sm;
 }

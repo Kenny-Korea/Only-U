@@ -1,10 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
 import ProfileImageSmall from "../Profile/ProfileImageSmall";
-import ModifyButton from "../Buttons/ModifyButton";
-import KeyboardArrowLeftRoundedIcon from "@mui/icons-material/KeyboardArrowLeftRounded";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
-import FiberManualRecordRoundedIcon from "@mui/icons-material/FiberManualRecordRounded";
-import FiberManualRecordOutlinedIcon from "@mui/icons-material/FiberManualRecordOutlined";
 import { AuthContext } from "../../Context/AuthContext";
 import "../../App.css";
 
@@ -61,28 +56,8 @@ const PostCard = ({ post, index }) => {
 
   return (
     <>
-      <div className="w-full flex justify-center -z-20">
-        <div className="w-full h-fit card my-2 flex flex-col gap-1 z-10">
-          {/* <div className="flex justify-between">
-            <span className="font-bold text-xl text-goodPink">
-              {post?.title}
-            </span>
-            <div onClick={handleSettings}>
-              <ModifyButton post={post} index={index} />
-            </div>
-          </div>
-          <div className="flex justify-between">
-            <div className="centerItem gap-1 text-sm">
-              <ProfileImageSmall />
-              Kenny Kim
-            </div>
-            <div className="centerItem">
-              <span className="text-xs text-gray-500">
-                posted at{" "}
-                {new Intl.DateTimeFormat("ko-KR").format(post.date.toDate())}
-              </span>
-            </div>
-          </div> */}
+      <div className="w-full flex justify-center">
+        <div className="w-full h-fit card my-2 flex flex-col gap-1">
           {post ? (
             <div
               className="min-w-full bg-transparent h-[26rem] overflow-x-hidden relative flex items-end"
@@ -127,7 +102,7 @@ const PostCard = ({ post, index }) => {
                   return (
                     <div
                       style={{ backgroundImage: `url(${image})` }}
-                      className="min-w-[20rem] w-80 h-full bg-cover bg-no-repeat bg-center"
+                      className="min-w-[20rem] w-full h-full bg-cover bg-no-repeat bg-center"
                     ></div>
                   );
                 })}

@@ -8,6 +8,7 @@ import AddButton from "../Components/Buttons/AddButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
 import { AuthContext } from "../Context/AuthContext";
+import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 
 const Home = ({ size, setCurrentPage }) => {
   // 로컬 스토리지에 시작일 저장
@@ -28,7 +29,7 @@ const Home = ({ size, setCurrentPage }) => {
   const textAreaRef = useRef();
 
   // test
-  const DdayList = [1, 2, 3];
+  const DdayList = [1, 2, 3, 4, 5];
 
   const [editBio, setEditBio] = useState(false);
 
@@ -64,57 +65,44 @@ const Home = ({ size, setCurrentPage }) => {
 
   return (
     <>
-      <div className={`${size} overflow-y-scroll flex justify-center z-20`}>
-        <div className="w-10/12">
-          <div className="bg-white card">
-            <div className="w-full font-bold text-xl pt-2 flex justify-between items-center p-3 mt-1">
-              <input
-                type="text"
-                className={!editBio ? "hidden" : null}
-                placeholder={editBio ? titleRef.current.textContent : null}
-                ref={inputRef}
-              />
-
-              <span className={editBio ? "hidden" : null} ref={titleRef}>
-                {getTitle()}
-              </span>
-
-              {editBio ? (
-                <SaveAsRoundedIcon onClick={handleSaveTitle} />
-              ) : (
-                <ModeEditRoundedIcon onClick={handleEditTitle} />
-              )}
-            </div>
-
-            <div className="w-full h-36 bg-transparent flex justify-between items-center">
-              <HomeProfile photo={currentUser?.photoURL} />
-              {/* <BeenTogether /> */}
-              <HomeProfile />
-            </div>
-            <textarea
-              cols="30"
-              rows="2"
-              style={{ resize: "none" }}
-              className={`m-3 text-xs ${!editBio && "hidden"}`}
-              placeholder={editBio ? briefRef.current.textContent : null}
-              ref={textAreaRef}
-            ></textarea>
+      <div className={`${size} overflow-y-scroll flex justify-center z-10`}>
+        <div className="w-10/12 flex flex-col items-center">
+          <div className="w-[30vh] h-[30vh] rounded-full bg-white overflow-hidden flex relative border-8 border-bgColor">
             <div
-              className={`w-full p-3 text-sm ${editBio && "hidden"}`}
-              ref={briefRef}
-            >
-              {getBrief()}
+              className="w-[15rem] h-60 bg-pink-300 bg-cover bg-center"
+              style={{ backgroundImage: `url(${currentUser.photoURL})` }}
+            ></div>
+            <div
+              className="w-[15rem] h-60 bg-pink-300 bg-cover bg-center"
+              style={{ backgroundImage: `url(${currentUser.photoURL})` }}
+            ></div>
+            <div className="absolute w-full h-28 bottom-0 bg-gradient-to-b from-transparent to-neutral-600 flex flex-col justify-center items-center gap-2">
+              <span className="text-white text-lg font-bold">
+                Kenny & Sisca
+              </span>
+              <span className="text-white text-sm flex gap-2">
+                <CalendarMonthRoundedIcon style={{ fontSize: "1rem" }} />
+                1550 days
+              </span>
             </div>
           </div>
 
           {/* D-day 영역 */}
-          <span className="submenu">D-day</span>
-          <div className="w-full flex flex-col gap-2">
-            {DdayList.map((item, index) => {
-              return <DdayCard key={item + index} />;
-            })}
+          <div className="w-full h-[calc(70vh-8rem)] flex flex-col justify-center">
+            <div className="flex justify-center items-center h-8 gap-2 text-lg text-white bg-main rounded-full">
+              <CalendarMonthRoundedIcon style={{ fontSize: "1.3rem" }} />
+              Schedule
+            </div>
+            <div className="w-full h-4/5 overflow-y-scroll">
+              <div className="w-full h-fit flex flex-col gap-2">
+                <hr />
+                {DdayList.map((item, index) => {
+                  return <DdayCard key={item + index} />;
+                })}
+              </div>
+            </div>
           </div>
-          <AddButton page="home" />
+          {/* <AddButton page="home" /> */}
         </div>
       </div>
     </>

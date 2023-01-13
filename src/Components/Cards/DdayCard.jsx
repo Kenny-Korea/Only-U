@@ -4,7 +4,8 @@ import ModifyButton from "../Buttons/ModifyButton";
 const DdayCard = () => {
   return (
     <>
-      <div className="mx-3 card">
+      <hr className="border-0 h-[1px] bg-main" />
+      <div className="px-3">
         <div className="flex justify-between items-center">
           <span className="text-bold text-sm text-goodPink">
             롯데월드 데이트
@@ -16,6 +17,7 @@ const DdayCard = () => {
           <span className="text-xl text-brightRed">D - 4</span>
         </div>
       </div>
+      <hr className="border-0 h-[1px] bg-main" />
     </>
   );
 };
