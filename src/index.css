@@ -38,10 +38,13 @@
   @apply w-full h-8 px-2 py-1 text-sm rounded-sm outline-main border-2 border-gray-200;
 }
 .textArea {
-  @apply mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md text-sm;
+  @apply w-full px-2 py-1 text-sm rounded-sm outline-main border-2 border-gray-200 resize-none;
 }
+/* .textArea {
+  @apply mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md text-sm;
+} */
 .ratingButton {
-  @apply w-1/5 h-full bg-gray-200 hover:bg-mainColor;
+  @apply w-1/5 h-full bg-gray-200 hover:bg-sub;
 }
 tr {
   @apply h-6;

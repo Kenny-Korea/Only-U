@@ -21,6 +21,7 @@ import addAvatar from "../../Images/addAvatar.png";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 const ModalPost = ({ addPost, setAddPost }) => {
   const { currentUser } = useContext(AuthContext);
@@ -69,8 +70,15 @@ const ModalPost = ({ addPost, setAddPost }) => {
     setImagePreview(imagePreview.concat(previewTemp));
   };
 
-  const handleRemoveImage = () => {
-    console.log(imagePreview);
+  const handleRemoveImage = (URL, index) => {
+    let array = imagePreview.filter((item) => {
+      return item !== URL;
+    });
+    setImagePreview(array);
+    console.log(imageFile);
+    let copy = [...imageFile];
+    copy.splice(index, 1);
+    setImageFile(copy);
   };
 
   const handleEnter = (e) => {
@@ -134,86 +142,104 @@ const ModalPost = ({ addPost, setAddPost }) => {
 
   return (
     <>
+      {addPost && (
+        <div
+          className="w-screen h-screen fixed top-0 left-0 z-10"
+          id={addPost ? "fadeIn" : "fadeOut"}
+        ></div>
+      )}
       <div
-        className="w-full h-[calc(100vh-7.5rem)] fixed left-0 mt-14 itemCenter bg-white bg-opacity-50 z-20"
+        className="w-full h-screen fixed left-0 pt-14 itemCenter z-10"
         id={addPost ? "addPostSlideIn" : "addPostSlideOut"}
       >
-        <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-slate-200">
+        <div className="rounded-xl overflow-hidden shadow-md m-4 p-3 bg-bgColor">
           <div className="flex flex-col">
-            <span className="mx-3">포스트 작성</span>
-            <input
-              type="text"
-              placeholder="제목을 입력하세요"
-              className="input"
-              ref={titleRef}
-              onFocus={handleFooter}
-              onBlur={handleFooter}
-            />
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="태그할 내용을 입력하세요"
-                className="input"
-                ref={hashtagRef}
-                onKeyDown={handleEnter}
-                onFocus={handleFooter}
-                onBlur={handleFooter}
-              />
-              <button
-                className="w-10 h-6 bg-slate-300"
-                onClick={handleAddHashtag}
-              >
-                추가
-              </button>
-            </div>
-            <input
-              type="file"
-              id="file"
-              className="hidden"
-              onChange={handleAddImage}
-              multiple
-              ref={fileRef}
-            />
-            <div className="w-full flex gap-2 px-3">
-              {hashtag.map((item, index) => {
-                return (
-                  <span
-                    key={item + index}
-                    onClick={() => {
-                      handleRemoveHashtag(item);
-                    }}
-                  >
-                    #{item}
-                  </span>
-                );
-              })}
-            </div>
-            <label htmlFor="file" className="w-10 h-10">
-              <img src={addAvatar} alt="pp" className="w-10 h-10" />
-            </label>
-            <div className="flex overflow-x-scroll">
-              {imagePreview?.map((img) => {
-                return (
-                  <img
-                    src={img}
-                    alt="pp"
-                    className="w-16 h-16 object-cover"
-                    onClick={handleRemoveImage}
+            <span className="w-full h-6 text-textBlack text-md flex justify-center items-center">
+              포스트 작성
+            </span>
+            <ul className="flex flex-col gap-4 text-sm">
+              <li>
+                <span className="px-1">제목</span>
+                <input
+                  type="text"
+                  placeholder="제목을 입력하세요"
+                  className="loginInput"
+                  ref={titleRef}
+                  onFocus={handleFooter}
+                  onBlur={handleFooter}
+                />
+              </li>
+              <li>
+                <span className="px-1">태그</span>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    placeholder="태그할 내용을 입력하세요"
+                    className="loginInput"
+                    ref={hashtagRef}
+                    onKeyDown={handleEnter}
+                    onFocus={handleFooter}
+                    onBlur={handleFooter}
                   />
-                );
-              })}
-            </div>
-            <textarea
-              name=""
-              id=""
-              cols="30"
-              rows="5"
-              placeholder="내용을 입력하세요"
-              className="textArea"
-              ref={contentRef}
-              onFocus={handleFooter}
-              onBlur={handleFooter}
-            />
+                  <button
+                    className="w-7 h-7 bg-main text-white rounded-md centerItem"
+                    onClick={handleAddHashtag}
+                  >
+                    <AddRoundedIcon
+                      style={{ fontSize: "1.2rem", fontWeight: "900" }}
+                    />
+                  </button>
+                </div>
+              </li>
+              <li>
+                <span>이미지</span>
+                <input
+                  type="file"
+                  id="file"
+                  className="hidden"
+                  onChange={handleAddImage}
+                  multiple
+                  ref={fileRef}
+                />
+                <div className="flex items-center gap-2">
+                  <div className="w-full h-[3.2rem] bg-white flex px-2 gap-1 overflow-x-scroll rounded-md border border-gray-200">
+                    {imagePreview?.map((imageURL, index) => {
+                      return (
+                        <img
+                          src={imageURL}
+                          alt="pp"
+                          className="min-w-16 h-12 object-cover border-collapse border-r border-gray-200"
+                          onClick={() => {
+                            handleRemoveImage(imageURL, index);
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
+                  <div className="w-7 h-7 bg-main rounded-lg flex justify-center items-center text-white">
+                    <label htmlFor="file">
+                      <AddRoundedIcon
+                        style={{ fontSize: "1.2rem", fontWeight: "900" }}
+                      />
+                    </label>
+                  </div>
+                </div>
+              </li>
+              <li className="flex flex-col">
+                <span>내용</span>
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="4"
+                  placeholder="내용을 입력하세요"
+                  className="textArea"
+                  ref={contentRef}
+                  onFocus={handleFooter}
+                  onBlur={handleFooter}
+                />
+              </li>
+            </ul>
             <SubmitCancelButton
               handleSubmit={handleSubmit}
               handleCancel={handleCancel}

@@ -16,7 +16,7 @@ import { v4 as uuid } from "uuid";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
 
-const ChatInput = ({ setTest }) => {
+const ChatInput = () => {
   const messageInputRef = useRef();
   const { currentUser } = useContext(AuthContext);
 
@@ -27,6 +27,7 @@ const ChatInput = ({ setTest }) => {
   };
 
   const handleSend = async () => {
+    if (messageInputRef.current.value === "") return;
     const res = await getDoc(doc(db, "chat", currentUser.uid));
     const docRef = doc(db, "chat", currentUser.uid);
     const chat = {
@@ -53,9 +54,7 @@ const ChatInput = ({ setTest }) => {
   };
   return (
     <>
-      <div
-        className={`w-screen h-14 centerItem fixed bottom-16 bg-transparent`}
-      >
+      <div className={`w-screen h-14 centerItem fixed bottom-16`}>
         <div className="w-full h-8 mx-2 flex justify-between rounded-full">
           <div className="w-[calc(100%-4rem)] flex">
             <div className="w-8 h-full bg-white centerItem rounded-tl-full rounded-bl-full">

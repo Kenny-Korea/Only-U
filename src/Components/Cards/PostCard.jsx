@@ -102,7 +102,7 @@ const PostCard = ({ post, index }) => {
                   return (
                     <div
                       style={{ backgroundImage: `url(${image})` }}
-                      className="min-w-[20rem] w-full h-full bg-cover bg-no-repeat bg-center"
+                      className="min-w-[100%] h-full bg-cover bg-no-repeat bg-center"
                     ></div>
                   );
                 })}

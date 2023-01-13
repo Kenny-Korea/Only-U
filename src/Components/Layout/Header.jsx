@@ -38,7 +38,7 @@ const Header = () => {
         className="w-screen h-16 bg-white text-brightRed font-bold text-2xl
         flex justify-between items-end px-5 py-2 relative shadow-sm overflow-x-clip"
       >
-        <div className="w-[50rem] h-[50rem] -top-[40rem] left-[calc(100vw/2-25rem)] rounded-full bg-gradient-to-br from-white via-mainColor to-yellow-200 absolute"></div>
+        <div className="w-[50rem] h-[50rem] -top-[40rem] left-[calc(100vw/2-25rem)] rounded-full bg-gradient-to-br from-white via-sub to-yellow-200 absolute"></div>
         {/* <img
           src={onlyU}
           alt="pp"
@@ -46,7 +46,10 @@ const Header = () => {
           onClick={onClickLogo}
         /> */}
         {/* <div className="z-10">{children}</div> */}
-        <div className="px-3 z-10 text-main bg-white font-extrabold text-xl rounded-full border border-double border-collapse border-main">
+        {/* <div className="px-3 z-10 text-main bg-white font-extrabold text-xl rounded-full border border-double border-collapse border-main">
+          {pageName}
+        </div> */}
+        <div className="px-3 z-10 text-white bg-transparent font-extrabold text-xl rounded-full border-2 border-white">
           {pageName}
         </div>
 

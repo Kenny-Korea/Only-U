@@ -239,8 +239,14 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
 
   return (
     <>
+      {addPlace && (
+        <div
+          className="w-screen h-screen fixed top-0 left-0 z-10"
+          id={addPlace ? "fadeIn" : "fadeOut"}
+        ></div>
+      )}
       <div
-        className="w-full h-[calc(100vh-7.5rem)] fixed mt-14 left-0 itemCenter bg-white bg-opacity-50"
+        className="w-full h-screen fixed pt-14 left-0 itemCenter z-10"
         id={addPlace ? "addPostSlideIn" : "addPostSlideOut"}
       >
         <div className="rounded-xl overflow-hidden shadow-md m-2 p-2 bg-white flex flex-col relative">
@@ -381,7 +387,9 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                 <div className="flex gap-4 text-xs">
                   <div
                     className={`flex items-center ${
-                      placeType ? "text-gray-500" : "text-brightRed font-bold"
+                      placeType === "Food"
+                        ? "text-main font-bold"
+                        : "text-gray-500"
                     } `}
                     onClick={() => {
                       setPlaceType("Food");
@@ -391,7 +399,9 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                   </div>
                   <div
                     className={`flex items-center ${
-                      placeType ? "text-mainColor font-bold" : "text-gray-500"
+                      placeType === "Place"
+                        ? "text-main font-bold"
+                        : "text-gray-500"
                     } `}
                     onClick={() => {
                       setPlaceType("Place");

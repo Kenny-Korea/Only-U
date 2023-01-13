@@ -8,7 +8,8 @@ import AddButton from "../Components/Buttons/AddButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
 import { AuthContext } from "../Context/AuthContext";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import CalendarTodayRoundedIcon from "@mui/icons-material/CalendarTodayRounded";
+import AddRoundedIcon from "@mui/icons-material/AddRounded";
 
 const Home = ({ size, setCurrentPage }) => {
   // 로컬 스토리지에 시작일 저장
@@ -81,17 +82,24 @@ const Home = ({ size, setCurrentPage }) => {
                 Kenny & Sisca
               </span>
               <span className="text-white text-sm flex gap-2">
-                <CalendarMonthRoundedIcon style={{ fontSize: "1rem" }} />
+                <CalendarTodayRoundedIcon style={{ fontSize: "1rem" }} />
                 1550 days
               </span>
             </div>
           </div>
 
           {/* D-day 영역 */}
-          <div className="w-full h-[calc(70vh-8rem)] flex flex-col justify-center">
-            <div className="flex justify-center items-center h-8 gap-2 text-lg text-white bg-main rounded-full">
-              <CalendarMonthRoundedIcon style={{ fontSize: "1.3rem" }} />
-              Schedule
+          <div className="w-full h-[calc(70vh-8rem)] flex flex-col gap-2 pt-2">
+            <div className="pl-3 pr-1 flex justify-between items-center h-8 text-lg text-white bg-main rounded-full">
+              <div className="flex items-center gap-2 font-bold">
+                <CalendarTodayRoundedIcon style={{ fontSize: "1.2rem" }} />
+                Plan
+              </div>
+              <div className="w-6 h-6 bg-white text-main rounded-full centerItem">
+                <AddRoundedIcon
+                  style={{ fontSize: "1.2rem", fontWeight: "bold" }}
+                />
+              </div>
             </div>
             <div className="w-full h-4/5 overflow-y-scroll">
               <div className="w-full h-fit flex flex-col gap-2">

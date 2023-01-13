@@ -17,7 +17,7 @@ const DdayCard = () => {
           <span className="text-xl text-brightRed">D - 4</span>
         </div>
       </div>
-      <hr className="border-0 h-[1px] bg-main" />
+      {/* <hr className="border-0 h-[1px] bg-main" /> */}
     </>
   );
 };

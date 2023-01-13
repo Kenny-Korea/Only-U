@@ -22,7 +22,24 @@ const PlaceCard = ({ place }) => {
   };
   return (
     <>
-      <div className="w-screen bg-transparent flex justify-around mt-4">
+      <div className="w-full h-fit min-h-[5rem] rounded-md bg-black bg-opacity-20 mb-3 p-2 flex gap-2">
+        <img
+          src={place?.url}
+          alt="pp"
+          className="w-24 h-full min-h-[4.5rem] object-cover rounded-lg"
+        />
+        <div className="flex flex-col">
+          <span className="text-sm">
+            {restrictTextLength(place?.title, 14)}
+          </span>
+          <span className="text-sm text-starColor">{displayRate()}</span>
+          <span className="text-xs">
+            {restrictTextLength(place?.description, 36)}
+          </span>
+          <span className="text-xs text-gray-500">visited at 2022.01.02</span>
+        </div>
+      </div>
+      {/* <div className="w-screen bg-transparent flex justify-around mt-4">
         <div className="w-[calc(100vw-6rem)] min-h-[4rem] flex justify-between bg-transparent relative">
           <div className="w-7 h-7 bg-brightRed rounded-full border-4 border-bgColor centerItem absolute -top-2 -left-2">
             {place?.type === "Food" ? (
@@ -65,7 +82,7 @@ const PlaceCard = ({ place }) => {
           alt="pp"
           className="w-10 h-10 rounded-full shadow-md object-cover"
         />
-      </div>
+      </div> */}
     </>
   );
 };
