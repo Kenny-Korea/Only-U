@@ -16,7 +16,7 @@ const ModifyButton = ({ post, index }) => {
     <>
       <div
         id={index}
-        className="w-5 h-5 rounded-md bg-brightRed text-white flex justify-center items-center relative"
+        className="w-5 h-5 rounded-md bg-gray-300 text-black flex justify-center items-center relative"
         onClick={handleClick}
       >
         <MoreHorizRoundedIcon style={{ fontSize: "1.1rem" }} />

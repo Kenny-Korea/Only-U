@@ -23,8 +23,8 @@ const Message = ({ message }) => {
           style={{ maxWidth: "70%" }}
           className={
             message.writer === currentUser
-              ? `${messageItem} bg-pink-300 rounded-tr-xl rounded-bl-xl rounded-br-xl`
-              : `${messageItem} bg-slate-300 rounded-tl-xl rounded-bl-xl rounded-br-xl`
+              ? `${messageItem} bg-gray-200 rounded-tr-xl rounded-bl-xl rounded-br-xl`
+              : `${messageItem} bg-blue-100 rounded-tl-xl rounded-bl-xl rounded-br-xl`
           }
         >
           {message.message}

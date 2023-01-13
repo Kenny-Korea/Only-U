@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Footer from "./Components/Layout/Footer";
 import Header from "./Components/Layout/Header";
 import Home from "./Pages/Home";
@@ -17,6 +17,7 @@ const App = () => {
   const pageSize = "w-screen h-full";
   const { currentUser } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState("Home");
+  const navigate = useNavigate();
   // 아래와 같이 recoil을 이용해 상태 관리하려고 하면 엄청 느려짐. 이유를 모르겠음
   // const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 
@@ -28,11 +29,17 @@ const App = () => {
     return children;
   };
 
+  useEffect(() => {
+    window.addEventListener("popstate", () => {
+      window.close();
+    });
+  }, []);
+
   return (
     <>
-      <div className={`font-main ${screenSize} flex flex-col`}>
+      <div className={`font-main ${screenSize} flex flex-col items-center`}>
         <Header />
-        <div className="w-full h-[calc(100vh-3.5rem-70px)] bg-bgColor">
+        <div className="w-full h-[calc(100vh-3.5rem-70px)] bg-bgColor flex justify-center">
           <Routes>
             <Route
               path="/"

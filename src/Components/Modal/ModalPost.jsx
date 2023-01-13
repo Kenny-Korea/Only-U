@@ -46,6 +46,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
     copy.push(hashtagRef.current.value);
     setHashtag(copy);
     hashtagRef.current.value = "";
+    hashtagRef.current.focus();
   };
 
   const handleRemoveHashtag = (item) => {
@@ -173,6 +174,20 @@ const ModalPost = ({ addPost, setAddPost }) => {
               multiple
               ref={fileRef}
             />
+            <div className="w-full flex gap-2 px-3">
+              {hashtag.map((item, index) => {
+                return (
+                  <span
+                    key={item + index}
+                    onClick={() => {
+                      handleRemoveHashtag(item);
+                    }}
+                  >
+                    #{item}
+                  </span>
+                );
+              })}
+            </div>
             <label htmlFor="file" className="w-10 h-10">
               <img src={addAvatar} alt="pp" className="w-10 h-10" />
             </label>
@@ -185,21 +200,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
                     className="w-16 h-16 object-cover"
                     onClick={handleRemoveImage}
                   />
-                );
-              })}
-            </div>
-            <div className="bg-white"></div>
-            <div className="w-full flex gap-2 px-3">
-              {hashtag.map((item, index) => {
-                return (
-                  <span
-                    key={item + index}
-                    onClick={() => {
-                      handleRemoveHashtag(item);
-                    }}
-                  >
-                    #{item}
-                  </span>
                 );
               })}
             </div>

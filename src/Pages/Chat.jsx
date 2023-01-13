@@ -54,10 +54,12 @@ const Chat = ({ size, setCurrentPage }) => {
   return (
     <>
       {/* background */}
-      <div className={`${size} duration-500`}>
-        <ChatProfile />
-        <Messages messages={messages} divRef={divRef} />
-        <ChatInput />
+      <div className={`${size} flex justify-center`}>
+        <div className="z-10 flex flex-col">
+          <ChatProfile />
+          <Messages messages={messages} divRef={divRef} />
+          <ChatInput />
+        </div>
       </div>
     </>
   );

@@ -8,7 +8,7 @@
   @apply bg-green-200 flex flex-col pb-2;
 }
 .card {
-  @apply bg-white rounded overflow-hidden shadow-md;
+  @apply bg-white rounded-2xl overflow-hidden shadow-md;
 }
 
 .cardItems {
@@ -38,7 +38,7 @@
   @apply mx-3 my-2 px-2 py-1 resize-none outline-none rounded-md text-sm;
 }
 .ratingButton {
-  @apply w-1/5 h-full bg-gray-200 hover:bg-textPink;
+  @apply w-1/5 h-full bg-gray-200 hover:bg-mainColor;
 }
 tr {
   @apply h-6;

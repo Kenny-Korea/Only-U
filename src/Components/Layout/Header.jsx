@@ -22,22 +22,22 @@ const Header = ({ children }) => {
     <>
       <div
         className="w-screen h-14 bg-white text-brightRed font-bold text-2xl
-        flex justify-between items-center px-3 relative shadow-sm"
+        flex justify-between items-center px-5 relative shadow-sm overflow-x-clip"
       >
-        <img src={onlyU} alt="pp" className="w-10 h-10" onClick={onClickLogo} />
-        {children}
-        {/* 
-        {currentUser?.photoURL ? (
-          <img
-            className="w-10 h-10 rounded object-cover"
-            onClick={onClickSettings}
-            src={currentUser.photoURL}
-            alt="pp"
-          />
-        ) : ( */}
-        <MenuRoundedIcon onClick={onClickSettings} />
-        {/* )} */}
+        <div className="w-[50rem] h-[50rem] -top-[40rem] left-[calc(100vw/2-25rem)] rounded-full bg-gradient-to-br from-white via-mainColor to-yellow-200 absolute"></div>
+        {/* <img
+          src={onlyU}
+          alt="pp"
+          className="w-10 h-10 z-10"
+          onClick={onClickLogo}
+        /> */}
+        <div className="z-10">{children}</div>
+        {/* <div className="z-10 text-white font-extrabold text-2xl">Home</div> */}
 
+        <MenuRoundedIcon
+          onClick={onClickSettings}
+          style={{ zIndex: 1, color: "white", fontSize: "2rem" }}
+        />
         <ModalSettings settings={settings} setSettings={setSettings} />
       </div>
     </>

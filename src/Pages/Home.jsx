@@ -64,53 +64,58 @@ const Home = ({ size, setCurrentPage }) => {
 
   return (
     <>
-      <div className={`${size} centerPage overflow-y-scroll`}>
-        <div className="w-full font-bold text-xl pt-2 flex justify-between items-center p-3 mt-1">
-          <input
-            type="text"
-            className={!editBio ? "hidden" : null}
-            placeholder={editBio ? titleRef.current.textContent : null}
-            ref={inputRef}
-          />
+      <div className={`${size} overflow-y-scroll flex justify-center z-20`}>
+        <div className="w-10/12">
+          <div className="bg-white card">
+            <div className="w-full font-bold text-xl pt-2 flex justify-between items-center p-3 mt-1">
+              <input
+                type="text"
+                className={!editBio ? "hidden" : null}
+                placeholder={editBio ? titleRef.current.textContent : null}
+                ref={inputRef}
+              />
 
-          <span className={editBio ? "hidden" : null} ref={titleRef}>
-            {getTitle()}
-          </span>
+              <span className={editBio ? "hidden" : null} ref={titleRef}>
+                {getTitle()}
+              </span>
 
-          {editBio ? (
-            <SaveAsRoundedIcon onClick={handleSaveTitle} />
-          ) : (
-            <ModeEditRoundedIcon onClick={handleEditTitle} />
-          )}
-        </div>
+              {editBio ? (
+                <SaveAsRoundedIcon onClick={handleSaveTitle} />
+              ) : (
+                <ModeEditRoundedIcon onClick={handleEditTitle} />
+              )}
+            </div>
 
-        <div className="w-full h-36 bg-transparent flex justify-between items-center">
-          <HomeProfile photo={currentUser?.photoURL} />
-          <BeenTogether />
-          <HomeProfile />
+            <div className="w-full h-36 bg-transparent flex justify-between items-center">
+              <HomeProfile photo={currentUser?.photoURL} />
+              {/* <BeenTogether /> */}
+              <HomeProfile />
+            </div>
+            <textarea
+              cols="30"
+              rows="2"
+              style={{ resize: "none" }}
+              className={`m-3 text-xs ${!editBio && "hidden"}`}
+              placeholder={editBio ? briefRef.current.textContent : null}
+              ref={textAreaRef}
+            ></textarea>
+            <div
+              className={`w-full p-3 text-sm ${editBio && "hidden"}`}
+              ref={briefRef}
+            >
+              {getBrief()}
+            </div>
+          </div>
+
+          {/* D-day 영역 */}
+          <span className="submenu">D-day</span>
+          <div className="w-full flex flex-col gap-2">
+            {DdayList.map((item, index) => {
+              return <DdayCard key={item + index} />;
+            })}
+          </div>
+          <AddButton page="home" />
         </div>
-        <textarea
-          cols="30"
-          rows="2"
-          style={{ resize: "none" }}
-          className={`m-3 text-xs ${!editBio && "hidden"}`}
-          placeholder={editBio ? briefRef.current.textContent : null}
-          ref={textAreaRef}
-        ></textarea>
-        <div
-          className={`w-full p-3 text-sm ${editBio && "hidden"}`}
-          ref={briefRef}
-        >
-          {getBrief()}
-        </div>
-        {/* D-day 영역 */}
-        <span className="submenu">D-day</span>
-        <div className="w-full flex flex-col gap-2">
-          {DdayList.map((item, index) => {
-            return <DdayCard key={item + index} />;
-          })}
-        </div>
-        <AddButton page="home" />
       </div>
     </>
   );

@@ -13,10 +13,18 @@ import { db } from "../../firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../../atoms";
 
 const ChatInput = ({ setTest }) => {
   const messageInputRef = useRef();
   const { currentUser } = useContext(AuthContext);
+
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+
+  const handleFooter = (e) => {
+    setHideFooter(!hideFooter);
+  };
 
   const handleSend = async () => {
     const res = await getDoc(doc(db, "chat", currentUser.uid));
@@ -45,11 +53,17 @@ const ChatInput = ({ setTest }) => {
   };
   return (
     <>
-      <div className="w-screen h-14 centerItem fixed bottom-16 bg-transparent">
+      <div
+        className={`w-screen h-14 centerItem fixed bottom-16 bg-transparent`}
+      >
         <div className="w-full h-8 mx-2 flex justify-between rounded-full">
           <div className="w-[calc(100%-4rem)] flex">
             <div className="w-8 h-full bg-white centerItem rounded-tl-full rounded-bl-full">
-              <AddRoundedIcon style={{ fontSize: "1.2rem" }} />
+              <div className="w-6 h-6 bg-main rounded-full centerItem">
+                <AddRoundedIcon
+                  style={{ fontSize: "1.2rem", color: "white" }}
+                />
+              </div>
             </div>
             <textarea
               type="text"
@@ -58,6 +72,8 @@ const ChatInput = ({ setTest }) => {
               className="w-[calc(100%-4rem)] h-8 px-2 pt-1 bg-white resize-none outline-none text-md"
               ref={messageInputRef}
               placeholder="Message"
+              onFocus={handleFooter}
+              onBlur={handleFooter}
             />
             <div className="w-8 h-full bg-white centerItem rounded-tr-full rounded-br-full">
               <input type="file" id="file" className="w-10 hidden" />
@@ -67,7 +83,7 @@ const ChatInput = ({ setTest }) => {
             </div>
           </div>
           <button
-            className="w-14 h-full bg-textPink text-white rounded-full centerItem"
+            className="w-14 h-full bg-main text-white rounded-full centerItem"
             onClick={handleSend}
           >
             Send

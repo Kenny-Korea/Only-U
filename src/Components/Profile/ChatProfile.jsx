@@ -5,12 +5,12 @@ import MoreVertRoundedIcon from "@mui/icons-material/MoreVertRounded";
 const ChatProfile = () => {
   return (
     <>
-      <div className="w-full h-10 mt-1 px-2 flex justify-between items-center shadow-test">
+      <div className="w-full h-12 mt-1 px-4 flex justify-between items-center z-10">
         <div className="flex items-center gap-3">
           <img src={unnamed} alt="pp" className="w-7 h-7 rounded-full" />
-          <span className="text-lg">Kenny Kim</span>
+          <span className="text-2xl text-white font-extrabold">Kenny Kim</span>
         </div>
-        <MoreVertRoundedIcon style={{ fontSize: "1.3rem" }} />
+        <MoreVertRoundedIcon style={{ fontSize: "1.5rem" }} />
       </div>
     </>
   );

@@ -30,7 +30,7 @@ const Login = () => {
   };
   return (
     <>
-      <div className="">
+      <div className="fixed">
         <form onSubmit={handleSubmit}>
           <input
             type="email"

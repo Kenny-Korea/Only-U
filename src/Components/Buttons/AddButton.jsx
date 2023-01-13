@@ -20,7 +20,7 @@ const AddButton = ({ page, addPost, setAddPost, addPlace, setAddPlace }) => {
     <>
       <div
         className={
-          "w-12 h-12 fixed bottom-24 right-6 bg-pink-300 shadow-md text-white text-4xl flex justify-center items-center rounded-full z-50 hover:font-bold hover:text-5xl hover:bg-pink-400"
+          "w-12 h-12 fixed bottom-24 right-6 bg-white shadow-addButton text-black text-4xl flex justify-center items-center rounded-full z-50 hover:font-bold hover:text-5xl"
         }
         onClick={handleClick}
       >

@@ -53,15 +53,17 @@ const Post = ({ size, setCurrentPage }) => {
 
   return (
     <>
-      <div className={`${size} overflow-y-scroll pb-4`}>
-        {posts?.map((post, index) => {
-          return <PostCard key={addPost + index} post={post} index={index} />;
-        })}
-        {Array.isArray(posts) && posts.length === 0
-          ? "새 글을 작성해보세요"
-          : null}
-        <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
-        <ModalPost addPost={addPost} setAddPost={setAddPost} />
+      <div className={`${size} pb-4 overflow-y-scroll flex justify-center`}>
+        <div className="w-10/12">
+          {posts?.map((post, index) => {
+            return <PostCard key={addPost + index} post={post} index={index} />;
+          })}
+          {Array.isArray(posts) && posts.length === 0
+            ? "새 글을 작성해보세요"
+            : null}
+          <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
+          <ModalPost addPost={addPost} setAddPost={setAddPost} />
+        </div>
       </div>
     </>
   );
