@@ -55,3 +55,6 @@ td:nth-child(odd) {
 td:nth-child(even) {
   @apply w-auto pl-2 border-slate-300 border-b;
 }
+.ellipsis {
+  @apply whitespace-nowrap overflow-hidden text-ellipsis;
+}

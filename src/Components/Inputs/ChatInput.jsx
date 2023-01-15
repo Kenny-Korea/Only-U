@@ -23,6 +23,7 @@ const ChatInput = () => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
 
   const handleFooter = (e) => {
+    // setHideFooter(!hideFooter);
     setHideFooter(!hideFooter);
   };
 
@@ -54,7 +55,7 @@ const ChatInput = () => {
   };
   return (
     <>
-      <div className={`w-screen h-14 centerItem fixed bottom-16`}>
+      <div className={`w-screen min-h-[3.5rem] h-14 centerItem`}>
         <div className="w-full h-8 mx-2 flex justify-between rounded-full">
           <div className="w-[calc(100%-4rem)] flex">
             <div className="w-8 h-full bg-white centerItem rounded-tl-full rounded-bl-full">

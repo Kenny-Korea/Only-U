@@ -4,7 +4,7 @@ import { AuthContext } from "../../Context/AuthContext";
 const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const messageWrapper = "h-auto p-2 flex";
-  const messageItem = "p-2 style={{width: 10px}} text-xs";
+  const messageItem = "p-2 text-xs";
 
   return (
     <>

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-
-import ChatInput from "../Components/Inputs/ChatInput";
-import ChatProfile from "../Components/Profile/ChatProfile";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { useContext } from "react";
@@ -54,12 +51,8 @@ const Chat = ({ size, setCurrentPage }) => {
   return (
     <>
       {/* background */}
-      <div className={`${size} flex justify-center`}>
-        <div className="z-10 flex flex-col">
-          {/* <ChatProfile /> */}
-          <Messages messages={messages} divRef={divRef} />
-          <ChatInput />
-        </div>
+      <div className={`${size} flex justify-center z-10`}>
+        <Messages messages={messages} divRef={divRef} />
       </div>
     </>
   );

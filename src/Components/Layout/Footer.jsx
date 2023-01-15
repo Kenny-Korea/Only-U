@@ -46,7 +46,7 @@ const Footer = ({ currentPage }) => {
   return (
     <>
       <div
-        className={`w-full bg-white rounded-tr-lg rounded-tl-lg z-50 ${
+        className={`w-full bg-bgColor rounded-tr-lg rounded-tl-lg z-50 ${
           hideFooter ? "hidden" : "centerItem"
         }`}
       >

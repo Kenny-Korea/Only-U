@@ -18,6 +18,7 @@ const App = () => {
   const { currentUser } = useContext(AuthContext);
   const [currentPage, setCurrentPage] = useState("Home");
   const navigate = useNavigate();
+
   // 아래와 같이 recoil을 이용해 상태 관리하려고 하면 엄청 느려짐. 이유를 모르겠음
   // const [currentPage, setCurrentPage] = useRecoilState(currentPageState);
 

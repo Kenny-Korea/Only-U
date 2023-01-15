@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Message from "./Message";
+import { useRecoilState } from "recoil";
+import { hidingFooterState } from "../../atoms";
+import ChatInput from "../../Components/Inputs/ChatInput";
 
 const Messages = ({ messages, divRef }) => {
-  console.log(messages.length);
+  const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+
   return (
     <>
       <div
-        ref={divRef}
-        className="w-full h-[calc(100vh-11rem)] pb-2 bg-transparent overflow-y-scroll"
+        className={`w-full h-[calc(100vh-${
+          hideFooter ? "4" : "8.5"
+        }rem)] flex flex-col`}
       >
-        {messages?.map((message, index) => {
-          return <Message message={message} key={index} />;
-        })}
+        <div ref={divRef} className={`w-full bg-transparent overflow-y-scroll`}>
+          {messages?.map((message, index) => {
+            return <Message message={message} key={index} />;
+          })}
+        </div>
+        <ChatInput />
       </div>
     </>
   );

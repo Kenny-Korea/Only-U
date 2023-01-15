@@ -11,6 +11,9 @@ const PostCard = ({ post, index }) => {
   const [firstTouchX, setFirstTouchX] = useState(0);
   const imageContainerRef = useRef();
   const { currentUser } = useContext(AuthContext);
+  const [isDetailOpen, setIsDetailOpen] = useState(false);
+
+  const titleRef = useRef();
 
   const toPrevImage = () => {
     const isFirstSlide = currentIndex === 0;
@@ -19,8 +22,8 @@ const PostCard = ({ post, index }) => {
       return;
     } else {
       imageContainerRef.current.style.transform = `translate(-${
-        20 * (currentIndex - 1)
-      }rem)`;
+        100 * (currentIndex - 1)
+      }%)`;
     }
     setCurrentIndex(newIndex);
   };
@@ -31,18 +34,19 @@ const PostCard = ({ post, index }) => {
       return;
     } else {
       imageContainerRef.current.style.transform = `translate(-${
-        20 * (currentIndex + 1)
-      }rem)`;
+        100 * (currentIndex + 1)
+      }%)`;
     }
     setCurrentIndex(newIndex);
   };
 
   const onTouchStart = (e) => {
+    // e.preventDefault();
     setFirstTouchX(e.changedTouches[0].clientX);
   };
 
   const onTouchEnd = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     const lastTouchX = e.changedTouches[0].clientX;
     const scrollX = firstTouchX - lastTouchX;
     if (scrollX < -30) {
@@ -54,15 +58,20 @@ const PostCard = ({ post, index }) => {
     }
   };
 
+  const handleClick = (e) => {
+    setIsDetailOpen(!isDetailOpen);
+  };
+
   return (
     <>
       <div className="w-full flex justify-center">
         <div className="w-full h-fit card my-2 flex flex-col gap-1">
           {post ? (
             <div
-              className="min-w-full bg-transparent h-[26rem] overflow-x-hidden relative flex items-end"
+              className="min-w-full bg-transparent h-[26rem] overflow-hidden relative flex items-end"
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
+              onClick={handleClick}
             >
               {post?.url[1] ? (
                 <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white absolute top-2 left-2 z-10">
@@ -73,36 +82,61 @@ const PostCard = ({ post, index }) => {
               <img
                 src={currentUser.photoURL}
                 alt=""
-                className="w-8 h-8 absolute object-cover top-2 right-2 rounded-full border border-gray-300"
+                className="w-8 h-8 absolute object-cover top-2 right-2 rounded-full border border-gray-300 z-10"
               />
-
-              <div className="absolute w-full h-1/3 max-h-[50%] bg-gradient-to-b from-transparent to-neutral-600 z-10 text-white flex flex-col justify-center p-3 gap-2 ">
-                <span className="font-bold text-2xl leading-7">
-                  {post?.title}
-                </span>
-                <div className="text-indigo-800 flex gap-2 text-sm">
-                  {post?.hashTag.map((item) => {
-                    return (
-                      <div
-                        className="h-5 w-fit px-2 text-white text-xs text-center rounded-full leading-5 border border-mainColor hashTag"
-                        key={item}
-                      >
-                        #{item}
-                      </div>
-                    );
-                  })}
-                </div>
-                <div className="text-xs">{post?.content}</div>
-              </div>
+              {/* 위로 올라가는 이펙트 시작 */}
               <div
-                className={`w-[100rem] h-full flex duration-500`}
+                className={`absolute w-full h-full text-white flex flex-col justify-center z-10`}
+                id={isDetailOpen ? "showPostDetail" : "hidePostDetail"}
+              >
+                <div
+                  className={`w-full bg-neutral-600 bg-opacity-60 flex flex-col gap-2 p-3 rounded-tl-xl rounded-tr-xl ${
+                    isDetailOpen ? "h-fit" : "h-[8rem]"
+                  }`}
+                  // ref={divRef}
+                >
+                  <span
+                    className={`font-bold text-2xl leading-7 ${
+                      isDetailOpen
+                        ? null
+                        : "block whitespace-nowrap overflow-hidden text-ellipsis duration-500"
+                    }`}
+                    ref={titleRef}
+                  >
+                    {post?.title}
+                  </span>
+                  <div className="flex gap-x-2 text-sm overflow-hidden">
+                    {post?.hashTag.map((item, index) => {
+                      return (
+                        <div
+                          className="h-5 w-fit px-2 text-white text-xs text-center rounded-full leading-5 border border-main hashTag"
+                          key={item + index}
+                        >
+                          #{item}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex justify-end text-xs text-gray-200">
+                    posted at{" "}
+                    {new Intl.DateTimeFormat("ko-KR").format(post.date.second)}
+                  </div>
+                </div>
+                <div className="p-3 flex flex-col gap-y-4 text-xs w-full h-full bg-neutral-600 bg-opacity-60">
+                  <hr />
+                  {post?.content}
+                </div>
+              </div>
+              {/* 위로 올라가는 이펙트 끝 */}
+              <div
+                className={`w-full h-full flex duration-500`}
                 ref={imageContainerRef}
               >
                 {post?.url?.map((image) => {
                   return (
                     <div
                       style={{ backgroundImage: `url(${image})` }}
-                      className="min-w-[100%] h-full bg-cover bg-no-repeat bg-center"
+                      className="min-w-full h-full bg-cover bg-no-repeat bg-center"
                     ></div>
                   );
                 })}

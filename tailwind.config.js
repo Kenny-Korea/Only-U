@@ -20,6 +20,7 @@ module.exports = {
         sub: "rgb(255,87,100)",
         // mainColor: "#FF6667",
         main: "#FF766B",
+        // main: "#C8A2C8", 라일락
         textBlack: "#4A4A4A",
       },
       boxShadow: {

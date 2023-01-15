@@ -7,12 +7,8 @@ import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 
 const PlaceCard = ({ place }) => {
   const { currentUser } = useContext(AuthContext);
-  const restrictTextLength = (text, max) => {
-    if (text.length < max + 2) return text;
-    return text.substring(0, max) + "...";
-  };
 
-  const displayRate = () => {
+  const displayRatings = () => {
     const parsedNum = parseInt(place.rate);
     let result = "";
     for (let i = 0; i < parsedNum; i++) {
@@ -22,21 +18,23 @@ const PlaceCard = ({ place }) => {
   };
   return (
     <>
-      <div className="w-full h-fit min-h-[5rem] rounded-md bg-black bg-opacity-20 mb-3 p-2 flex gap-2">
+      <div className="w-full h-fit min-h-[5rem] rounded-md bg-white shadow-md mb-3 p-2 flex gap-2">
         <img
           src={place?.url}
           alt="pp"
           className="w-24 h-full min-h-[4.5rem] object-cover rounded-lg"
         />
-        <div className="flex flex-col">
-          <span className="text-sm">
-            {restrictTextLength(place?.title, 14)}
+        <div className="w-full flex flex-col relative">
+          <div className="flex justify-between">
+            <span className="text-sm">{place?.title}</span>
+            <LocationOnRoundedIcon />
+          </div>
+          <span className="text-sm text-starColor">{displayRatings()}</span>
+          <span className="text-xs">{place?.description}</span>
+          <div className="text-xs h-4"></div>
+          <span className="text-xs text-gray-500 absolute block bottom-0 right-0">
+            visited at 2022.01.02
           </span>
-          <span className="text-sm text-starColor">{displayRate()}</span>
-          <span className="text-xs">
-            {restrictTextLength(place?.description, 36)}
-          </span>
-          <span className="text-xs text-gray-500">visited at 2022.01.02</span>
         </div>
       </div>
       {/* <div className="w-screen bg-transparent flex justify-around mt-4">

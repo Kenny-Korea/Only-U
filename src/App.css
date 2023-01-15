@@ -55,13 +55,43 @@
 
 @keyframes addPostSlideOut {
   from {
-    bottom: 0%;
-    opacity: 0;
+    top: 0%;
+    /* opacity: 0; */
   }
   to {
-    bottom: 100%;
-    opacity: 1;
+    bottom: 0%;
+    /* opacity: 1; */
   }
+}
+@keyframes showPostDetail {
+  from {
+    top: calc(100% - 6rem);
+    /* opacity: 0; */
+  }
+  to {
+    top: 0%;
+    /* opacity: 1; */
+  }
+}
+@keyframes hidePostDetail {
+  from {
+    top: 0%;
+    /* opacity: 0; */
+  }
+  to {
+    top: calc(100% - 6rem);
+    /* opacity: 1; */
+  }
+}
+
+#showPostDetail {
+  animation: showPostDetail 0.5s;
+  animation-fill-mode: forwards;
+}
+
+#hidePostDetail {
+  animation: hidePostDetail 0.5s;
+  animation-fill-mode: forwards;
 }
 
 #fadeIn {
@@ -121,16 +151,6 @@
 }
 
 .hashTag {
-  /* background-image: linear-gradient(
-    109.6deg,
-    rgba(254, 87, 98, 1) 11.2%,
-    rgba(255, 107, 161, 1) 99.1%
-  ); */
-  /* background-image: radial-gradient(
-    circle farthest-corner at 10% 20%,
-    rgba(253, 101, 133, 1) 0%,
-    rgba(255, 211, 165, 1) 90%
-  ); */
   background-image: radial-gradient(
     circle 981px at 14.6% 17.7%,
     rgba(255, 101, 91, 0.85) 2.7%,
