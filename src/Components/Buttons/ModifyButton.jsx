@@ -10,7 +10,11 @@ const ModifyButton = ({ post, index }) => {
   };
   const onClickEdit = () => {};
   const onClickDelete = () => {
-    alert("정말 삭제하시겠습니까?");
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      console.log("삭제");
+    } else {
+      console.log("취소");
+    }
   };
   const frame = (event, icon) => (
     <div
