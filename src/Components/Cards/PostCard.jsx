@@ -58,8 +58,12 @@ const PostCard = ({ post, index }) => {
     }
   };
 
-  const handleClick = (e) => {
-    setIsDetailOpen(!isDetailOpen);
+  const handleClick = () => {
+    if (isDetailOpen === false || isDetailOpen === "closed") {
+      setIsDetailOpen("opened");
+    } else {
+      setIsDetailOpen("closed");
+    }
   };
 
   return (
@@ -87,17 +91,22 @@ const PostCard = ({ post, index }) => {
               {/* 위로 올라가는 이펙트 시작 */}
               <div
                 className={`absolute w-full h-full text-white flex flex-col justify-center z-10`}
-                id={isDetailOpen ? "showPostDetail" : "hidePostDetail"}
+                id={
+                  !isDetailOpen
+                    ? "defaultPostDetail"
+                    : isDetailOpen === "opened"
+                    ? "showPostDetail"
+                    : "hidePostDetail"
+                }
               >
                 <div
                   className={`w-full bg-neutral-600 bg-opacity-60 flex flex-col gap-2 p-3 rounded-tl-xl rounded-tr-xl ${
-                    isDetailOpen ? "h-fit" : "h-[8rem]"
+                    isDetailOpen === "opened" ? "h-fit" : "h-[8rem]"
                   }`}
-                  // ref={divRef}
                 >
                   <span
                     className={`font-bold text-2xl leading-7 ${
-                      isDetailOpen
+                      isDetailOpen === "opened"
                         ? null
                         : "block whitespace-nowrap overflow-hidden text-ellipsis duration-500"
                     }`}
@@ -119,7 +128,9 @@ const PostCard = ({ post, index }) => {
                   </div>
                   <div className="flex justify-end text-xs text-gray-200">
                     posted at{" "}
-                    {new Intl.DateTimeFormat("ko-KR").format(post.date.second)}
+                    {new Intl.DateTimeFormat("ko-KR").format(
+                      post.date.seconds * 1000
+                    )}
                   </div>
                 </div>
                 <div className="p-3 flex flex-col gap-y-4 text-xs w-full h-full bg-neutral-600 bg-opacity-60">

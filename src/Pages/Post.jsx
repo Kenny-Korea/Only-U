@@ -10,6 +10,7 @@ import { db } from "../firebase";
 
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const Post = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -64,6 +65,7 @@ const Post = ({ size, setCurrentPage }) => {
           <AddButton page="post" addPost={addPost} setAddPost={setAddPost} />
           <ModalPost addPost={addPost} setAddPost={setAddPost} />
         </div>
+        <ReactQueryDevtools initialIsOpen={true} position="bottom-right" />
       </div>
     </>
   );

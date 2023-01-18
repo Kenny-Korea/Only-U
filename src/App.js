@@ -11,6 +11,7 @@ import Register from "./Pages/Register";
 import GoogleMapTest3 from "./Components/Write/GoogleMapTest3";
 import { AuthContext } from "./Context/AuthContext";
 import Login from "./Pages/Login";
+import Test from "./Components/Others/Test";
 
 const App = () => {
   const screenSize = "w-screen h-screen";
@@ -71,6 +72,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Place size={pageSize} setCurrentPage={setCurrentPage} />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/test"
+              element={
+                <ProtectedRoute>
+                  <Test size={pageSize} setCurrentPage={setCurrentPage} />
                 </ProtectedRoute>
               }
             />

@@ -14,7 +14,6 @@ const Footer = ({ currentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
   const list = document.querySelectorAll(".list");
 
-  // 화살표 함수로 선언하게 될 경우, this 바인딩이 되지 않기 때문에 함수 선언식으로 표현
   const menu = ["Home", "Post", "Chat", "Place", "Gift"];
   useEffect(() => {
     list.forEach((item, itemIndex) => {
