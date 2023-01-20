@@ -64,11 +64,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4"
-  },
-  "browser": {
-    "fs": false,
-    "os": false,
-    "path": false
+    "tailwindcss": "^3.2.4",
+    "dotenv": "16.0.3"
   }
 }
