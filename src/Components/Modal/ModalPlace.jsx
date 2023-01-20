@@ -29,7 +29,7 @@ import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
-import dotenv from "dotenv";
+// import dotenv from "dotenv";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
 const libraries = ["places"];
@@ -42,7 +42,7 @@ const options = {
 };
 
 const ModalPlace = ({ addPlace, setAddPlace }) => {
-  dotenv.config();
+  // dotenv.config();
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     // 구글맵뿐만 아니라 places라는 라이브러리도 함께 사용할 것이므로 아래의 내용 추가
