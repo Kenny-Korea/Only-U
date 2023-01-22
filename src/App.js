@@ -12,6 +12,7 @@ import GoogleMapTest3 from "./Components/Write/GoogleMapTest3";
 import { AuthContext } from "./Context/AuthContext";
 import Login from "./Pages/Login";
 import Test from "./Components/Others/Test";
+import Partner from "./Pages/Partner";
 
 const App = () => {
   const screenSize = "w-screen h-screen";
@@ -83,8 +84,16 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/Register" element={<Register size={pageSize} />} />
             <Route path="/Login" element={<Login size={pageSize} />} />
+            <Route path="/Register" element={<Register size={pageSize} />} />
+            <Route
+              path="/Partner"
+              element={
+                <ProtectedRoute>
+                  <Partner size={pageSize} />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path="/gift"
               element={

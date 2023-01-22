@@ -235,7 +235,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     </svg>
   );
 
-  const test = (e) => {
+  const handleFileName = (e) => {
     setFileName(e.target.files[0].name);
   };
 
@@ -325,7 +325,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
           )}
           <table className="w-full mt-3 border-separate">
             <tr>
-              <td>장소명test</td>
+              <td>장소명</td>
               <td>
                 <div className="flex">
                   <input
@@ -424,7 +424,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
                     className="h-4 hidden"
                     accept="image/*"
                     ref={fileRef}
-                    onChange={test}
+                    onChange={handleFileName}
                     onFocus={handleFooter}
                     onBlur={handleFooter}
                   />

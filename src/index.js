@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { AuthContextProvider } from "./Context/AuthContext";
-import { ChatContextProvider } from "./Context/ChatContext";
+import { PartnerContextProvider } from "./Context/PartnerContext";
 import { RecoilRoot } from "recoil";
 
 const queryClient = new QueryClient();
@@ -16,11 +16,11 @@ root.render(
   <RecoilRoot>
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <ChatContextProvider>
+        <PartnerContextProvider>
           <BrowserRouter>
             <App />
           </BrowserRouter>
-        </ChatContextProvider>
+        </PartnerContextProvider>
       </AuthContextProvider>
     </QueryClientProvider>
   </RecoilRoot>

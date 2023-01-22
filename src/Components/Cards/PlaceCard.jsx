@@ -27,7 +27,8 @@ const PlaceCard = ({ place }) => {
         <div className="w-full flex flex-col relative">
           <div className="flex justify-between">
             <span className="text-sm">{place?.title}</span>
-            <LocationOnRoundedIcon />
+            {/* <LocationOnRoundedIcon /> */}
+            <ModifyButton item={place} docName="places" />
           </div>
           <span className="text-sm text-starColor">{displayRatings()}</span>
           <span className="text-xs">{place?.description}</span>

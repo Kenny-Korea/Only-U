@@ -5,23 +5,23 @@
 
 @keyframes settingSlideIn {
   from {
-    right: -50%;
-    opacity: 0;
+    right: -4rem;
+    /* opacity: 0; */
   }
   to {
-    right: 0px;
-    opacity: 0.8;
+    right: 0.5rem;
+    /* opacity: 0.8; */
   }
 }
 
 @keyframes settingSlideOut {
   from {
-    right: 0;
-    opacity: 0.8;
+    right: 0.5rem;
+    /* opacity: 0.8; */
   }
   to {
-    right: -50%;
-    opacity: 0;
+    right: -4rem;
+    /* opacity: 0; */
   }
 }
 
@@ -103,22 +103,20 @@
 }
 
 #settingSlideIn {
-  top: 3.5rem;
-  background-color: black;
-  width: 50%;
-  height: calc(100vh - 7.5rem);
+  /* top: 3.5rem;
+  width: 4rem; */
+  height: calc(100vh - 10rem);
   animation: settingSlideIn 0.5s;
   animation-fill-mode: forwards;
 }
 
 #settingSlideOut {
-  top: 3.5rem;
-  background-color: black;
-  width: 50%;
-  height: calc(100vh - 7.5rem);
+  /* top: 3.5rem;
+  width: 4rem; */
+  height: calc(100vh - 10rem);
   animation: settingSlideOut 0.5s;
   animation-fill-mode: forwards;
-  display: none;
+  /* display: none; */
 }
 
 #outside {

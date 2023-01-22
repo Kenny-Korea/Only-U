@@ -52,11 +52,12 @@ const Header = () => {
         <div className="px-3 z-10 text-white bg-transparent font-extrabold text-xl rounded-full border-2 border-white">
           {pageName}
         </div>
-
-        <MenuRoundedIcon
-          onClick={onClickSettings}
-          style={{ zIndex: 1, color: "white", fontSize: "2rem" }}
-        />
+        {currentUser && (
+          <MenuRoundedIcon
+            onClick={onClickSettings}
+            style={{ zIndex: 1, color: "white", fontSize: "2rem" }}
+          />
+        )}
         <ModalSettings settings={settings} setSettings={setSettings} />
       </div>
     </>

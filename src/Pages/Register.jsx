@@ -17,7 +17,8 @@ const Register = ({ size }) => {
     const password = e.target[2].value;
     // e.target.file은 1개, e.target.files는 여러개가 배열에 담기므로
     // 특정 파일을 선택하려면 배열의 몇 번째 요소인지 지정해줘야 함
-    const file = e.target[3].files[0];
+    // console.log(e.target[5]);
+    const file = e.target[5].files[0];
     try {
       // 유저 계정 생성
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -33,13 +34,11 @@ const Register = ({ size }) => {
           setErr(true);
         },
         () => {
-          // console.log("phase1");
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateProfile(res.user, {
               username,
               photoURL: downloadURL,
             });
-            // console.log("phase2");
             await setDoc(doc(db, "user", res.user.uid), {
               uid: res.user.uid,
               username,
@@ -105,7 +104,12 @@ const Register = ({ size }) => {
                   </span>
                 )}
                 <button className="w-full h-full py-1 flex justify-center items-center text-white text-lg font-bold bg-orange-300 rounded-full">
-                  <input type="file" id="file" className="w-full hidden" />
+                  <input
+                    type="file"
+                    id="file"
+                    accept="image/*"
+                    className="w-full hidden"
+                  />
                   <label
                     htmlFor="file"
                     className="w-full flex justify-center items-center gap-2"
@@ -114,9 +118,14 @@ const Register = ({ size }) => {
                     Add my avatar
                   </label>
                 </button>
-                <button className="w-full h-full py-1 text-white text-lg font-bold bg-main hover:bg-mainColor rounded-full">
+                <button
+                  className="w-full h-full py-1 text-white text-lg font-bold bg-main hover:bg-mainColor rounded-full"
+                  // type="submit"
+                  // onClick={handleSubmit}
+                >
                   Sign Up
                 </button>
+
                 <p className="text-sm">
                   Do you have an account?{" "}
                   <Link

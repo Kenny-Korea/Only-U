@@ -3,7 +3,7 @@ import ModifyButton from "../Buttons/ModifyButton";
 import KeyboardArrowUpRoundedIcon from "@mui/icons-material/KeyboardArrowUpRounded";
 import KeyboardArrowDownRoundedIcon from "@mui/icons-material/KeyboardArrowDownRounded";
 
-const DdayCard = ({ Dday }) => {
+const DdayCard = ({ Dday, index }) => {
   const savedDate = Dday.Dday.seconds * 1000;
   const today = new Date().getTime();
   const gap = savedDate - today;
@@ -56,7 +56,7 @@ const DdayCard = ({ Dday }) => {
               <span className="text-main font-bold">{calculateDday()}</span>
             </div>
           </div>
-          <ModifyButton />
+          <ModifyButton item={Dday} docName="Ddays" />
         </div>
       )}
     </>

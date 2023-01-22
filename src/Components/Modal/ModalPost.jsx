@@ -1,10 +1,8 @@
 import React, { useRef, useState } from "react";
 import "../../App.css";
 import {
-  collection,
   addDoc,
   Timestamp,
-  onSnapshot,
   getDoc,
   doc,
   setDoc,
@@ -17,7 +15,6 @@ import { db, storage } from "../../firebase";
 import { useContext } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
-import addAvatar from "../../Images/addAvatar.png";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";

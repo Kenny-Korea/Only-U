@@ -1,21 +1,30 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 
-const ModifyButton = ({ post, index }) => {
+import { db } from "../../firebase";
+import { AuthContext } from "../../Context/AuthContext";
+
+const ModifyButton = ({ item, docName }) => {
   const [clicked, setClicked] = useState(false);
+
+  const { currentUser } = useContext(AuthContext);
   const onClickSettings = () => {
     setClicked(!clicked);
   };
   const onClickEdit = () => {};
-  const onClickDelete = () => {
+  const onClickDelete = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      console.log("삭제");
-    } else {
-      console.log("취소");
+      const docRef = doc(db, docName, currentUser.uid);
+      const fieldName = docName.substring(0, docName.length - 1);
+      await updateDoc(docRef, {
+        [fieldName]: arrayRemove(item),
+      });
     }
   };
+
   const frame = (event, icon) => (
     <div
       className="bg-white w-5 h-5 shadow-inner shadow-gray-200 text-black rounded-full centerItem"
@@ -26,15 +35,15 @@ const ModifyButton = ({ post, index }) => {
   );
   const settingsButton = frame(
     onClickSettings,
-    <MoreHorizRoundedIcon style={{ fontSize: "1.1rem" }} />
+    <MoreHorizRoundedIcon style={{ fontSize: "1.1rem" }} key={item.id} />
   );
   const editButton = frame(
     onClickEdit,
-    <EditRoundedIcon style={{ fontSize: "1.1rem" }} />
+    <EditRoundedIcon style={{ fontSize: "1.1rem" }} key={item.id} />
   );
   const deleteButton = frame(
     onClickDelete,
-    <DeleteRoundedIcon style={{ fontSize: "1.1rem" }} />
+    <DeleteRoundedIcon style={{ fontSize: "1.1rem" }} key={item.id} />
   );
 
   const content = () => {

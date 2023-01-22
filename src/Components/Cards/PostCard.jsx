@@ -2,6 +2,7 @@ import React, { useContext, useRef, useState } from "react";
 import ProfileImageSmall from "../Profile/ProfileImageSmall";
 import { AuthContext } from "../../Context/AuthContext";
 import "../../App.css";
+import ModifyButton from "../Buttons/ModifyButton";
 
 const PostCard = ({ post, index }) => {
   const handleSettings = (e) => {
@@ -75,19 +76,23 @@ const PostCard = ({ post, index }) => {
               className="min-w-full bg-transparent h-[26rem] overflow-hidden relative flex items-end"
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
-              onClick={handleClick}
             >
-              {post?.url[1] ? (
-                <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white absolute top-2 left-2 z-10">
-                  {currentIndex + 1} / {post.url.length}
+              <div className="w-full absolute top-0 flex justify-between p-2 z-10">
+                <div className="flex flex-col gap-2">
+                  <img
+                    src={currentUser.photoURL}
+                    alt=""
+                    className="w-8 h-8 object-cover rounded-full border border-gray-300"
+                  />
+                  {post?.url[1] ? (
+                    <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white">
+                      {currentIndex + 1} / {post.url.length}
+                    </div>
+                  ) : null}
                 </div>
-              ) : null}
+                <ModifyButton item={post} docName="posts" />
+              </div>
 
-              <img
-                src={currentUser.photoURL}
-                alt=""
-                className="w-8 h-8 absolute object-cover top-2 right-2 rounded-full border border-gray-300 z-10"
-              />
               {/* 위로 올라가는 이펙트 시작 */}
               <div
                 className={`absolute w-full h-full text-white flex flex-col justify-center z-10`}
@@ -98,6 +103,7 @@ const PostCard = ({ post, index }) => {
                     ? "showPostDetail"
                     : "hidePostDetail"
                 }
+                onClick={handleClick}
               >
                 <div
                   className={`w-full bg-neutral-600 bg-opacity-60 flex flex-col gap-2 p-3 rounded-tl-xl rounded-tr-xl ${

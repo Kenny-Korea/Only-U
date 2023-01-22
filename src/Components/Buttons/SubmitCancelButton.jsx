@@ -1,6 +1,6 @@
 import React from "react";
 
-const SubmitCancelButton = ({ handleSubmit, handleCancel }) => {
+const SubmitCancelButton = ({ handleSubmit, handleCancel, others }) => {
   return (
     <>
       <div className="flex justify-between gap-4 mx-3 my-2">
@@ -8,7 +8,7 @@ const SubmitCancelButton = ({ handleSubmit, handleCancel }) => {
           className="w-1/2 h-8 bg-main text-white rounded-md"
           onClick={handleSubmit}
         >
-          등록
+          {others ? "저장" : "등록"}
         </button>
         <button
           className="w-1/2 h-8 bg-slate-300 rounded-md"
