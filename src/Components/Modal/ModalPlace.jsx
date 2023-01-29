@@ -29,6 +29,7 @@ import RefreshRoundedIcon from "@mui/icons-material/RefreshRounded";
 import AddPhotoAlternateRoundedIcon from "@mui/icons-material/AddPhotoAlternateRounded";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
+import { PartnerContext } from "../../Context/PartnerContext";
 // import dotenv from "dotenv";
 
 const center = { lat: 43.6532225, lng: -79.383186 };
@@ -58,6 +59,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
   }, []);
 
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
 
   const google = window.google;
   const [place, setPlace] = useState(null);
@@ -154,12 +156,12 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     if (uploading) return;
     setUploading(true);
     const uploadDate = Timestamp.now();
-    const res = await getDoc(doc(db, "places", currentUser.uid));
-    const docRef = doc(db, "places", currentUser.uid);
+    const res = await getDoc(doc(db, "places", partnerInfo.combinedId));
+    const docRef = doc(db, "places", partnerInfo.combinedId);
     let imageURL;
     const uploadedFile = fileRef.current.files[0];
     if (uploadedFile) {
-      const storageRef = ref(storage, currentUser.uid + uploadDate);
+      const storageRef = ref(storage, partnerInfo.combinedId + uploadDate);
       const uploadTask = await uploadBytesResumable(storageRef, uploadedFile, {
         contentType: "image/jpeg",
       });
@@ -203,7 +205,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     setUploading(false);
   };
 
-  const [placeNameValue, setPlaceNameValue] = useState(null);
+  const [placeNameValue, setPlaceNameValue] = useState("");
 
   const handleCopyNameFromMap = (e) => {
     if (!place?.name) return;
@@ -324,133 +326,135 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
             </div>
           )}
           <table className="w-full mt-3 border-separate">
-            <tr>
-              <td>장소명</td>
-              <td>
-                <div className="flex">
-                  <input
-                    type="text"
-                    placeholder="Place Name"
-                    className="w-full border-spacing-0 text-xs outline-none"
-                    ref={placeNameRef}
-                    value={placeNameValue}
-                    onChange={handlePlaceName}
-                    onFocus={handleFooter}
-                    onBlur={handleFooter}
-                  />
-                  <div
-                    className="w-28 flex justify-center text-xs bg-pink-200 shadow-md rounded-lg"
-                    onClick={handleCopyNameFromMap}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"
-                      />
-                    </svg>
-                    <div>From Map</div>
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>평점</td>
-              <td className="text-sm">
-                <ul className="flex gap-2" ref={rateRef}>
-                  <li className="text-main" id={1} onClick={handleRate}>
-                    ★
-                  </li>
-                  <li className="text-main" id={2} onClick={handleRate}>
-                    ★
-                  </li>
-                  <li className="text-main" id={3} onClick={handleRate}>
-                    ★
-                  </li>
-                  <li className="text-main" id={4} onClick={handleRate}>
-                    ☆
-                  </li>
-                  <li className="text-main" id={5} onClick={handleRate}>
-                    ☆
-                  </li>
-                </ul>
-              </td>
-            </tr>
-            <tr>
-              <td>타입</td>
-              <td>
-                <div className="flex gap-4 text-xs">
-                  <div
-                    className={`flex items-center ${
-                      placeType === "Food"
-                        ? "text-main font-bold"
-                        : "text-gray-500"
-                    } `}
-                    onClick={() => {
-                      setPlaceType("Food");
-                    }}
-                  >
-                    {checkedIcon} Food
-                  </div>
-                  <div
-                    className={`flex items-center ${
-                      placeType === "Place"
-                        ? "text-main font-bold"
-                        : "text-gray-500"
-                    } `}
-                    onClick={() => {
-                      setPlaceType("Place");
-                    }}
-                  >
-                    {checkedIcon} Place
-                  </div>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>이미지</td>
-              <td>
-                <div className="flex items-center text-xs text-textBlack">
-                  <input
-                    type="file"
-                    id="file"
-                    className="h-4 hidden"
-                    accept="image/*"
-                    ref={fileRef}
-                    onChange={handleFileName}
-                    onFocus={handleFooter}
-                    onBlur={handleFooter}
-                  />
-                  <label htmlFor="file" className="mr-1 text-main">
-                    <AddPhotoAlternateRoundedIcon
-                      style={{ fontSize: "1.2rem" }}
+            <tbody>
+              <tr>
+                <td>장소명</td>
+                <td>
+                  <div className="flex">
+                    <input
+                      type="text"
+                      placeholder="Place Name"
+                      className="w-full border-spacing-0 text-xs outline-none"
+                      ref={placeNameRef}
+                      value={placeNameValue}
+                      onChange={handlePlaceName}
+                      onFocus={handleFooter}
+                      onBlur={handleFooter}
                     />
-                  </label>
-                  {fileName ? fileName : "No Image (use Google Image)"}
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>설명</td>
-              <td>
-                <textarea
-                  cols="30"
-                  rows="2"
-                  placeholder="Description"
-                  className="pt-1 resize-none outline-none text-xs w-full leading-tight"
-                  ref={descriptionRef}
-                  onFocus={handleFooter}
-                  onBlur={handleFooter}
-                />
-              </td>
-            </tr>
+                    <div
+                      className="w-28 flex justify-center text-xs bg-pink-200 shadow-md rounded-lg"
+                      onClick={handleCopyNameFromMap}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-4 h-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z"
+                        />
+                      </svg>
+                      <div>From Map</div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>평점</td>
+                <td className="text-sm">
+                  <ul className="flex gap-2" ref={rateRef}>
+                    <li className="text-main" id={1} onClick={handleRate}>
+                      ★
+                    </li>
+                    <li className="text-main" id={2} onClick={handleRate}>
+                      ★
+                    </li>
+                    <li className="text-main" id={3} onClick={handleRate}>
+                      ★
+                    </li>
+                    <li className="text-main" id={4} onClick={handleRate}>
+                      ☆
+                    </li>
+                    <li className="text-main" id={5} onClick={handleRate}>
+                      ☆
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+              <tr>
+                <td>타입</td>
+                <td>
+                  <div className="flex gap-4 text-xs">
+                    <div
+                      className={`flex items-center ${
+                        placeType === "Food"
+                          ? "text-main font-bold"
+                          : "text-gray-500"
+                      } `}
+                      onClick={() => {
+                        setPlaceType("Food");
+                      }}
+                    >
+                      {checkedIcon} Food
+                    </div>
+                    <div
+                      className={`flex items-center ${
+                        placeType === "Place"
+                          ? "text-main font-bold"
+                          : "text-gray-500"
+                      } `}
+                      onClick={() => {
+                        setPlaceType("Place");
+                      }}
+                    >
+                      {checkedIcon} Place
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>이미지</td>
+                <td>
+                  <div className="flex items-center text-xs text-textBlack">
+                    <input
+                      type="file"
+                      id="file"
+                      className="h-4 hidden"
+                      accept="image/*"
+                      ref={fileRef}
+                      onChange={handleFileName}
+                      onFocus={handleFooter}
+                      onBlur={handleFooter}
+                    />
+                    <label htmlFor="file" className="mr-1 text-main">
+                      <AddPhotoAlternateRoundedIcon
+                        style={{ fontSize: "1.2rem" }}
+                      />
+                    </label>
+                    {fileName ? fileName : "No Image (use Google Image)"}
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>설명</td>
+                <td>
+                  <textarea
+                    cols="30"
+                    rows="2"
+                    placeholder="Description"
+                    className="pt-1 resize-none outline-none text-xs w-full leading-tight"
+                    ref={descriptionRef}
+                    onFocus={handleFooter}
+                    onBlur={handleFooter}
+                  />
+                </td>
+              </tr>
+            </tbody>
           </table>
           <SubmitCancelButton
             handleSubmit={handleSubmit}

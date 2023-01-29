@@ -10,6 +10,7 @@ import ModalPlace from "../Components/Modal/ModalPlace";
 import PlaceFilter from "../Components/Filter/PlaceFilter";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
+import { PartnerContext } from "../Context/PartnerContext";
 
 const Place = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -19,7 +20,7 @@ const Place = ({ size, setCurrentPage }) => {
   }, []);
   const [addPlace, setAddPlace] = useState(false);
   const [places, setPlaces] = useState([]);
-  const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
 
   const onSuccess = (data) => {
     console.log("Perform side effect after data fetching", data);
@@ -30,8 +31,9 @@ const Place = ({ size, setCurrentPage }) => {
   };
 
   const getPlaces = () => {
-    if (!currentUser?.uid) return;
-    onSnapshot(doc(db, "places", currentUser.uid), (snapshot) => {
+    if (!partnerInfo) return;
+    onSnapshot(doc(db, "places", partnerInfo.combinedId), (snapshot) => {
+      if (!snapshot.data()) return;
       setPlaces(snapshot.data().place);
     });
   };

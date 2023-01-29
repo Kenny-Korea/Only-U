@@ -1,10 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import DdayCard from "../Components/Cards/DdayCard";
-import ModeEditRoundedIcon from "@mui/icons-material/ModeEditRounded";
-import SaveAsRoundedIcon from "@mui/icons-material/SaveAsRounded";
-import HomeProfile from "../Components/Profile/HomeProfile";
-import BeenTogether from "../Components/Others/BeenTogether";
-import AddButton from "../Components/Buttons/AddButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
 import { AuthContext } from "../Context/AuthContext";
@@ -13,23 +8,35 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import FavoriteRoundedIcon from "@mui/icons-material/FavoriteRounded";
 import ModalDday from "../Components/Modal/ModalDday";
-import { onSnapshot, doc } from "firebase/firestore";
+import {
+  onSnapshot,
+  doc,
+  getDoc,
+  query,
+  collection,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import { useQuery } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import ModalHome from "../Components/Modal/ModalHome";
+import { PartnerContext } from "../Context/PartnerContext";
 
 const Home = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const [addDday, setAddDday] = useState(false);
   const [homeSettings, setHomeSettings] = useState(false);
   const [Ddays, setDdays] = useState([]);
+  const [partnerPhoto, setPartnerPhoto] = useState(null);
 
   useEffect(() => {
     setCurrentPage("Home");
     setHideFooter(false);
   }, []);
+
   const profileName = localStorage.getItem("profileName")
     ? localStorage.getItem("profileName")
     : "프로필을 입력하세요";
@@ -46,16 +53,17 @@ const Home = ({ size, setCurrentPage }) => {
     console.log("Perform side effect after encountering error", error);
   };
 
-  const getPosts = () => {
-    if (!currentUser?.uid) return;
-    onSnapshot(doc(db, "Ddays", currentUser.uid), (snapshot) => {
+  const getData = async () => {
+    if (!partnerInfo) return;
+    onSnapshot(doc(db, "Ddays", partnerInfo.combinedId), (snapshot) => {
+      if (!snapshot.data()) return;
       setDdays(snapshot.data().Dday);
     });
   };
 
   const { isLoading, data, isError, error, isFetching } = useQuery(
     "Ddays",
-    getPosts,
+    getData,
     onSuccess,
     onError
   );
@@ -90,7 +98,7 @@ const Home = ({ size, setCurrentPage }) => {
               ></div>
               <div
                 className="w-1/2 h-full bg-main bg-cover bg-center border-none"
-                style={{ backgroundImage: `url(${currentUser.photoURL})` }}
+                style={{ backgroundImage: `url(${partnerInfo.photoURL})` }}
               ></div>
               <div className="absolute w-full h-20 bottom-0 bg-gradient-to-b from-transparent to-neutral-600 flex flex-col justify-center items-center gap-1">
                 <span className="text-white text-lg font-bold ellipsis w-full text-center h-6 leading-6">
@@ -111,7 +119,7 @@ const Home = ({ size, setCurrentPage }) => {
               <div
                 className="flex items-center gap-2 font-bold"
                 onClick={() => {
-                  console.log(currentUser);
+                  console.log(partnerInfo);
                 }}
               >
                 <CalendarTodayRoundedIcon style={{ fontSize: "1.2rem" }} />

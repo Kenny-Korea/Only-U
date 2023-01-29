@@ -43,6 +43,7 @@ const App = () => {
       <div className={`font-main ${screenSize} flex flex-col items-center`}>
         <Header />
         <div className="w-full h-[calc(100vh-4rem-70px)] bg-bgColor flex justify-center">
+          {/* <div className="w-full bg-bgColor flex justify-center"> */}
           <Routes>
             <Route
               path="/"

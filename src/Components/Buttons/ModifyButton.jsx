@@ -59,7 +59,7 @@ const ModifyButton = ({ item, docName }) => {
             clicked
               ? "w-24 shadow-test bg-white"
               : "w-[1.59rem] shadow-sm bg-bgColor"
-          } absolute top-0 right-0 h-[1.59rem] px-[0.17rem]  flex rounded-full duration-300 overflow-hidden`}
+          } absolute top-0 right-0 h-[1.59rem] px-[0.17rem] flex rounded-full duration-300 overflow-hidden`}
         >
           <div className="w-24 flex justify-between gap-1 items-center">
             {content().map((map) => map)}

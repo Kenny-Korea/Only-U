@@ -10,11 +10,15 @@ const Messages = ({ messages, divRef }) => {
   return (
     <>
       <div
-        className={`w-full h-[calc(100vh-${
-          hideFooter ? "4" : "8.5"
-        }rem)] flex flex-col`}
+        className={`w-full "h-[calc(100vh-8.5rem)] flex flex-col`}
+        // className={`w-full ${
+        //   hideFooter ? "h-[calc(100vh-4rem)]" : "h-[calc(100vh-8.5rem)]"
+        // } flex flex-col`}
       >
-        <div ref={divRef} className={`w-full bg-transparent overflow-y-scroll`}>
+        <div
+          ref={divRef}
+          className={`w-full h-[calc(100vh-8.5rem)] bg-transparent overflow-y-scroll`}
+        >
           {messages?.map((message, index) => {
             return <Message message={message} key={index} />;
           })}

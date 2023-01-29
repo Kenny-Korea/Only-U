@@ -1,34 +1,33 @@
-import { createContext, useReducer } from "react";
+import { createContext, useEffect } from "react";
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { getDocs, query, collection, where } from "firebase/firestore";
+import { db } from "../firebase";
+import { useState } from "react";
 
 export const PartnerContext = createContext();
 
 export const PartnerContextProvider = ({ children }) => {
   const { currentUser } = useContext(AuthContext);
-  const INITIAL_STATE = {
-    combinedId: "null",
-    // user: {},
-  };
-
-  const partnerReducer = (state, action) => {
-    switch (action.type) {
-      case "CHANGE_USER":
-        return {
-          // user: action.payload,
-          combinedId:
-            currentUser.uid > action.payload.uid
-              ? currentUser.uid + action.payload.uid
-              : action.payload.uid + currentUser.uid,
-        };
-      default:
-        return state;
-    }
-  };
-  const [state, dispatch] = useReducer(partnerReducer, INITIAL_STATE);
+  const [partnerInfo, setPartnerInfo] = useState({});
+  useEffect(() => {
+    if (!currentUser) return;
+    const fetchPartnerInfo = async () => {
+      const colRef = collection(db, "user");
+      const q = query(colRef, where("partnerId", "==", currentUser.uid));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setPartnerInfo(doc.data());
+      });
+    };
+    fetchPartnerInfo();
+    return () => {
+      fetchPartnerInfo();
+    };
+  }, [currentUser]);
 
   return (
-    <PartnerContext.Provider value={{ data: state, dispatch }}>
+    <PartnerContext.Provider value={{ partnerInfo }}>
       {children}
     </PartnerContext.Provider>
   );

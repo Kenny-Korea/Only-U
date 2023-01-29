@@ -19,9 +19,11 @@ import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
 import AddRoundedIcon from "@mui/icons-material/AddRounded";
+import { PartnerContext } from "../../Context/PartnerContext";
 
 const ModalPost = ({ addPost, setAddPost }) => {
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const titleRef = useRef();
   const contentRef = useRef();
   const hashtagRef = useRef();
@@ -93,12 +95,12 @@ const ModalPost = ({ addPost, setAddPost }) => {
     if (uploading) return;
     setUploading(true);
     const uploadDate = Timestamp.now();
-    const res = await getDoc(doc(db, "posts", currentUser.uid));
-    const docRef = doc(db, "posts", currentUser.uid);
+    const res = await getDoc(doc(db, "posts", partnerInfo.combinedId));
+    const docRef = doc(db, "posts", partnerInfo.combinedId);
     const urlArray = [];
 
     for (let i = 0; i < imageFile.length; i++) {
-      const storageRef = ref(storage, currentUser.uid + uploadDate + i);
+      const storageRef = ref(storage, partnerInfo.combinedId + uploadDate + i);
       const uploadTask = await uploadBytesResumable(storageRef, imageFile[i], {
         contentType: "image/jpeg",
       });
@@ -146,7 +148,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
         ></div>
       )}
       <div
-        className="w-full h-screen fixed left-0 pt-14 itemCenter z-10"
+        className="w-full h-screen absolute left-0 pt-14 itemCenter z-10"
         id={addPost ? "addPostSlideIn" : "addPostSlideOut"}
       >
         <div className="rounded-xl overflow-hidden shadow-md m-4 p-3 bg-bgColor">

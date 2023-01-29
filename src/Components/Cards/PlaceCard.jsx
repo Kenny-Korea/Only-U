@@ -6,8 +6,6 @@ import FastfoodRoundedIcon from "@mui/icons-material/FastfoodRounded";
 import PlaceRoundedIcon from "@mui/icons-material/PlaceRounded";
 
 const PlaceCard = ({ place }) => {
-  const { currentUser } = useContext(AuthContext);
-
   const displayRatings = () => {
     const parsedNum = parseInt(place.rate);
     let result = "";

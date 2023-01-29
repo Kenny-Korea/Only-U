@@ -15,10 +15,12 @@ import { AuthContext } from "../../Context/AuthContext";
 import { v4 as uuid } from "uuid";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
+import { PartnerContext } from "../../Context/PartnerContext";
 
 const ChatInput = () => {
   const messageInputRef = useRef();
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
 
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
 
@@ -29,8 +31,8 @@ const ChatInput = () => {
 
   const handleSend = async () => {
     if (messageInputRef.current.value === "") return;
-    const res = await getDoc(doc(db, "chat", currentUser.uid));
-    const docRef = doc(db, "chat", currentUser.uid);
+    const res = await getDoc(doc(db, "chat", partnerInfo.combinedId));
+    const docRef = doc(db, "chat", partnerInfo.combinedId);
     const chat = {
       id: uuid(),
       message: messageInputRef.current.value,

@@ -28,11 +28,18 @@ const Login = ({ size }) => {
       setErr(true);
     }
   };
+
+  const handleTestAccount = () => {
+    const inputRef = document.querySelectorAll("input");
+    console.log(inputRef.current);
+  };
   return (
     <>
       <div className={`${size} pb-4 flex justify-center z-10`}>
         <div className="w-10/12">
-          <div className={`card min-h-[15rem] ${err && "h-72"} flex flex-col`}>
+          <div
+            className={`card min-h-[15rem] h-80 ${err && "h-72"} flex flex-col`}
+          >
             <form onSubmit={handleSubmit}>
               <ul className="m-4 flex flex-col gap-4 text-sm">
                 <li className="flex flex-col">
@@ -65,7 +72,7 @@ const Login = ({ size }) => {
                   <input type="checkbox" onChange={handleSaveEmail} /> */}
                 </div>
                 <button className="w-full h-full py-1 text-white text-lg font-bold bg-main hover:bg-mainColor rounded-full">
-                  Sign In
+                  Login
                 </button>
                 <p className="text-sm">
                   You don't have an account?{" "}
@@ -76,6 +83,12 @@ const Login = ({ size }) => {
                     Register
                   </Link>
                 </p>
+                <div
+                  className="w-full h-full py-1 flex justify-center text-white text-lg font-bold bg-yellow-400 hover:bg-mainColor rounded-full"
+                  onClick={handleTestAccount}
+                >
+                  ★★★★ 테스트 계정 사용 ★★★★
+                </div>
               </div>
             </form>
           </div>

@@ -7,6 +7,7 @@ import { AuthContext } from "../Context/AuthContext";
 import Messages from "../Components/Message/Messages";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
+import { PartnerContext } from "../Context/PartnerContext";
 
 const Chat = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -16,6 +17,7 @@ const Chat = ({ size, setCurrentPage }) => {
   }, []);
   const [messages, setMessages] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const divRef = useRef();
 
   const onSuccess = (data) => {
@@ -27,8 +29,9 @@ const Chat = ({ size, setCurrentPage }) => {
   };
 
   const getChats = () => {
-    if (!currentUser?.uid) return;
-    onSnapshot(doc(db, "chat", currentUser.uid), (snapshot) => {
+    if (!currentUser) return;
+    onSnapshot(doc(db, "chat", partnerInfo.combinedId), (snapshot) => {
+      if (!snapshot.data()) return;
       setMessages(snapshot.data().chat);
     });
   };

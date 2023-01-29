@@ -8,7 +8,6 @@ import {
   query,
   collection,
   where,
-  onSnapshot,
 } from "firebase/firestore";
 import { db } from "../firebase";
 import ModifyButton from "../Components/Buttons/ModifyButton";
@@ -32,6 +31,7 @@ const Partner = ({ size }) => {
   };
   useEffect(() => {
     if (!currentUser.uid) return;
+    if (currentUser.combinedId) return;
     const generatedNum = Math.floor(Math.random() * 1000000);
     setRandomNum(generatedNum);
     console.log(currentUser.uid);
@@ -57,8 +57,14 @@ const Partner = ({ size }) => {
       const partnerRef = doc(db, "user", partnerId);
       console.log(currentUser.uid);
       console.log(partnerId);
-      await updateDoc(userRef, { combinedId: currentUser.uid + partnerId });
-      await updateDoc(partnerRef, { combinedId: currentUser.uid + partnerId });
+      await updateDoc(userRef, {
+        combinedId: currentUser.uid + partnerId,
+        partnerId: partnerId,
+      });
+      await updateDoc(partnerRef, {
+        combinedId: currentUser.uid + partnerId,
+        partnerId: partnerId,
+      });
     }
   };
   const handleCancel = () => {

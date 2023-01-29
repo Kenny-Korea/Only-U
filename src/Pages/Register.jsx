@@ -12,13 +12,14 @@ const Register = ({ size }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.stopPropagation();
     const username = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
     // e.target.file은 1개, e.target.files는 여러개가 배열에 담기므로
     // 특정 파일을 선택하려면 배열의 몇 번째 요소인지 지정해줘야 함
-    // console.log(e.target[5]);
-    const file = e.target[5].files[0];
+    console.log(e.target[4].files[0]);
+    const file = e.target[4].files[0];
     try {
       // 유저 계정 생성
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -103,7 +104,7 @@ const Register = ({ size }) => {
                     Something went wrong. Try again
                   </span>
                 )}
-                <button className="w-full h-full py-1 flex justify-center items-center text-white text-lg font-bold bg-orange-300 rounded-full">
+                <div className="w-full h-full py-1 flex justify-center items-center text-white text-lg font-bold bg-orange-300 rounded-full">
                   <input
                     type="file"
                     id="file"
@@ -115,15 +116,15 @@ const Register = ({ size }) => {
                     className="w-full flex justify-center items-center gap-2"
                   >
                     <AccountBoxRoundedIcon style={{ fontSize: "1.3rem" }} />
-                    Add my avatar
+                    Add my picture
                   </label>
-                </button>
+                </div>
                 <button
                   className="w-full h-full py-1 text-white text-lg font-bold bg-main hover:bg-mainColor rounded-full"
                   // type="submit"
                   // onClick={handleSubmit}
                 >
-                  Sign Up
+                  Register
                 </button>
 
                 <p className="text-sm">

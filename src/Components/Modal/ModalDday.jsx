@@ -3,10 +3,7 @@ import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../../atoms";
 import SubmitCancelButton from "../Buttons/SubmitCancelButton";
 import {
-  collection,
-  addDoc,
   Timestamp,
-  onSnapshot,
   getDoc,
   doc,
   setDoc,
@@ -21,10 +18,12 @@ import { v4 as uuid } from "uuid";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Modal from "./Modal";
+import { PartnerContext } from "../../Context/PartnerContext";
 // import "react-datepicker/src/stylesheets/datepicker-cssmodules.scss";
 
 const ModalDday = ({ addDday, setAddDday }) => {
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const [uploading, setUploading] = useState(false);
 
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -43,8 +42,8 @@ const ModalDday = ({ addDday, setAddDday }) => {
     if (uploading) return;
     setUploading(true);
     const uploadDate = Timestamp.now();
-    const res = await getDoc(doc(db, "Ddays", currentUser.combinedId));
-    const docRef = doc(db, "Ddays", currentUser.combinedId);
+    const res = await getDoc(doc(db, "Ddays", partnerInfo.combinedId));
+    const docRef = doc(db, "Ddays", partnerInfo.combinedId);
 
     const data = {
       id: uuid(),

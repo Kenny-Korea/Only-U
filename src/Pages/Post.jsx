@@ -11,6 +11,7 @@ import { db } from "../firebase";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { PartnerContext } from "../Context/PartnerContext";
 
 const Post = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -20,7 +21,7 @@ const Post = ({ size, setCurrentPage }) => {
   }, []);
   const [addPost, setAddPost] = useState(false);
   const [posts, setPosts] = useState([]);
-  const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
 
   const onSuccess = (data) => {
     console.log("Perform side effect after data fetching", data);
@@ -31,8 +32,9 @@ const Post = ({ size, setCurrentPage }) => {
   };
 
   const getPosts = () => {
-    if (!currentUser?.uid) return;
-    onSnapshot(doc(db, "posts", currentUser.uid), (snapshot) => {
+    if (!partnerInfo) return;
+    onSnapshot(doc(db, "posts", partnerInfo.combinedId), (snapshot) => {
+      if (!snapshot.data()) return;
       setPosts(snapshot.data().post);
     });
   };
@@ -54,7 +56,9 @@ const Post = ({ size, setCurrentPage }) => {
 
   return (
     <>
-      <div className={`${size} pb-4 overflow-y-scroll flex justify-center`}>
+      <div
+        className={`${size} pb-4 overflow-y-scroll flex justify-center z-10`}
+      >
         <div className="w-10/12">
           {posts?.map((post, index) => {
             return <PostCard key={addPost + index} post={post} index={index} />;

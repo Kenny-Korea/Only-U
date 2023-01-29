@@ -3,6 +3,7 @@ import ProfileImageSmall from "../Profile/ProfileImageSmall";
 import { AuthContext } from "../../Context/AuthContext";
 import "../../App.css";
 import ModifyButton from "../Buttons/ModifyButton";
+import { PartnerContext } from "../../Context/PartnerContext";
 
 const PostCard = ({ post, index }) => {
   const handleSettings = (e) => {
@@ -12,6 +13,7 @@ const PostCard = ({ post, index }) => {
   const [firstTouchX, setFirstTouchX] = useState(0);
   const imageContainerRef = useRef();
   const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
   const titleRef = useRef();
@@ -80,7 +82,11 @@ const PostCard = ({ post, index }) => {
               <div className="w-full absolute top-0 flex justify-between p-2 z-10">
                 <div className="flex flex-col gap-2">
                   <img
-                    src={currentUser.photoURL}
+                    src={
+                      post.writer === currentUser.uid
+                        ? currentUser.photoURL
+                        : partnerInfo.photoURL
+                    }
                     alt=""
                     className="w-8 h-8 object-cover rounded-full border border-gray-300"
                   />
