@@ -15,7 +15,7 @@ import { StaleWhileRevalidate } from "workbox-strategies";
 
 setCacheNameDetails({
   prefix: "test",
-  suffix: "v23",
+  suffix: "v24",
   precache: "weather-service-precache",
 });
 

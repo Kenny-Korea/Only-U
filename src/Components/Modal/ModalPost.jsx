@@ -22,8 +22,7 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import { PartnerContext } from "../../Context/PartnerContext";
 
 const ModalPost = ({ addPost, setAddPost }) => {
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
   const titleRef = useRef();
   const contentRef = useRef();
   const hashtagRef = useRef();

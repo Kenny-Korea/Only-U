@@ -58,8 +58,7 @@ const ModalPlace = ({ addPlace, setAddPlace }) => {
     mapRef.current = map;
   }, []);
 
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
 
   const google = window.google;
   const [place, setPlace] = useState(null);

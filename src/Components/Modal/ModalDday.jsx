@@ -22,8 +22,7 @@ import { PartnerContext } from "../../Context/PartnerContext";
 // import "react-datepicker/src/stylesheets/datepicker-cssmodules.scss";
 
 const ModalDday = ({ addDday, setAddDday }) => {
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
   const [uploading, setUploading] = useState(false);
 
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
