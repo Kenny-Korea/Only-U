@@ -25,12 +25,20 @@ import { PartnerContext } from "../Context/PartnerContext";
 
 const Home = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
+  // const { partnerInfo } = useContext(PartnerContext);
   const [addDday, setAddDday] = useState(false);
   const [homeSettings, setHomeSettings] = useState(false);
   const [Ddays, setDdays] = useState([]);
   const [partnerPhoto, setPartnerPhoto] = useState(null);
+
+  const getData = async () => {
+    if (!partnerInfo) return;
+    onSnapshot(doc(db, "Ddays", partnerInfo.combinedId), (snapshot) => {
+      if (!snapshot.data()) return;
+      setDdays(snapshot.data().Dday);
+    });
+  };
 
   useEffect(() => {
     setCurrentPage("Home");
@@ -45,27 +53,10 @@ const Home = ({ size, setCurrentPage }) => {
       " days"
     : "디데이를 입력하세요";
 
-  const onSuccess = (data) => {
-    console.log("Perform side effect after data fetching", data);
-  };
-
-  const onError = (error) => {
-    console.log("Perform side effect after encountering error", error);
-  };
-
-  const getData = async () => {
-    if (!partnerInfo) return;
-    onSnapshot(doc(db, "Ddays", partnerInfo.combinedId), (snapshot) => {
-      if (!snapshot.data()) return;
-      setDdays(snapshot.data().Dday);
-    });
-  };
-
   const { isLoading, data, isError, error, isFetching } = useQuery(
     "Ddays",
     getData,
-    onSuccess,
-    onError
+    { enabled: Object.keys(partnerInfo).length !== 0 }
   );
 
   if (isLoading || isFetching) {
@@ -98,7 +89,7 @@ const Home = ({ size, setCurrentPage }) => {
               ></div>
               <div
                 className="w-1/2 h-full bg-main bg-cover bg-center border-none"
-                style={{ backgroundImage: `url(${partnerInfo.photoURL})` }}
+                style={{ backgroundImage: `url(${partnerInfo?.photoURL})` }}
               ></div>
               <div className="absolute w-full h-20 bottom-0 bg-gradient-to-b from-transparent to-neutral-600 flex flex-col justify-center items-center gap-1">
                 <span className="text-white text-lg font-bold ellipsis w-full text-center h-6 leading-6">

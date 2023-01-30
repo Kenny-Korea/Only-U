@@ -11,7 +11,6 @@ import { db } from "../firebase";
 import { useRecoilState } from "recoil";
 import { hidingFooterState } from "../atoms";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { PartnerContext } from "../Context/PartnerContext";
 
 const Post = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
@@ -21,15 +20,7 @@ const Post = ({ size, setCurrentPage }) => {
   }, []);
   const [addPost, setAddPost] = useState(false);
   const [posts, setPosts] = useState([]);
-  const { partnerInfo } = useContext(PartnerContext);
-
-  const onSuccess = (data) => {
-    console.log("Perform side effect after data fetching", data);
-  };
-
-  const onError = (error) => {
-    console.log("Perform side effect after encountering error", error);
-  };
+  const { partnerInfo } = useContext(AuthContext);
 
   const getPosts = () => {
     if (!partnerInfo) return;
@@ -42,8 +33,7 @@ const Post = ({ size, setCurrentPage }) => {
   const { isLoading, data, isError, error, isFetching } = useQuery(
     "post",
     getPosts,
-    onSuccess,
-    onError
+    { enabled: Object.keys(partnerInfo).length !== 0 }
   );
 
   if (isLoading || isFetching) {

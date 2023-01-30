@@ -83,11 +83,14 @@ const Login = ({ size }) => {
                     Register
                   </Link>
                 </p>
-                <div
+                {/* <div
                   className="w-full h-full py-1 flex justify-center text-white text-lg font-bold bg-yellow-400 hover:bg-mainColor rounded-full"
                   onClick={handleTestAccount}
-                >
-                  ★★★★ 테스트 계정 사용 ★★★★
+                > */}
+                <div>
+                  <p>테스트계정</p>
+                  <p>tosstest@gmail.com</p>
+                  <p>rhkdals2</p>
                 </div>
               </div>
             </form>

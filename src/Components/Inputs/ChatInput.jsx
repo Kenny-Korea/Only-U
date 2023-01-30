@@ -19,8 +19,7 @@ import { PartnerContext } from "../../Context/PartnerContext";
 
 const ChatInput = () => {
   const messageInputRef = useRef();
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
 
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
 

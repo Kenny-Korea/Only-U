@@ -20,15 +20,7 @@ const Place = ({ size, setCurrentPage }) => {
   }, []);
   const [addPlace, setAddPlace] = useState(false);
   const [places, setPlaces] = useState([]);
-  const { partnerInfo } = useContext(PartnerContext);
-
-  const onSuccess = (data) => {
-    console.log("Perform side effect after data fetching", data);
-  };
-
-  const onError = (error) => {
-    console.log("Perform side effect after encountering error", error);
-  };
+  const { partnerInfo } = useContext(AuthContext);
 
   const getPlaces = () => {
     if (!partnerInfo) return;
@@ -41,8 +33,7 @@ const Place = ({ size, setCurrentPage }) => {
   const { isLoading, data, isError, error, isFetching } = useQuery(
     "place",
     getPlaces,
-    onSuccess,
-    onError
+    { enabled: Object.keys(partnerInfo).length !== 0 }
   );
 
   if (isLoading || isFetching) {

@@ -84,8 +84,8 @@ const PostCard = ({ post, index }) => {
                   <img
                     src={
                       post.writer === currentUser.uid
-                        ? currentUser.photoURL
-                        : partnerInfo.photoURL
+                        ? currentUser?.photoURL
+                        : partnerInfo?.photoURL
                     }
                     alt=""
                     className="w-8 h-8 object-cover rounded-full border border-gray-300"

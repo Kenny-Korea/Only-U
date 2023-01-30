@@ -6,18 +6,19 @@ import { doc, updateDoc, arrayRemove } from "firebase/firestore";
 
 import { db } from "../../firebase";
 import { AuthContext } from "../../Context/AuthContext";
+import { PartnerContext } from "../../Context/PartnerContext";
 
 const ModifyButton = ({ item, docName }) => {
   const [clicked, setClicked] = useState(false);
 
-  const { currentUser } = useContext(AuthContext);
+  const { partnerInfo } = useContext(PartnerContext);
   const onClickSettings = () => {
     setClicked(!clicked);
   };
-  const onClickEdit = () => {};
+  const onClickUpdate = () => {};
   const onClickDelete = async () => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
-      const docRef = doc(db, docName, currentUser.uid);
+      const docRef = doc(db, docName, partnerInfo.combinedId);
       const fieldName = docName.substring(0, docName.length - 1);
       await updateDoc(docRef, {
         [fieldName]: arrayRemove(item),
@@ -37,8 +38,8 @@ const ModifyButton = ({ item, docName }) => {
     onClickSettings,
     <MoreHorizRoundedIcon style={{ fontSize: "1.1rem" }} key={item.id} />
   );
-  const editButton = frame(
-    onClickEdit,
+  const updateButton = frame(
+    onClickUpdate,
     <EditRoundedIcon style={{ fontSize: "1.1rem" }} key={item.id} />
   );
   const deleteButton = frame(
@@ -47,8 +48,8 @@ const ModifyButton = ({ item, docName }) => {
   );
 
   const content = () => {
-    if (!clicked) return [settingsButton, editButton, deleteButton];
-    return [editButton, deleteButton, settingsButton];
+    if (!clicked) return [settingsButton, updateButton, deleteButton];
+    return [updateButton, deleteButton, settingsButton];
   };
 
   return (

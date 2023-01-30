@@ -11,36 +11,41 @@ import { PartnerContext } from "../Context/PartnerContext";
 
 const Chat = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
+  const [messages, setMessages] = useState([]);
+  const { currentUser, partnerInfo } = useContext(AuthContext);
+
+  const scrollToLatestMessage = () => {
+    if (!divRef.current) return;
+    divRef.current.scrollTo({
+      top: divRef.current.scrollHeight,
+      behavior: "instant",
+    });
+  };
+
   useEffect(() => {
     setCurrentPage("Chat");
     setHideFooter(false);
   }, []);
-  const [messages, setMessages] = useState([]);
-  const { currentUser } = useContext(AuthContext);
-  const { partnerInfo } = useContext(PartnerContext);
+
+  useEffect(() => {
+    scrollToLatestMessage();
+  }, [messages]);
+  // const { partnerInfo } = useContext(PartnerContext);
   const divRef = useRef();
 
-  const onSuccess = (data) => {
-    console.log("Perform side effect after data fetching", data);
-  };
-
-  const onError = (error) => {
-    console.log("Perform side effect after encountering error", error);
-  };
-
   const getChats = () => {
-    if (!currentUser) return;
+    if (!partnerInfo) return;
     onSnapshot(doc(db, "chat", partnerInfo.combinedId), (snapshot) => {
       if (!snapshot.data()) return;
       setMessages(snapshot.data().chat);
+      scrollToLatestMessage();
     });
   };
 
   const { isLoading, data, isError, error, isFetching } = useQuery(
-    "post",
-    getChats,
-    onSuccess,
-    onError
+    "post", // unique key
+    getChats, // fetch function
+    { enabled: Object.keys(partnerInfo).length !== 0 }
   );
 
   if (isLoading || isFetching) {
