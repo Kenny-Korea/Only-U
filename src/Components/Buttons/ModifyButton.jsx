@@ -3,15 +3,13 @@ import MoreHorizRoundedIcon from "@mui/icons-material/MoreHorizRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import { doc, updateDoc, arrayRemove } from "firebase/firestore";
-
 import { db } from "../../firebase";
 import { AuthContext } from "../../Context/AuthContext";
-import { PartnerContext } from "../../Context/PartnerContext";
 
 const ModifyButton = ({ item, docName }) => {
   const [clicked, setClicked] = useState(false);
 
-  const { partnerInfo } = useContext(PartnerContext);
+  const { partnerInfo } = useContext(AuthContext);
   const onClickSettings = () => {
     setClicked(!clicked);
   };
