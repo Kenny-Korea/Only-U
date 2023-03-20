@@ -127,7 +127,7 @@ const PostCard = ({ post, index }) => {
                     {post?.title}
                   </span>
                   <div className="flex gap-x-2 text-sm overflow-hidden">
-                    {post?.hashTag.map((item, index) => {
+                    {post?.hashTag?.map((item, index) => {
                       return (
                         <div
                           className="h-5 w-fit px-2 text-white text-xs text-center rounded-full leading-5 border border-main hashTag"
@@ -140,9 +140,9 @@ const PostCard = ({ post, index }) => {
                   </div>
                   <div className="flex justify-end text-xs text-gray-200">
                     posted at{" "}
-                    {new Intl.DateTimeFormat("ko-KR").format(
+                    {/* {new Intl.DateTimeFormat("ko-KR").format(
                       post.date.seconds * 1000
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="p-3 flex flex-col gap-y-4 text-xs w-full h-full bg-neutral-600 bg-opacity-60">

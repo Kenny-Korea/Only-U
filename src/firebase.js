@@ -8,8 +8,10 @@ import { getFirestore } from "firebase/firestore";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+//   apiKey: "AIzaSyCuOY8NpVbAD1iHSsmXIo8PfBvDU6dy760",
+
 const firebaseConfig = {
-  apiKey: "AIzaSyCuOY8NpVbAD1iHSsmXIo8PfBvDU6dy760",
+  apiKey: process.env.REACT_APP_GOOGLE_FIREBASE_API_KEY,
   authDomain: "only-u-bc791.firebaseapp.com",
   projectId: "only-u-bc791",
   storageBucket: "only-u-bc791.appspot.com",

@@ -12,8 +12,9 @@ const Header = () => {
   const [pageName, setPageName] = useState("Home");
 
   const onClickLogo = () => {
-    console.log(currentPageState);
-    console.log(hidingFooterState);
+    // console.log(currentPageState);
+    // console.log(hidingFooterState);
+    console.log(currentUser);
   };
 
   const onClickSettings = () => {
@@ -45,10 +46,6 @@ const Header = () => {
           className="w-10 h-10 z-10"
           onClick={onClickLogo}
         /> */}
-        {/* <div className="z-10">{children}</div> */}
-        {/* <div className="px-3 z-10 text-main bg-white font-extrabold text-xl rounded-full border border-double border-collapse border-main">
-          {pageName}
-        </div> */}
         <div className="px-3 z-10 text-white bg-transparent font-extrabold text-xl rounded-full border-2 border-white">
           {pageName}
         </div>

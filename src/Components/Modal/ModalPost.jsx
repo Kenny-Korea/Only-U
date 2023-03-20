@@ -29,7 +29,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
   const [hashtag, setHashtag] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
   const [imageFile, setImageFile] = useState([]);
-  const [imageURL, setImageURL] = useState([]);
   const fileRef = useRef();
   const [uploading, setUploading] = useState(false);
 
@@ -87,7 +86,6 @@ const ModalPost = ({ addPost, setAddPost }) => {
     setAddPost(false);
     setImagePreview([]);
     setImageFile([]);
-    setImageURL([]);
   };
 
   const handleSubmit = async () => {
@@ -112,7 +110,7 @@ const ModalPost = ({ addPost, setAddPost }) => {
     const post = {
       id: uuid(),
       title: titleRef.current.value,
-      hashTag: hashtag,
+      hashtag: hashtag,
       content: contentRef.current.value,
       url: urlArray,
       writer: currentUser.uid,

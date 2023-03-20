@@ -29,7 +29,7 @@ const PlaceCard = ({ place }) => {
             <ModifyButton item={place} docName="places" />
           </div>
           <span className="text-sm text-starColor">{displayRatings()}</span>
-          <span className="text-xs">{place?.description}</span>
+          <span className="text-xs">{place?.content}</span>
           <div className="text-xs h-4"></div>
           <span className="text-xs text-gray-500 absolute block bottom-0 right-0">
             visited at 2022.01.02

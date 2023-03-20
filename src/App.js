@@ -13,6 +13,7 @@ import { AuthContext } from "./Context/AuthContext";
 import Login from "./Pages/Login";
 import Test from "./Components/Others/Test";
 import Partner from "./Pages/Partner";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const App = () => {
   const screenSize = "w-screen h-screen";
@@ -107,6 +108,7 @@ const App = () => {
           </Routes>
         </div>
         <Footer currentPage={currentPage} />
+        <ReactQueryDevtools />
       </div>
     </>
   );
