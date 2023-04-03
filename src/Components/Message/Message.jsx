@@ -16,8 +16,8 @@ const Message = ({ message }) => {
         }
       >
         <div className="text-xs text-gray-400 flex justify-end items-end mr-1">
-          {message.date.toDate().getHours()}:
-          {message.date.toDate().getMinutes()}
+          {/* {message.date.toDate().getHours()}: */}
+          {/* {message.date.toDate().getMinutes()} */}
         </div>
         <p
           style={{ maxWidth: "70%" }}
@@ -27,7 +27,7 @@ const Message = ({ message }) => {
               : `${messageItem} bg-gray-200 rounded-tr-xl rounded-bl-xl rounded-br-xl`
           }
         >
-          {message.message}
+          {message.content}
         </p>
       </div>
     </>

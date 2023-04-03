@@ -90,9 +90,9 @@ const PostCard = ({ post, index }) => {
                     alt=""
                     className="w-8 h-8 object-cover rounded-full border border-gray-300"
                   />
-                  {post?.url[1] ? (
+                  {post?.imageurl[1] ? (
                     <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white">
-                      {currentIndex + 1} / {post.url.length}
+                      {currentIndex + 1} / {post.imageurl.length}
                     </div>
                   ) : null}
                 </div>
@@ -127,7 +127,7 @@ const PostCard = ({ post, index }) => {
                     {post?.title}
                   </span>
                   <div className="flex gap-x-2 text-sm overflow-hidden">
-                    {post?.hashTag?.map((item, index) => {
+                    {post?.hashtag?.map((item, index) => {
                       return (
                         <div
                           className="h-5 w-fit px-2 text-white text-xs text-center rounded-full leading-5 border border-main hashTag"
@@ -140,9 +140,7 @@ const PostCard = ({ post, index }) => {
                   </div>
                   <div className="flex justify-end text-xs text-gray-200">
                     posted at{" "}
-                    {/* {new Intl.DateTimeFormat("ko-KR").format(
-                      post.date.seconds * 1000
-                    )} */}
+                    {new Intl.DateTimeFormat("ko-KR").format(post.regdate)}
                   </div>
                 </div>
                 <div className="p-3 flex flex-col gap-y-4 text-xs w-full h-full bg-neutral-600 bg-opacity-60">
@@ -155,7 +153,7 @@ const PostCard = ({ post, index }) => {
                 className={`w-full h-full flex duration-500`}
                 ref={imageContainerRef}
               >
-                {post?.url?.map((image) => {
+                {post?.imageurl?.map((image) => {
                   return (
                     <div
                       style={{ backgroundImage: `url(${image})` }}

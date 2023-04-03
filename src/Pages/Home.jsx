@@ -31,10 +31,11 @@ const Home = ({ size, setCurrentPage }) => {
   const [homeSettings, setHomeSettings] = useState(false);
   const [Ddays, setDdays] = useState([]);
   const [partnerPhoto, setPartnerPhoto] = useState(null);
+  console.log(Ddays);
 
   const getData = async () => {
     if (!partnerInfo) return;
-    onSnapshot(doc(db, "Ddays", partnerInfo.combinedId), (snapshot) => {
+    onSnapshot(doc(db, "plans", partnerInfo.combinedId), (snapshot) => {
       if (!snapshot.data()) return;
       setDdays(snapshot.data().Dday);
     });
@@ -54,7 +55,7 @@ const Home = ({ size, setCurrentPage }) => {
     : "디데이를 입력하세요";
 
   const { isLoading, data, isError, error, isFetching } = useQuery(
-    "Ddays",
+    "plan",
     getData,
     { enabled: Object.keys(partnerInfo).length !== 0 }
   );

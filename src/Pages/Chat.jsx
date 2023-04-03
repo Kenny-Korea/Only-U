@@ -13,6 +13,7 @@ const Chat = ({ size, setCurrentPage }) => {
   const [hideFooter, setHideFooter] = useRecoilState(hidingFooterState);
   const [messages, setMessages] = useState([]);
   const { currentUser, partnerInfo } = useContext(AuthContext);
+  console.log(currentUser);
 
   const scrollToLatestMessage = () => {
     if (!divRef.current) return;
@@ -35,7 +36,7 @@ const Chat = ({ size, setCurrentPage }) => {
 
   const getChats = () => {
     if (!partnerInfo) return;
-    onSnapshot(doc(db, "chat", partnerInfo.combinedId), (snapshot) => {
+    onSnapshot(doc(db, "chats", partnerInfo.combinedId), (snapshot) => {
       if (!snapshot.data()) return;
       setMessages(snapshot.data().chat);
       scrollToLatestMessage();
@@ -43,7 +44,7 @@ const Chat = ({ size, setCurrentPage }) => {
   };
 
   const { isLoading, data, isError, error, isFetching } = useQuery(
-    "post", // unique key
+    "chats", // unique key
     getChats, // fetch function
     { enabled: Object.keys(partnerInfo).length !== 0 }
   );

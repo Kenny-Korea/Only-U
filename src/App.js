@@ -108,7 +108,7 @@ const App = () => {
           </Routes>
         </div>
         <Footer currentPage={currentPage} />
-        <ReactQueryDevtools />
+        <ReactQueryDevtools position="top-left" />
       </div>
     </>
   );

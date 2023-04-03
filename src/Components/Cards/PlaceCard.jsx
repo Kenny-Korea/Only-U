@@ -18,7 +18,7 @@ const PlaceCard = ({ place }) => {
     <>
       <div className="w-full h-fit min-h-[5rem] rounded-md bg-white shadow-md mb-3 p-2 flex gap-2">
         <img
-          src={place?.url}
+          src={place?.imageurl[0]}
           alt="pp"
           className="w-24 h-full min-h-[4.5rem] object-cover rounded-lg"
         />

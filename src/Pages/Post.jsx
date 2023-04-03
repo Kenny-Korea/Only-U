@@ -21,6 +21,7 @@ const Post = ({ size, setCurrentPage }) => {
   const [addPost, setAddPost] = useState(false);
   const [posts, setPosts] = useState([]);
   const { partnerInfo } = useContext(AuthContext);
+  console.log(posts);
 
   const getPosts = () => {
     if (!partnerInfo) return;
