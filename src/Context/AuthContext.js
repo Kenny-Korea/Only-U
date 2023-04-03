@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchPartnerInfo = async (data) => {
-      const colRef = collection(db, "user");
+      const colRef = collection(db, "users");
       const q = query(colRef, where("partnerId", "==", data.uid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {

@@ -90,11 +90,11 @@ const PostCard = ({ post, index }) => {
                     alt=""
                     className="w-8 h-8 object-cover rounded-full border border-gray-300"
                   />
-                  {post?.imageurl[1] ? (
+                  {/* {post?.imageurl[1] ? (
                     <div className="w-9 h-5 rounded-full bg-black opacity-50 text-[9px] text-center align-middle leading-5 text-white">
                       {currentIndex + 1} / {post.imageurl.length}
                     </div>
-                  ) : null}
+                  ) : null} */}
                 </div>
                 <ModifyButton item={post} docName="posts" />
               </div>
@@ -153,7 +153,7 @@ const PostCard = ({ post, index }) => {
                 className={`w-full h-full flex duration-500`}
                 ref={imageContainerRef}
               >
-                {post?.imageurl?.map((image) => {
+                {post?.url?.map((image) => {
                   return (
                     <div
                       style={{ backgroundImage: `url(${image})` }}
